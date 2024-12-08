@@ -1,0 +1,43 @@
+.event-req {
+  position: relative;
+  display: grid;
+  grid-template-columns: 55% 1fr;
+  column-gap: 0.5em;
+}
+
+.event-req-list {
+  margin-top: 1rem;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 0.6em;
+  height: 546px;
+  overflow-y: auto;
+}
+
+.event-req ul::-webkit-scrollbar {
+  width: 10px;
+}
+
+.event-req ul::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 10px;
+}
+
+.event-req ul::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255, 0.2);
+}
+
+.hint {
+  color: rgba(255, 255, 255, 70%);
+}
+
+.no-req-event-item {
+  position: absolute;
+  top: 235px;
+  left: 415px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+}

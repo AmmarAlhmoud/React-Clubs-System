@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: "Inter", sans-serif;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+
+body{
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font: inherit;
+}
+
+button,
+input {
+  border: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:any-link {
+  color: inherit;
+}
+
+a:is(:hover, :focus) {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+li {
+  list-style: none;
+}
+
+.my-toast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1.2em;
+  background-color: #3a3e47;
+  color: #fff;
+  padding: 1em;
+  border: none;
+  border-radius: 1em;
+  font-size: 1rem;
+  font-weight: bolder;
+}

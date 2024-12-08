@@ -1,0 +1,73 @@
+#date-input {
+  height: 40px;
+  width: 400px;
+  border: 2px solid #b2b4b7;
+  border-radius: 0.5em;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.isEmpty {
+  border: 2px solid red !important;
+}
+
+.react-date-picker__inputGroup {
+  padding: 0 0 0 0.5em;
+}
+
+.react-date-picker__wrapper :disabled,
+.react-date-picker__inputGroup :disabled,
+.react-date-picker--disabled {
+  background-color: #1b1d21 !important;
+}
+
+.react-date-picker--disabled {
+  border: 2px solid red !important;
+  overflow: hidden !important;
+}
+
+.react-calendar {
+  background-color: #1b1d21;
+}
+
+.react-calendar__navigation__label,
+.react-calendar__navigation__arrow,
+.react-calendar__month-view__days__day {
+  color: #fff;
+}
+
+.react-calendar__tile--now {
+  background-color: rgb(98, 98, 239);
+  border-radius: 50%;
+}
+
+.react-calendar__tile--active {
+  border-radius: 50%;
+  background-color: #ab4d7d !important;
+}
+
+.react-calendar__tile:hover {
+  background-color: #ffffffa0 !important;
+  border: 1px solid #d5d8dc1a !important;
+  border-radius: 70%;
+}
+
+.react-calendar__navigation__next-button:hover,
+.react-calendar__navigation__next2-button:hover,
+.react-calendar__navigation__label:hover,
+.react-calendar__navigation__prev-button:hover,
+.react-calendar__navigation__prev2-button:hover {
+  background-color: #ffffffa0 !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #968c91;
+}
+
+.react-date-picker__button > svg {
+  stroke: #fff !important;
+}
+
+.react-date-picker__button > svg:hover {
+  stroke: #ffffffa0 !important;
+}

@@ -1,0 +1,240 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.header h1 {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.header h2 {
+  color: #6f7072;
+}
+
+.header div:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.header div:first-child > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-left: 1em;
+}
+
+.header div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.header div:last-child button {
+  color: #fff;
+  font-size: 0.85em;
+  width: 120px;
+  height: 30px;
+  padding: 1em 1.5em;
+  border-radius: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.header div:last-child button:first-child {
+  background-color: #f23378;
+}
+
+.header div:last-child button:last-child {
+  background-color: #2bb3ff;
+}
+
+.header div:last-child button:first-child:hover {
+  background-color: #d51e60;
+}
+
+.header div:last-child button:last-child:hover {
+  background-color: #1a8dc2;
+}
+
+.main p {
+  margin: 2rem 0 1rem;
+  white-space: pre-line;
+}
+
+.preview {
+  min-width: 100%;
+  max-width: 100%;
+  object-fit: fill;
+  min-height: 300px;
+  max-height: 350px;
+  border-radius: 0.5rem;
+}
+
+.moreEventDetails {
+  margin-bottom: 2rem;
+  color: #ececec;
+}
+
+.eventSpeakers span:not(:last-of-type)::after {
+  content: ", ";
+}
+
+.main input {
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin: 1.5rem 0;
+  background-color: #1b1d21;
+  border: 1px solid #fff;
+  border-radius: 1rem;
+}
+
+.main input[type="text"]:first-of-type {
+  width: 100%;
+}
+
+.main textarea {
+  width: 100%;
+  min-height: 150px;
+  font: inherit;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem;
+  height: auto;
+  background-color: #1b1d21;
+  border: 1px solid #fff;
+  border-radius: 1rem;
+  resize: none;
+  outline: none;
+  overflow-y: hidden;
+}
+
+.main textarea,
+.main input {
+  animation: blink 5s infinite;
+}
+
+.editBtns {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 100%;
+}
+
+.editBtns button {
+  color: #fff;
+  font-size: 0.85em;
+  width: 120px;
+  height: 30px;
+  padding: 1em 2em;
+  border-radius: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 1rem 0 0 1rem;
+}
+
+.editBtns button:first-child {
+  background-color: #f23378;
+}
+
+.editBtns button:last-child {
+  background-color: #2bb3ff;
+}
+
+.editBtns button :first-child:hover {
+  background-color: #d51e60;
+}
+
+.editBtns button :last-child:hover {
+  background-color: #1a8dc2;
+}
+
+.detailsInputs {
+  max-width: 100%;
+}
+
+.groupedInps {
+  display: flex;
+  justify-content: space-between;
+}
+
+.groupedInps > input {
+  width: 31%;
+}
+
+.hourS,
+.hourE {
+  width: 12% !important;
+}
+
+.location {
+  width: 42% !important;
+}
+
+.speakersInp {
+  margin: 0 0 1rem 0 !important;
+}
+
+.main input::-webkit-calendar-picker-indicator {
+  filter: invert(100%);
+  cursor: pointer;
+}
+
+@keyframes blink {
+  0% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #fff;
+  }
+  100% {
+    border-color: transparent;
+  }
+}
+
+.images {
+  position: relative;
+}
+
+.imgUpload {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px;
+  cursor: pointer;
+  color: #000;
+  background-color: #efa742;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  border: 2px solid #fff;
+  animation: blink 5s infinite;
+  font-size: 0.9rem;
+}
+
+.imgUpload:hover {
+  background-color: #de9835;
+}
+
+/* Hide the default file input (showing only the label)*/
+.previewImgInput {
+  display: none;
+}
+
+.editModeBtn {
+  background-color: #1b1d21 !important;
+  color: #2bb3ff !important;
+  border: 1px solid #2bb3ff;
+}

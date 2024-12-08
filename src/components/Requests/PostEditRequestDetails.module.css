@@ -1,0 +1,140 @@
+/* post Details */
+
+.post-details {
+  position: absolute;
+  top: -142px;
+  right: 10px;
+  height: 720px;
+  max-width: 550px;
+  width: 100%;
+  padding: 1.5em;
+  display: grid;
+  grid-template-columns: 45% 55%;
+  grid-template-rows: 1fr 1fr 15px 1fr 1fr;
+  grid-template-areas:
+    "sec1 sec2"
+    "sec1 sec2"
+    "bord bord"
+    "sec3 sec4"
+    "sec3 sec4";
+  row-gap: 0.8em;
+  border: none;
+  border-radius: 1em;
+  background-color: #1b1d21;
+  color: #fff;
+}
+
+.post-details-load {
+  position: absolute;
+  top: -142px;
+  right: 10px;
+  height: 720px;
+  max-width: 550px;
+  width: 100%;
+  padding: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  row-gap: 0.8em;
+  border: none;
+  border-radius: 1em;
+  background-color: #1b1d21;
+  color: #fff;
+}
+
+
+.details > p {
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+
+.sec1 {
+  grid-area: sec1;
+  height: 300px;
+  width: 100%;
+}
+
+.h2 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(147, 147, 148, 70%);
+}
+
+.post-image {
+  margin-top: 1rem;
+  height: 280px;
+  width: 100%;
+  border-radius: 0.8em;
+  overflow: hidden !important;
+}
+
+.post-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.post-title > div {
+  display: flex;
+  gap: 0.8em;
+}
+
+.sec2,
+.sec4 {
+  grid-area: sec2;
+  padding: 0 0.5em 0.5em 0.5em;
+}
+
+.post-desc {
+  padding-right: 0.3em;
+  margin-top: 0.8rem;
+  max-height: 280px;
+  overflow-y: auto;
+  color: rgba(255, 255, 255, 70%);
+}
+
+.post-desc::-webkit-scrollbar {
+  width: 6px;
+}
+
+.post-desc::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 10px;
+}
+
+.post-desc::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255, 0.2);
+}
+
+.sec3 {
+  grid-area: sec3;
+}
+
+.post-desc-container {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  column-gap: 1em;
+}
+
+.post-desc-container > div {
+  display: flex;
+  column-gap: 0.3em;
+}
+
+.border {
+  grid-area: bord;
+  margin-top: 1rem;
+  border-bottom: 2px solid #fff;
+}
+
+.sec4 {
+  grid-area: sec4;
+}
+
+.newDataImg {
+  border: 2px solid #6ac47f !important;
+}
+
+.newDataDesc {
+  color: #6ac47f !important;
+}

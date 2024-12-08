@@ -1,0 +1,35 @@
+.boxes {
+  background-color: black;
+  border-radius: 20px;
+  overflow: hidden; /* Ensure the border radius applies to the image */
+  width: 400px;
+  height: 400px;
+  /* position: absolute;
+  top: 1650px; */
+  margin: 5px;
+}
+
+.box-images {
+  width: 100%;
+  height: 75%;
+  display: block;
+  background-size: cover;
+
+}
+
+.box-content {
+  padding: 20px;
+}
+
+.box-titles {
+  color:#9CC9F5;
+  margin-top: 0;
+}
+
+.box-descriptions {
+  color: white; /* Grey color */
+}
+/* Group 8847 */
+
+
+

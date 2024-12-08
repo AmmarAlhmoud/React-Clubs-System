@@ -1,0 +1,80 @@
+.navbar {
+    width: 70%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the navbar horizontally */
+    background-color: rgb(27, 29, 33);
+    border-radius: 0 0 20px 20px; /* Rounded corners at the bottom */
+    padding-left: 5%; /* Padding on the left */
+    padding-right: 5%; /* Padding on the right */
+    padding-top: 5px; /* Padding at the top */
+    padding-bottom: 5px; /* Padding at the bottom */
+    position: fixed;
+    top:0%;
+    right:15%;
+    z-index: 1;
+  }
+
+  .navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-logo {
+    width: 50px; /* Adjust as needed */
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  .navbar-text {
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .green {
+    color: rgb(10, 179, 174);
+    margin-right: 15px;
+  }
+  
+  .navbar-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-links li {
+    display: inline;
+    margin-right: 10px;
+  }
+  
+  .navbar-links li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-input {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    background-color: #333; /* Darker background color for input */
+    color: white;
+  }
+  
+  .navbar-button {
+    background-color: rgb(156, 201, 245);
+    color: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  

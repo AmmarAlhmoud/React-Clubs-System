@@ -1,0 +1,159 @@
+.main-container {
+  min-height: 100vh;
+  padding: 1.5em 2em 1.5em 0;
+  display: grid;
+  grid-template-columns: 14% 1fr;
+  column-gap: 1.6em;
+  background-color: #212225;
+}
+
+/* Aside Navigation */
+
+.aside {
+  position: sticky;
+  top: 24px;
+  left: 0;
+  height: 685px;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: left;
+  justify-content: space-between;
+  padding: 2em 0 2em 2em;
+  border: none;
+  border-radius: 1em;
+  background-color: #1b1d21;
+}
+
+.asideSt {
+  justify-content: flex-start !important;
+}
+
+.user-profile {
+  padding-right: 2em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.user-name {
+  margin-top: 0.5em;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.role {
+  font-weight: 200;
+  color: rgba(255, 255, 255, 60%);
+}
+
+.img {
+  width: 100px;
+  height: 100px;
+}
+
+.aside-nav-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: left;
+  gap: 1em;
+  font-size: 1.2rem;
+}
+
+.aside-nav-item {
+  width: 175px;
+  height: 40px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  column-gap: 0.5em;
+  color: #fff;
+  border-radius: 1em;
+  padding: 0 0 0 0.5em;
+}
+
+.logout {
+  margin-top: 0.8rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  column-gap: 0.4em;
+  color: #fff;
+  border-radius: 1em;
+  padding: 0 0 0 0.4em;
+}
+
+.logoutSt {
+  margin-top: 16rem !important;
+}
+
+.content-container {
+  height: 100%;
+  width: 100%;
+}
+
+.active .aside-nav-item {
+  border: 2px solid #ab4d7d;
+  color: #ab4d7d;
+}
+
+.active svg,
+.active g,
+.active path,
+.active polyline {
+  stroke: #ab4d7d;
+}
+
+.active ellipse,
+.active path[id="clublist"],
+.active path[id="createclub"],
+.active svg[id="request-post"] {
+  fill: #ab4d7d;
+}
+
+.active g[id="request-post"] {
+  stroke: none;
+  fill: #ab4d7d;
+}
+
+.aside-nav-list a:hover svg,
+.aside-nav-list a:hover g,
+.aside-nav-list a:hover path,
+.aside-nav-list a:hover polyline {
+  stroke: #ab4d7d;
+  transition: stroke 0.4s ease-in-out;
+}
+
+.aside-nav-list a:hover g[id="request-post"] {
+  stroke: none;
+  fill: #ab4d7d;
+  transition: fill 0.3s ease-in-out;
+}
+
+.aside-nav-list a:hover ellipse,
+.aside-nav-list a:hover path[id="clublist"],
+.aside-nav-list a:hover path[id="createclub"] {
+  fill: #ab4d7d;
+  transition: fill 0.4s ease-in-out;
+}
+
+.aside-nav-list a:hover p {
+  color: #ab4d7d;
+  transition: color 0.4s ease-in-out;
+}
+
+.logout:hover {
+  cursor: pointer;
+  color: #ab4d7d;
+  transition: color 0.4s ease-in-out;
+}
+
+.logout:hover path {
+  stroke: #ab4d7d;
+  transition: stroke 0.4s ease-in-out;
+}
+

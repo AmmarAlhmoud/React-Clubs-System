@@ -1,0 +1,255 @@
+.container {
+  position: relative;
+  height: 100%;
+  min-height: 91vh;
+  width: 100%;
+  padding: 1.5em;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-rows: 5% 35% 1fr;
+  row-gap: 1em;
+  border: none;
+  border-radius: 1em;
+  color: #fff;
+  background-color: #1b1d21;
+}
+
+.container > h1 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  border-bottom: 2px solid #b2b4b7;
+}
+
+.images-sec {
+  position: relative;
+  height: 230px;
+  border: 2px dashed #fff;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clubImg {
+  text-align: center;
+  width: 130px;
+  height: 130px;
+  position: absolute;
+  bottom: -65px;
+  left: 100px;
+  border-radius: 50%;
+  border: 2px dashed #fff;
+  background-color: #1b1d21;
+  font-size: 1rem;
+}
+
+.clubImgIcon {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.clubImg img {
+  margin-top: 20px;
+}
+
+.upBg {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #d9d9d9;
+}
+
+.upBg img {
+  width: 60px;
+  height: 60px;
+  -webkit-user-drag: none;
+}
+
+.bgUploadInp {
+  position: absolute;
+  top: 50px;
+  left: 38%;
+  width: 330px;
+  height: 200px;
+  z-index: 1;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.iconUploadInp {
+  width: 100px;
+  height: 110px;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  cursor: pointer;
+  opacity: 0;
+}
+
+/* Preview images */
+.bgPreview {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  border-radius: 1rem;
+}
+
+.iconPreview {
+  margin: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.click-to-change {
+  position: absolute;
+  top: 600px;
+  left: 0;
+  z-index: 2;
+  color: #a5a5a5;
+  font-size: 0.9rem;
+}
+
+.border {
+  margin-bottom: 1rem;
+  border-top: 2px solid #b2b4b7;
+}
+
+.images-sec {
+  position: relative;
+}
+
+.club-img {
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  bottom: -75px;
+  left: 100px;
+  border-radius: 50%;
+  border: 8px solid #000;
+}
+
+.form {
+  position: relative;
+  display: grid;
+  grid-template-rows: 230px 150px 20px 50px 50px;
+}
+
+.inputs {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 1em;
+  margin-top: 5rem;
+}
+
+.inputs2 {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 1em;
+}
+
+.input-field {
+  background-color: #1b1d21;
+}
+
+.input-container-1 {
+  width: 25rem;
+  border-radius: 0.6em;
+  border: 2px solid #b2b4b7;
+  background-color: #1b1d21;
+}
+
+.input-container-2 {
+  width: 16rem;
+  border-radius: 0.6em;
+  border: 2px solid #b2b4b7;
+  background-color: #1b1d21;
+}
+
+.click-to-change {
+  position: absolute;
+  top: 590px;
+  left: 0;
+  z-index: 2;
+  color: #a5a5a5;
+  font-size: 0.9rem;
+}
+
+.input-field input {
+  width: 100%;
+  padding-left: 0.8em;
+  color: #fff;
+  border-radius: 0.6em;
+  background-color: #1b1d21;
+}
+
+.input-field input::placeholder {
+  color: #d9d9d9;
+  opacity: 0.8;
+}
+
+.dropdown > label {
+  color: #d9d9d9;
+  padding-right: 1em;
+  border-right: 1px solid #d8d8d8;
+}
+
+.dropdown > select {
+  margin-left: 2em;
+  width: 20rem;
+  padding: 0.5em 0 0.5em 0;
+  border: none;
+  outline: none;
+  color: #d9d9d9;
+  background-color: #1b1d21;
+}
+
+.inputs > textarea {
+  resize: none;
+  padding: 1em;
+  border-radius: 0.6em;
+  border-color: #b2b4b7;
+  color: #fff;
+  background-color: #1b1d21;
+}
+
+.actions {
+  display: flex;
+  justify-content: right;
+  gap: 1em;
+}
+
+.actions > button {
+  margin-top: 8rem;
+  height: 36px !important;
+  width: 120px !important;
+}
+
+.input-empty {
+  border-color: red !important;
+}
+
+.disabled-input > input {
+  background-color: #1b1b1b8a !important;
+  color: #6b6a6a !important;
+}
+
+.value-changed > input {
+  color: #6ac47f !important;
+}
+
+.value-changed {
+  color: #6ac47f !important;
+  border-color: #6ac47f !important;
+}

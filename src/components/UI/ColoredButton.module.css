@@ -1,0 +1,22 @@
+.btn {
+  width: 120px !important;
+  border: none;
+  border-radius: 1.8em;
+  background-color: #2bb3ff;
+  background-image: none;
+}
+
+.red {
+  background-color: #f23378;
+}
+
+.purble {
+  background-color: #9052f2;
+}
+
+button:disabled,
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}

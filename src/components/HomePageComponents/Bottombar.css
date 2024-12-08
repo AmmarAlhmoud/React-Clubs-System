@@ -1,0 +1,29 @@
+
+  .Bottombars {
+    width: 60%; /* Adjust the width as needed */
+    height: 150px;
+    margin: 0 auto; /* Center the navbar horizontally */
+    margin-top: -120px;
+    background-color: rgb(27, 29, 33);
+    border-radius:30px; /* Rounded corners at the bottom */
+    padding-left: 5%; /* Padding on the left */
+    padding-right: 5%; /* Padding on the right */
+    padding-top: 5px; /* Padding at the top */
+    padding-bottom: 5px; /* Padding at the bottom */
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+  }
+  .Bottombarimg{
+    width :120px;
+    height: 90px;
+
+  }
+  .bottomtext {
+
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+   
+  }
+  

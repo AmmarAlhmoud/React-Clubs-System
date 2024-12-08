@@ -1,0 +1,54 @@
+.input {
+  position: relative;
+  height: 3.3rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input label {
+  font-weight: bold;
+  margin-right: 1em;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 19rem;
+  height: 40px;
+  font: inherit;
+  border-radius: 1.2em;
+  border: 2px solid #ffffff;
+  background: rgba(7, 46, 51, 40%);
+}
+
+.input input {
+  width: 88%;
+  height: 100%;
+  font: inherit;
+  padding-left: 0.4em;
+  color: #fff;
+  border-radius: 1.2em;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background: rgba(7, 46, 51, 10%);
+}
+
+.input input::placeholder {
+  color: #fff;
+  opacity: 0.8;
+}
+
+.search {
+  border: none !important;
+  border-radius: none !important;
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.search::placeholder {
+  font-size: 0.8rem !important;
+  color: #000 !important;
+  opacity: 0.8 !important;
+}

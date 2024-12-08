@@ -1,0 +1,106 @@
+.nav {
+  background-color: #1b1d21;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 11.5%;
+  grid-column-gap: 1em;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  border: none;
+  border-radius: 1em;
+  padding: 0 1em;
+}
+
+.nav input {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  width: 100%;
+  padding: 0;
+  outline: none;
+  margin-left: 1em;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.nav img {
+  -webkit-user-drag: none;
+  width: 25px;
+  height: 25px;
+}
+
+.nav div:not(:last-child) {
+  border-right: 1px solid;
+  border-image: linear-gradient(
+      to bottom,
+      rgba(79, 80, 81, 0),
+      rgb(137, 140, 141),
+      rgba(178, 180, 183, 0)
+    )
+    1;
+}
+
+.nav div:first-child,
+.nav div:nth-of-type(2) {
+  display: flex;
+  align-items: center;
+}
+
+/* Date Start*/
+.nav div:nth-of-type(2) {
+  position: relative;
+}
+
+input[type="date"] {
+  color: #cfcfcf;
+  position: relative;
+}
+
+.hideD[type="date"]::-webkit-calendar-picker-indicator {
+  width: 100%;
+  z-index: 1;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.showD[type="date"]::-webkit-calendar-picker-indicator {
+  width: 100%;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.nav div span {
+  position: absolute;
+  left: 2.5em;
+  font-size: 1em;
+  font-weight: bold;
+  pointer-events: none;
+  user-select: none;
+}
+
+.showS {
+  color: #757575;
+}
+
+.hideS {
+  display: none;
+}
+/* Date End */
+
+.cateSearch {
+  user-select: none;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.6em;
+  height: 50px;
+}
+
+.nav div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

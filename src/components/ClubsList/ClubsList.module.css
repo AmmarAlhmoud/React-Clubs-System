@@ -1,0 +1,32 @@
+.container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 70px 1fr;
+  row-gap: 1.2em;
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  border: none;
+  border-radius: 1em;
+  padding: 0 1em;
+}
+
+.section {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 1.8em;
+  column-gap: 4em;
+}
+
+.no-search-item {
+  position: absolute;
+  top: 260px;
+  left: 470px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+}

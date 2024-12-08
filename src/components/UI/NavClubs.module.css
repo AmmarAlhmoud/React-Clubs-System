@@ -1,0 +1,63 @@
+.nav {
+  background-color: #1b1d21;
+  display: grid;
+  grid-template-columns: 1fr 40% 11.5%;
+  grid-column-gap: 1em;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  border: none;
+  border-radius: 1em;
+  padding: 0 1em;
+}
+
+.nav input {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  width: 100%;
+  padding: 0;
+  outline: none;
+  margin-left: 1em;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.nav img {
+  -webkit-user-drag: none;
+  width: 25px;
+  height: 25px;
+}
+
+.nav div:not(:last-child) {
+  border-right: 1px solid;
+  border-image: linear-gradient(
+      to bottom,
+      rgba(79, 80, 81, 0),
+      rgb(137, 140, 141),
+      rgba(178, 180, 183, 0)
+    )
+    1;
+}
+
+.nav div:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.cateSearch {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.6em;
+  height: 50px;
+}
+
+.nav div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-template-rows: ;
+}

@@ -1,0 +1,49 @@
+.main-req-nav {
+  margin-top: 1.5em;
+}
+
+.main-req-nav h5,
+.main-req-content h5 {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #968c93;
+}
+
+.main-req-nav article {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: left;
+  gap: 0.8em;
+}
+
+.main-req-nav article section {
+  display: flex;
+  gap: 1em;
+}
+
+.nav-req-item {
+  font-size: 0.8rem;
+  height: 2.8rem;
+  width: 9rem;
+  padding: 0 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3em;
+  color: #fff;
+  font-weight: 600;
+  background-color: #2bb3ff;
+}
+
+.main-req-content {
+  color: #fff;
+}
+
+.rel {
+  position: relative;
+}
+
+.active div {
+  border: 2px solid #ab4d7d;
+  background-color: #1b1d21;
+}

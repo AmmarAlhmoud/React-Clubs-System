@@ -1,0 +1,94 @@
+.landing-page {
+  /* Assuming Firstpage.png is the background image */
+  background-color: #212225;
+  height: 100vh;
+  max-width: 100%;
+  /* Adjust height as needed */
+  overflow-y: auto;
+  /* Enable scrolling */
+  position: relative;
+}
+
+.first-image {
+  width: 100%;
+}
+
+.additional-image {
+  margin-top: 100px;
+  width: 100%;
+  /* Example width: 100% */
+}
+
+.content {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.Greenlayer {
+  height: 750px;
+  width: 1250px;
+  position: absolute;
+  top: 800px;
+  left: 150px;
+}
+
+.bottombar {
+  position: absolute;
+  top: 650px;
+  bottom: 0;
+  width: 100%;
+}
+
+.text1 {
+  position: absolute;
+  left: 25%;
+  right: 0%;
+  top: 37.26%;
+  bottom: 47.95%;
+  color: white;
+  font-family: "Crimson Text";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 78px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.text2 {
+  font-family: "Inter";
+  font-style: normal;
+  line-height: 68px;
+  font-weight: 300;
+  font-size: 50px;
+  color: white;
+  position: absolute;
+  left: 604px;
+  right: 0%;
+  top: 830px;
+  bottom: 55.79%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  letter-spacing: -2px;
+}
+.Music-conglumerate {
+  position: absolute;
+  top: 900px;
+  left: 350px;
+}
+
+.music {
+  height: 300px;
+  width: 429px;
+}
+
+/* height: 390px; 
+width: 558px; */

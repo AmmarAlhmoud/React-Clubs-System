@@ -1,0 +1,157 @@
+/* Event Details */
+
+.event-details {
+  position: absolute;
+  top: -142px;
+  right: 10px;
+  height: 720px;
+  max-width: 550px;
+  width: 100%;
+  padding: 1.5em;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: left;
+  justify-content: center;
+  row-gap: 0.8em;
+  border: none;
+  border-radius: 1em;
+  background-color: #1b1d21;
+  color: #fff;
+}
+
+.eventDetails {
+  position: relative !important;
+  top: 0px !important;
+  right: 10px !important;
+  height: 620px;
+}
+
+.eventImage {
+  height: 150px !important;
+}
+
+.details {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  height: 20px;
+  width: 108px;
+  padding: 1.2em 0.5em 1.2em 0.5em;
+  border-radius: 0.5em;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #efa742;
+}
+
+.details > p {
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+
+.details:hover {
+  cursor: pointer;
+  opacity: 90%;
+}
+
+.event-image {
+  margin-top: 2.8rem;
+  max-height: 205px;
+}
+
+.event-image > img {
+  border-radius: 0.6em;
+}
+
+.event-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.event-title > div {
+  display: flex;
+  gap: 0.8em;
+}
+
+.event-desc {
+  padding-right: 0.4em;
+  height: 170px;
+  max-height: 170px;
+  overflow-y: auto;
+  color: rgba(255, 255, 255, 70%);
+}
+
+.event-desc::-webkit-scrollbar {
+  width: 10px;
+}
+
+.event-desc::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 10px;
+}
+
+.event-desc::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255, 0.2);
+}
+
+.event-desc-container {
+  border-top: 2px solid #fff;
+  padding-top: 1em;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  row-gap: 0.5em;
+}
+
+.event-desc-container > span {
+  align-self: flex-start;
+}
+
+.event-desc-container-in {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2em;
+}
+
+.club-img {
+  height: 50px;
+  width: 50px;
+}
+
+.logo-with-name {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  color: #d8d8d8;
+  gap: 0.8em;
+}
+
+.logo-with-name > img {
+  border-radius: 50%;
+}
+
+.left,
+.right {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.left {
+  row-gap: 1em;
+}
+
+.right {
+  row-gap: 0.3em;
+}
+
+.event-span {
+  color: #d8d8d8;
+}

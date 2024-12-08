@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
+.container {
+  font-family: "poppins";
+  font-size: 400;
+  width: fit-content;
+  font-size: 0.8rem;
+  border-radius: 0.8em;
+  padding: 0 1em 0 1em;
+  color: #fff;
+  background-color: #6ac47f;
+}

@@ -1,0 +1,16 @@
+.container {
+  max-height: 100vh !important;
+  min-height: none !important;
+}
+
+.actions {
+  display: flex;
+  justify-content: right;
+  gap: 1em;
+}
+
+.actions > button {
+  margin-top: 8rem;
+  height: 36px !important;
+  width: 120px !important;
+}

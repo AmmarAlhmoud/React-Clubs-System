@@ -1,0 +1,94 @@
+.container {
+  position: relative;
+  height: 270px;
+  width: 98%;
+  border: none;
+  border-radius: 1em;
+  padding: 0 2em 1em 0;
+  background-color: #1b1d21;
+}
+
+.no-detials {
+  height: 200px !important;
+}
+
+.club-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo-name-conatiner {
+  display: flex;
+  align-items: center;
+  column-gap: 0.8em;
+  font-size: 1.1rem;
+  color: #939394;
+}
+
+.logo-name-conatiner {
+  padding: 1.5em 0 0 0;
+}
+
+.logo-name-conatiner > img {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.post-info {
+  padding: 1em 0 0 2.8em;
+  margin-top: 1rem;
+}
+
+.sec1 {
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: left;
+}
+
+.sec2 {
+  display: flex;
+  justify-content: left;
+  column-gap: 4.8em;
+  margin-left: 2.8em;
+}
+
+.post-tag {
+  color: rgba(147, 147, 148, 70%);
+}
+
+.post-tag-content {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.actions {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  margin-left: 2.5em;
+  margin-top: 1.4em;
+  display: flex;
+  justify-content: left;
+  column-gap: 0.6em;
+}
+
+.action-details {
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+  margin-left: 2.5em;
+  margin-top: 1.4em;
+}
+
+.container > button {
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+}
+
+.action-details.active > button {
+  border: 2px solid #ab4d7d !important;
+  background-color: #1b1d21 !important;
+}

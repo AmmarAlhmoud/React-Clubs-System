@@ -1,0 +1,4 @@
+node_modules/
+firebase.js
+.env.local
+*.env

@@ -1,0 +1,13 @@
+.actions {
+  position: absolute;
+  top: 608px;
+  right: 20px;
+  display: flex;
+  justify-content: right;
+  gap: 1em;
+}
+
+.actions > button {
+  height: 35px !important;
+  width: 120px !important;
+}

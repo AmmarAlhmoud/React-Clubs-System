@@ -1,0 +1,119 @@
+/* Club Post Details */
+
+.club-post {
+  position: absolute;
+  top: -142px;
+  right: 10px;
+  height: 720px;
+  max-width: 550px;
+  width: 100%;
+  padding: 1.5em;
+  display: grid;
+  grid-template-rows: 1fr 230px 100px;
+  grid-template-areas:
+    "sec1"
+    "sec2"
+    "sec3";
+  border: none;
+  border-radius: 1em;
+  background-color: #1b1d21;
+  color: #fff;
+}
+
+.details > p {
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+
+.sec1 {
+  grid-area: sec1;
+  height: 300px;
+  width: 100%;
+}
+
+.sec2 {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 1em;
+}
+
+.sec2 > .h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.sec2 div .h2 {
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+
+.post-image {
+  margin-top: 1.8em;
+  height: 300px;
+  width: 100%;
+  border-radius: 0.5em;
+  overflow: hidden;
+}
+
+.post-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.post-title > div {
+  display: flex;
+  gap: 0.8em;
+}
+
+.sec2 {
+  grid-area: sec2;
+  width: 100%;
+  padding: 0 0.5em 0.5em 0.5em;
+}
+
+.post-desc {
+  padding-right: 0.3em;
+  margin-top: 0.8rem;
+  max-height: 155px;
+  overflow-y: auto;
+  color: rgba(255, 255, 255, 70%);
+}
+
+.post-desc::-webkit-scrollbar {
+  width: 6px;
+}
+
+.post-desc::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 10px;
+}
+
+.post-desc::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255, 0.2);
+}
+
+.sec3 {
+  grid-area: sec3;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo-name-conatiner {
+  display: flex;
+  align-items: center;
+  column-gap: 0.8em;
+  font-size: 1rem;
+  color: #d8d8d8;
+}
+
+.logo-name-conatiner {
+  padding: 1.5em 0 0 0;
+}
+
+.logo-name-conatiner > img {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}

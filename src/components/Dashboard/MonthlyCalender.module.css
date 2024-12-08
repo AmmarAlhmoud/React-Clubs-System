@@ -1,0 +1,148 @@
+.main {
+  padding: 1rem;
+  max-height: 100%;
+  background: palevioletred;
+}
+
+.main h1 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.calenders {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 0.75rem;
+}
+
+.calenders > div {
+  border: 1px solid #2c2a2a;
+  border-radius: 1rem;
+  padding: 1rem;
+  height: 332px;
+}
+
+.calenders div:first-child span {
+  font-size: 1.1rem;
+}
+
+.calenders div:first-child span:first-of-type {
+  margin-right: 0.5rem;
+}
+
+.monthTable {
+  margin-top: 0.5rem;
+  height: 90%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 0.75rem;
+}
+
+.monthTable div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.monthTable div:nth-of-type(n + 8):nth-of-type(-n + 11) {
+  background-color: #2c2a2a;
+}
+
+.monthTable div:nth-child(n + 12) {
+  border: 1px solid white;
+  border-radius: 6px;
+  font-size: 11px;
+}
+
+.monthTable div:nth-child(7n - 1) {
+  background-color: #2bb3ff;
+  border: none;
+}
+
+.monthTable div:nth-child(7n) {
+  background-color: #2bb3ff;
+  border: none;
+}
+
+.eventDay {
+  background-color: #6ac47f;
+  border: none;
+}
+
+.eventsTime {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5em;
+}
+
+/* .eventsTime > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.eventsTime > div span {
+  font-size: 14px !important;
+  color: #437150;
+}
+
+.eventsTime > div p {
+  display: inline;
+  font-size: 14px;
+} */
+
+.itemContainer {
+  display: grid;
+  grid-template-columns: 35% 1fr;
+}
+
+.timeConatiner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 60%);
+}
+
+.eventContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.2em;
+  padding: 0.5em;
+  border-radius: 0.4em;
+  min-height: 60px;
+
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.noItem {
+  margin-top: 8rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.even {
+  background-color: #6ac47f;
+}
+
+.odd {
+  background-color: #9052f2;
+}
+
+.location {
+  color: rgba(255, 255, 255, 85%);
+  font-size: 0.8rem;
+}

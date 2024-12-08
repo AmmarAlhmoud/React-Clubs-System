@@ -1,0 +1,28 @@
+.clubs-section {
+    background-color: #212225;
+    padding: 20px;
+    width: 100%;
+    position: absolute;
+    top: 1600px;
+  }
+  
+  .section-title {
+    color: white;
+    margin-top: 0;
+  }
+  
+  .section-description {
+    color: #808080; /* Grey color */
+  }
+  
+  .clubs-container {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scrollbar-width: none; /* Hide scrollbar for browsers supporting scrollbar-width property */
+    -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer/Edge */
+  }
+  
+  .clubs-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+  }
+  

@@ -1,0 +1,70 @@
+.container {
+  display: grid;
+  grid-template-columns: 611px;
+  grid-template-rows: 1fr 1.5fr;
+  column-gap: 1rem;
+  row-gap: 0.5rem;
+  height: 685px;
+}
+
+.container section {
+  min-height: 100%;
+  color: #fff;
+}
+
+.recent {
+  background-color: #1b1d21;
+  border: 1px solid #2c2a2a;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.recent h1 {
+  letter-spacing: 0.5px;
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.recent > div {
+  border-radius: 1rem;
+  margin: 0.5rem;
+  height: 85%;
+  max-height: 85%;
+}
+
+.renderedEvents {
+  position: relative;
+  display: flex;
+  /* Choose axis for overflown events: */
+  flex-direction: row;
+  gap: 1rem;
+  overflow: auto;
+}
+
+.renderedEvents::-webkit-scrollbar {
+  height: 8px;
+  width: 5px;
+  cursor: pointer;
+}
+
+.renderedEvents::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.renderedEvents::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255, 0.2);
+  border-radius: 1rem;
+}
+
+.renderedEvents > div {
+  border: 1px solid #2c2a2a;
+  border-radius: 1rem;
+}
+
+.calender {
+  background-color: #1b1d21;
+  border: 1px solid #2c2a2a;
+  border-radius: 1rem;
+}

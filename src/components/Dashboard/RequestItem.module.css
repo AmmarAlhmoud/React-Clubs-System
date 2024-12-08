@@ -1,0 +1,59 @@
+.reqItem {
+  padding: 1rem;
+  min-height: 135px;
+}
+
+.reqItem header {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+}
+
+.reqItem img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.reqItem h2 {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.reqItem h3 {
+  font-size: 0.75rem;
+  color: #757575;
+  margin-top: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.reqItem footer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.reqItem span:nth-of-type(2) {
+  color: #8d8e90;
+}
+
+.reqItem button {
+  width: 80px;
+  height: 1.25rem;
+  border-radius: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.purple {
+  background-color: #caacf9;
+  color: #6d31ce;
+}
+
+.pink {
+  background-color: #fd99cc;
+  color: #ae3874;
+}
+
+.lighPink {
+  background-color: #ffd7df;
+  color: #fe7691;
+}

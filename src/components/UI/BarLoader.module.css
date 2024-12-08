@@ -1,0 +1,117 @@
+.container {
+  display: flex;
+  gap: 1em;
+}
+
+.bar {
+  height: 18px;
+  width: 2px;
+  background-color: #fff;
+}
+
+.dashboard {
+  position: absolute;
+  top: 280px;
+  left: 550px;
+}
+
+.dashboard .bar {
+  height: 22px !important;
+  width: 4px !important;
+  background-color: #fff;
+}
+
+.requests {
+  position: absolute;
+  top: 240px;
+  left: 550px;
+}
+
+.requests .bar {
+  height: 22px !important;
+  width: 4px !important;
+  background-color: #fff;
+}
+
+.events {
+  position: absolute;
+  top: 280px;
+  left: 530px;
+}
+
+.events .bar {
+  height: 22px !important;
+  width: 4px !important;
+  background-color: #fff;
+}
+
+.clubPage {
+  position: absolute;
+  top: 335px;
+  left: 530px;
+}
+
+.clubPage .bar {
+  height: 22px !important;
+  width: 4px !important;
+  background-color: #fff;
+}
+
+.form {
+  position: absolute;
+  top: 345px;
+  left: 550px;
+}
+
+.from .bar {
+  height: 22px !important;
+  width: 4px !important;
+  background-color: #fff;
+}
+
+.noReq {
+  position: absolute;
+  top: 320px;
+  left: 120px;
+}
+
+.noReq .bar {
+  height: 22px !important;
+  width: 4px !important;
+  background-color: #fff;
+}
+.noItemWeekly {
+  position: absolute;
+  top: 135px;
+  left: 90px;
+}
+
+.noItemWeekly .bar {
+  height: 22px !important;
+  width: 4px !important;
+  background-color: #fff;
+}
+
+.noItemWeeklyCl {
+  position: absolute;
+  top: 135px;
+  left: 245px;
+}
+
+.noItemWeeklyCl .bar {
+  height: 22px !important;
+  width: 4px !important;
+  background-color: #fff;
+}
+
+.noItemWeeklyST {
+  position: absolute;
+  top: 80px;
+  left: 235px;
+}
+
+.noItemWeeklyST .bar {
+  height: 22px !important;
+  width: 4px !important;
+  background-color: #fff;
+}

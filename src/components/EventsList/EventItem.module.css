@@ -1,0 +1,102 @@
+.container {
+  position: relative;
+  height: 300px;
+  width: 98%;
+  border: none;
+  border-radius: 1em;
+  padding: 0 1em 1em 1em;
+  background-color: #1b1d21;
+}
+
+.club-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.club-name-container {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  color: #939394;
+}
+
+.club-name-container > img {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.name-cate-container {
+  padding: 1.5em 0 1em 0.6em;
+}
+
+.cate-item {
+  margin-top: 0.2em;
+}
+
+.event-info {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.8em;
+}
+
+.event-tag {
+  color: rgba(147, 147, 148, 70%);
+}
+
+.event-tag-content {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.eventDateTime {
+  display: flex;
+  width: 120px;
+  flex-wrap: wrap;
+}
+
+.last {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icons {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+}
+
+.icons:hover {
+  cursor: pointer;
+  opacity: 90%;
+}
+
+.icons a,
+.icons button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.icons img {
+  width: 18px;
+  height: 21px;
+  margin-left: 1.1em;
+  -webkit-user-drag: none;
+}
+
+.container > button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.active {
+  border: 2px solid #ab4d7d !important;
+  background-color: #1b1d21 !important;
+}

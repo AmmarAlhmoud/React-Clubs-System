@@ -1,0 +1,16 @@
+.details-hidden {
+  position: absolute;
+  top: -142px;
+  right: 10px;
+  height: 720px;
+  max-width: 550px;
+  width: 100%;
+  padding: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  row-gap: 0.8em;
+  border: none;
+  border-radius: 1em;
+  background-color: #1b1d21;
+}
