@@ -57,9 +57,9 @@ This React application is a club management system designed for Uskudar Universi
       npm install
       ```
 
-    **Development:**
+**Development:**
 
-2.  **Start the Development Server:**
+1.  **Start the Development Server:**
     - Run the following command to start the development server:
       ```bash
       npm run dev
