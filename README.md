@@ -51,7 +51,6 @@ This React application is a club management system designed for Uskudar Universi
 1.  **Install Dependencies:**
 
         - Navigate to the project directory.
-
         - Install dependencies:
 
     ```bash
