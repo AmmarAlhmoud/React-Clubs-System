@@ -50,8 +50,8 @@ This React application is a club management system designed for Uskudar Universi
 
 1.  **Install Dependencies:**
 
-        - Navigate to the project directory.
-        - Install dependencies:
+    - Navigate to the project directory.
+    - Install dependencies:
 
     ```bash
     npm install
@@ -59,7 +59,7 @@ This React application is a club management system designed for Uskudar Universi
 
     **Development:**
 
-1.  **Start the Development Server:**
+2.  **Start the Development Server:**
     - Run the following command to start the development server:
       ```bash
       npm run dev
