@@ -61,9 +61,9 @@ This React application is a club management system designed for Uskudar Universi
 
 2.  **Start the Development Server:**
     - Run the following command to start the development server:
-      ```bash
-      npm run dev
-      ```
+    ```bash
+    npm run dev
+    ```
     - This will typically launch the app at `http://localhost:3000` in your browser (the exact port may vary).
 
 **Live Website:**
