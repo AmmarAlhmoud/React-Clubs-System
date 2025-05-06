@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   clubsList: null,
+  clubsNameList: null,
   newClub: null,
   selectedCategories: [],
   currentClubInfo: {},
@@ -46,6 +47,11 @@ const clubSlice = createSlice({
     replaceClubsList(state, action) {
       if (action.payload !== null) {
         state.clubsList = action.payload;
+      }
+    },
+    replaceClubsNameList(state, action) {
+      if (action.payload !== null) {
+        state.clubsNameList = action.payload;
       }
     },
     addNewClub(state, action) {

@@ -1,46 +1,131 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../store/ui-slice";
-
-import cateIcon from "../../assets/icons/ClubsList/categories.png";
-import searchIcon from "../../assets/icons/ClubsList/search.png";
 import ColoredButton from "./ColoredButton";
 import CustomSelectInput from "./Search/CustomSelectInput";
-
 import styles from "./NavClubs.module.css";
+import { database } from "../../firebase";
+import { ref, onValue } from "firebase/database";
+import cateIcon from "../../assets/icons/ClubsList/categories.png";
+import searchIcon from "../../assets/icons/ClubsList/search.png";
+import { clubActions } from "../../store/club-slice";
 
 const NavClubs = () => {
+  const db = database;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [clearFilter, setClearFilter] = useState(false);
+  const [searchedName, setSearchedName] = useState("");
+  const [isNameFocus, setIsNameFocus] = useState(false);
   const searchedCategories = useSelector(
     (state) => state.ui.searchedCategories
   );
-  const inputRef = useRef();
+  const clubsNameList = useSelector((state) => state.club.clubsNameList); // Make sure this exists in your store
+
   const dispatch = useDispatch();
+  const menuRef = useRef(null);
+  const inputRef = useRef(null);
+
+  // Click outside handler
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        menuRef.current &&
+        inputRef.current &&
+        !menuRef.current.contains(e.target) &&
+        !inputRef.current.contains(e.target)
+      ) {
+        setIsNameFocus(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const resetFilterHandler = () => {
     setClearFilter(false);
     dispatch(uiActions.setResetFilter(true));
   };
 
+  const filteredClubsByName = (clubsList, searchedWord) => {
+    const searchKeyWord = searchedWord.trim().toLowerCase();
+    return Object.values(clubsList)
+      .filter((clubItem) => {
+        const clubName = clubItem.clubName?.trim().toLowerCase();
+        return clubName?.startsWith(searchKeyWord);
+      })
+      .slice(0, 4);
+  };
+
+  const handleNameChange = (event) => {
+    const value = event.target.value;
+    setSearchedName(value);
+    setIsNameFocus(value.trim().length > 0);
+  };
+
+  const handleSuggestionClick = (clubName) => {
+    setSearchedName(clubName);
+    setIsNameFocus(false);
+  };
+
   const searchHandler = (event) => {
     event.preventDefault();
     setIsSubmitting(true);
-    const searchedWord = inputRef.current.value;
-    dispatch(uiActions.setSearchParams({ searchedWord, searchedCategories }));
-    if (inputRef.current.value !== "" || searchedCategories !== null) {
+
+    dispatch(
+      uiActions.setSearchParams({
+        searchedWord: searchedName,
+        searchedCategories,
+      })
+    );
+
+    if (searchedName || searchedCategories) {
       setClearFilter(true);
     }
+
     setIsSubmitting(false);
-    // clear search inputs
-    inputRef.current.value = "";
+    setSearchedName("");
     dispatch(uiActions.setSearchedCategories(null));
   };
 
+  useEffect(() => {
+    const starCountRef = ref(db, "/clubslist");
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      dispatch(clubActions.replaceClubsNameList(data));
+    });
+  }, [db, dispatch, searchedName]);
+
+  // Generate suggestions content
+  let content = null;
+  if (clubsNameList && searchedName.trim().length > 0 && isNameFocus) {
+    const filteredClubs = filteredClubsByName(clubsNameList, searchedName);
+
+    content =
+      filteredClubs.length > 0 ? (
+        filteredClubs.map((club) => (
+          <div
+            key={club.clubId}
+            className={styles["suggestion-menu-item"]}
+            onClick={() => handleSuggestionClick(club.clubName)}
+          >
+            <p>{club.clubName}</p>
+          </div>
+        ))
+      ) : (
+        <div className={styles["no-results"]}>No matching clubs found</div>
+      );
+  }
+
   return (
-    <form onSubmit={searchHandler}>
+    <form className={styles["form-search"]} onSubmit={searchHandler}>
+      {isNameFocus && searchedName.trim().length > 0 && (
+        <div className={styles["suggestion-menu"]} ref={menuRef}>
+          {content}
+        </div>
+      )}
       <nav className={styles.nav}>
-        <div>
+        <div className={styles["input-wrapper"]}>
           <img src={searchIcon} alt="search" />
           <input
             type="text"
@@ -48,13 +133,22 @@ const NavClubs = () => {
             placeholder="Club Name"
             name="clubName"
             autoComplete="off"
+            value={searchedName}
+            onChange={handleNameChange}
+            onFocus={() => {
+              if (searchedName.trim().length > 0) {
+                setIsNameFocus(true);
+              }
+            }}
             disabled={isSubmitting}
           />
         </div>
+
         <div className={styles.cateSearch}>
           <img src={cateIcon} alt="categories" />
           <CustomSelectInput disabled={isSubmitting} />
         </div>
+
         <div>
           {!clearFilter && <ColoredButton type="submit">Search</ColoredButton>}
           {clearFilter && (

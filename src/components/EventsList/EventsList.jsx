@@ -149,8 +149,7 @@ const EventsList = () => {
       const listOfEvents = Object.values(club);
       const filterdEventsFromClub = listOfEvents.filter((eventItem) => {
         return (
-          eventItem.clubName
-            .trim()
+          eventItem.EventName.trim()
             .toLowerCase()
             .substring(0, searchKeyWord.length) === searchKeyWord
         );
@@ -527,14 +526,14 @@ const EventsList = () => {
     );
   }
 
-  console.log("from no filterd ", filterdEventsData);
+  // console.log("from no filterd ", filterdEventsData);
 
   if (
     eventsData !== null &&
     filterdEventsData.length !== 0 &&
     !noSearchItemFound
   ) {
-    console.log("this is the club: ");
+    // console.log("this is the club: ");
     eventsList = filterdEventsData.map((club) => {
       if (club.noItem === true) {
         return null;

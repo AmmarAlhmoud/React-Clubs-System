@@ -25,6 +25,8 @@ const initialState = {
   recentEventsData: null,
   sTEventsList: null,
   clubsListForSt: null,
+  isCmDashLoading: false,
+  isStDashLoading: false,
 };
 
 const uiSlice = createSlice({
@@ -109,6 +111,12 @@ const uiSlice = createSlice({
       state.recentEventsData = action.payload;
     },
     setSTEventsList(state, action) {
+      state.sTEventsList = action.payload;
+    },
+    setIsCmDashLoading(state, action) {
+      state.sTEventsList = action.payload;
+    },
+    setIsStDashLoading(state, action) {
       state.sTEventsList = action.payload;
     },
   },

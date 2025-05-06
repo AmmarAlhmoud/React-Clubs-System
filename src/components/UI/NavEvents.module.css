@@ -9,6 +9,7 @@
   border: none;
   border-radius: 1em;
   padding: 0 1em;
+  position: relative;
 }
 
 .nav input {
@@ -103,4 +104,43 @@ input[type="date"] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.form-search {
+  position: relative;
+}
+
+.suggestion-menu {
+  display: grid;
+  position: absolute;
+  top: 75px;
+  left: 0;
+  width: 360px;
+  padding: 2rem;
+  color: #fff;
+  background-color: #1b1d21;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-auto-rows: 1fr;
+  gap: 2rem;
+  border-radius: 1em;
+  border: 2px solid #333;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-menu-item {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.suggestion-menu-item:hover {
+  opacity: 80%;
+}
+
+.no-results {
+  color: #dbd8d8;
+  font-style: italic;
 }

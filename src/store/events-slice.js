@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   eventsList: null,
+  eventsNameData: null,
   currentEventDetails: {},
   currentPostDetails: {},
   showEventDetails: false,
@@ -31,6 +32,11 @@ const eventsSlice = createSlice({
     replaceEventsData(state, action) {
       if (action.payload !== null) {
         state.eventsList = action.payload;
+      }
+    },
+    replaceEventsNameData(state, action) {
+      if (action.payload !== null) {
+        state.eventsNameData = action.payload;
       }
     },
     setCurrentEventDetails(state, action) {

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../../store/ui-slice";
 import Select from "react-select";
@@ -9,6 +10,7 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
   const searchedEventCategories = useSelector(
     (state) => state.ui.searchedEventCategories
   );
+  const [isFocused, setIsFocused] = useState(false);
   const options = [
     { label: "Science", value: "Science" },
     { label: "Humanities", value: "Humanities" },
@@ -160,7 +162,11 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
     clearIndicator: whiteColorWithHover,
     noOptionsMessage: whiteColor,
     placeholder: (styles) => {
-      return { ...styles, color: "#b2b4b7" };
+      return {
+        ...styles,
+        color: "#b2b4b7",
+        marginTop: "0.4em",
+      };
     },
   };
 
@@ -177,9 +183,15 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
 
   return (
     <Select
-      placeholder="Categories"
+      placeholder={isFocused ? "" : "Categories"}
       isDisabled={disabled}
       onChange={selectedItemsHandler}
+      onFocus={() => {
+        setIsFocused(true);
+      }}
+      onBlur={() => {
+        setIsFocused(false);
+      }}
       isSearchable
       options={options}
       isMulti
