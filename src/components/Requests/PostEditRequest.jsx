@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { database } from "../../firebase";
+import { database } from "./../../firebase";
 import { ref, onValue, update, remove } from "firebase/database";
 import { clubActions } from "../../store/club-slice";
 import { toast } from "sonner";

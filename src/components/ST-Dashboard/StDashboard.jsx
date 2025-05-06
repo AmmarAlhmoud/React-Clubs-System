@@ -24,11 +24,13 @@ const StDashboard = () => {
   useEffect(() => {
     const fetchAllClubs = () => {
       setIsFetching(true);
+      dispatch(uiActions.setIsStDashLoading(true));
       const starCountRef1 = ref(db, "clubslist");
       onValue(starCountRef1, (snapshot) => {
         const data = snapshot.val();
         dispatch(uiActions.replaceClubsListForSt(data));
         setIsFetching(false);
+        dispatch(uiActions.setIsStDashLoading(false));
       });
     };
 

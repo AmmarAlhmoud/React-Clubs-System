@@ -24,10 +24,10 @@ import DelModal from "../MyClub/DelModal";
 import styles from "./CmDashboard.module.css";
 
 // Recieved dynamic club information (including the club's events + posts)
-import CLUB_INFO from "../MyClub/dummyClubInfo";
-const events = CLUB_INFO.events;
+// import CLUB_INFO from "../MyClub/dummyClubInfo";
+// const events = CLUB_INFO.events;
 // Recieved dynamic dummy events
-import DUMMY_EVENTS from "../Dashboard/dummyEvents";
+// import DUMMY_EVENTS from "../Dashboard/dummyEvents";
 import { uiActions } from "../../store/ui-slice";
 
 let initialLoad = true;
@@ -90,11 +90,13 @@ const CmDashboard = () => {
   useEffect(() => {
     const fetchCurrentUserClub = () => {
       setIsFetching(true);
+      dispatch(uiActions.setIsCmDashLoading(true));
       const starCountRef = ref(db, "clubslist/" + userId);
       onValue(starCountRef, (snapshot) => {
         const data = snapshot.val();
         dispatch(uiActions.setCurrentClubMGDashData(data));
         setIsFetching(false);
+        dispatch(uiActions.setIsCmDashLoading(false));
       });
     };
     const fetchCurrentAllClub = () => {
@@ -208,7 +210,7 @@ const CmDashboard = () => {
   let acceptingList = [];
   let acceptingRequestsList = [];
 
-  console.log("all req: ", allReqList);
+  // console.log("all req: ", allReqList);
 
   let reqList = [];
 

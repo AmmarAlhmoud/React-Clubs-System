@@ -13,6 +13,8 @@ const WeeklyCalender = () => {
   const weeklyCalData = useSelector((state) => state.ui.weeklyCalData);
   const cMEventsList = useSelector((state) => state.ui.cMEventsList);
   const sTEventsList = useSelector((state) => state.ui.sTEventsList);
+  const isCmDashLoading = useSelector((state) => state.ui.isCmDashLoading);
+  const isStDashLoading = useSelector((state) => state.ui.isStDashLoading);
 
   const userType = getAuthUserType();
 
@@ -73,12 +75,29 @@ const WeeklyCalender = () => {
     });
   }
 
-  if (currentEventsList === null) {
+  if (currentEventsList === null && isCmDashLoading) {
     filteredEventsList = (
       <BarLoader
         noItemWeekly={userType === "Cl" ? false : true}
         noItemWeeklyCl={true}
       />
+    );
+  }
+
+  if (
+    (currentEventsList === null && isCmDashLoading === false) ||
+    (isStDashLoading === false && userType === "St")
+  ) {
+    filteredEventsList = (
+      <p
+        className={
+          userType === "Cl" || userType === "St"
+            ? styles.noEventCl
+            : styles.noEvent
+        }
+      >
+        There is no events currently.
+      </p>
     );
   }
 
