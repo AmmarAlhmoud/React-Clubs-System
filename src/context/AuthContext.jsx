@@ -1,87 +1,52 @@
-/* eslint-disable react/prop-types */
-import React, { useContext, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { clubActions } from "../store/club-slice";
+// src/context/AuthProvider.jsx
+import { createContext, useContext, useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  // updateProfile,
+  onAuthStateChanged,
 } from "firebase/auth";
-import { auth } from "./../firebase";
+import { auth } from "../firebase";
 
-const AuthContext = React.createContext();
-
+const AuthContext = createContext();
 // eslint-disable-next-line react-refresh/only-export-components
-export function useAuth() {
-  return useContext(AuthContext);
-}
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState();
-  const dispatch = useDispatch();
+  const [currentUser, setCurrentUser] = useState(null);
 
-  const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+  // Allows manual signup if you ever need it elsewhere
+  const signup = (email, password) =>
+    createUserWithEmailAndPassword(auth, email, password);
 
-  const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
+  const login = (email, password) =>
+    signInWithEmailAndPassword(auth, email, password);
 
   const logout = () => {
+    // clear storage + sign out
     localStorage.removeItem("userId");
     localStorage.removeItem("userType");
-    localStorage.removeItem("CMName");
     return signOut(auth);
   };
-
-  // const appendClubToUser = async (createdMG, clubId) => {
-  //   return updateProfile(createdMG, {
-  //     providerId: clubId,
-  //   })
-  //     .then(() => {
-  //       // Profile updated!
-  //       // ...
-  //       console.log("Profile updated");
-  //     })
-  //     .catch((error) => {
-  //       // An error occurred
-  //       // ...
-  //       console.log("failed to update the profile!", error);
-  //     });
-  // };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        if (localStorage.getItem("userId") === null) {
-          setCurrentUser(user);
-          localStorage.setItem("userId", user.uid);
-        }
-        if (localStorage.getItem("userType") !== "Ad") {
-          setCurrentUser(user);
-        }
-        // don't use this method because we will change the user loged in and replace it with
-        // .. new created user this method is not safe it's a
-        if (localStorage.getItem("userId") !== user.uid) {
-          dispatch(clubActions.setCreatedManager(user.uid));
-        }
+        setCurrentUser(user);
+        localStorage.setItem("userId", user.uid);
+        // localStorage.setItem("userType", "Ad");
+      } else {
+        setCurrentUser(null);
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userType");
       }
     });
+    return unsubscribe;
+  }, []);
 
-    return () => {
-      unsubscribe();
-    };
-  }, [dispatch]);
-
-  const value = {
-    currentUser,
-    signup,
-    login,
-    logout,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ currentUser, signup, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

@@ -1,314 +1,161 @@
-/* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+// src/components/Clubs/ClubsList.jsx
+import { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clubActions } from "../../store/club-slice";
-import { toast } from "sonner";
-import { ref, onValue, update, set, remove } from "firebase/database";
+import { ref, onValue, set, update, remove } from "firebase/database";
 import { database } from "../../firebase";
+import { toast } from "sonner";
+
+import { clubActions } from "../../store/club-slice";
+import { uiActions } from "../../store/ui-slice";
 
 import NavClubs from "../UI/NavClubs";
 import ClubCard from "./ClubCard";
-
-import styles from "./ClubsList.module.css";
 import BarLoader from "../UI/BarLoader";
-import { uiActions } from "../../store/ui-slice";
-
-let initialLoad = true;
+import styles from "./ClubsList.module.css";
 
 const ClubsList = () => {
   const dispatch = useDispatch();
-  const clubsList = useSelector((state) => state.club.clubsList);
-  const newClub = useSelector((state) => state.club.newClub);
-  const editedClub = useSelector((state) => state.club.editedClub);
-  const reqEditClub = useSelector((state) => state.club.reqEditClub);
-  const deletedClub = useSelector((state) => state.club.deletedClub);
-  const searchParams = useSelector((state) => state.ui.searchParams);
-  const resetFilter = useSelector((state) => state.ui.resetFilter);
-  const [filteredClubsList, setFilterdClubsList] = useState([]);
-  const [noSearchItemFound, setNoSearchItemFound] = useState(false);
   const db = database;
-  const createdManagerId = useSelector((state) => state.club.createdManager);
 
+  // newClubObj is either null or { clubData, managerId }
+  const newClubObj = useSelector((s) => s.club.newClub);
+  const clubsList = useSelector((s) => s.club.clubsList);
+  const editedClub = useSelector((s) => s.club.editedClub);
+  const reqEditClub = useSelector((s) => s.club.reqEditClub);
+  const deletedClub = useSelector((s) => s.club.deletedClub);
+  const searchParams = useSelector((s) => s.ui.searchParams);
+  const resetFilter = useSelector((s) => s.ui.resetFilter);
+
+  const [filtered, setFiltered] = useState([]);
+  const [noResults, setNoResults] = useState(false);
+  const initialLoad = useRef(true);
+
+  // 1️⃣ Load all clubs once
   useEffect(() => {
-    const fetchClubsList = () => {
-      const starCountRef = ref(db, "clubslist");
-      onValue(starCountRef, (snapshot) => {
-        const data = snapshot.val();
-        dispatch(clubActions.replaceClubsList(data));
-      });
-    };
+    const starRef = ref(db, "clubslist");
+    onValue(starRef, (snap) => {
+      dispatch(clubActions.replaceClubsList(snap.val()));
+    });
+    initialLoad.current = false;
+  }, [db, dispatch]);
 
-    const addNewClub = (newClub) => {
-      set(ref(db, "clubslist/" + createdManagerId), {
-        ...newClub,
-        clubId: createdManagerId,
+  // 2️⃣ Only write the NEW club when newClubObj arrives
+  useEffect(() => {
+    if (!initialLoad.current && newClubObj) {
+      const { clubData, managerId } = newClubObj;
+      set(ref(db, `clubslist/${managerId}`), {
+        ...clubData,
+        clubId: managerId,
       })
-        .then(() => {
-          toast.success(
-            `"${newClub.clubName}" club has been created successfully!`
-          );
-        })
-        .catch(() => {
-          toast.error("Error creating the club please try again");
-        });
-    };
-
-    const addReqStatus = (newReqStatus, to) => {
-      set(
-        ref(
-          db,
-          "req-status-list/" +
-            to +
-            newReqStatus.clubId +
-            "/" +
-            newReqStatus.clubId
-        ),
-        {
-          ...newReqStatus,
-          reqDate: new Date().toISOString(),
-        }
-      );
-    };
-
-    const editExistingClub = (editedClub) => {
-      const updates = {};
-      updates["/clubslist/" + editedClub.clubId] = editedClub;
-      update(ref(db), updates)
-        .then(() => {
-          toast.success(
-            `"${editedClub.clubName}" club has been edited successfully!`
-          );
-        })
-        .catch(() => {
-          toast.error("Error editting the club please try again");
-        });
-    };
-
-    const deleteExistingClub = () => {
-      const starCountRef = ref(db, "clubslist/" + deletedClub.clubId);
-
-      remove(starCountRef)
-        .then(() => {
-          toast.success(
-            `"${deletedClub.clubName}" club has been deleted successfully!`
-          );
-        })
-        .catch(() => {
-          toast.error("Error deleting the club please try again");
-        });
-    };
-
-    const sendReqEditClub = (editClubInfo) => {
-      set(
-        ref(
-          db,
-          "req-edit-club-list/" +
-            editClubInfo.clubId +
-            "/" +
-            editClubInfo.clubId
-        ),
-        {
-          ...editClubInfo,
-        }
-      )
-        .then(() => {
-          toast.success(`Your club edit request has been send!`);
-        })
-        .catch(() => {
-          toast.error("Error sending your club edit request please try again");
-        });
-    };
-
-    // fetch the club list at startup
-    if (initialLoad) {
-      fetchClubsList();
-      initialLoad = false;
+        .then(() =>
+          toast.success(`"${clubData.clubName}" club has been created!`)
+        )
+        .catch(() => toast.error("Error creating the club"))
+        .finally(() => dispatch(clubActions.addNewClub(null)));
     }
+  }, [newClubObj, db, dispatch]);
 
-    if (initialLoad === false && editedClub !== null && clubsList !== null) {
-      editExistingClub(editedClub);
+  // 3️⃣ Handle edits, delete, requests, and search
+  useEffect(() => {
+    if (initialLoad.current || !clubsList) return;
+
+    // — EDIT
+    if (editedClub) {
+      const updates = { [`/clubslist/${editedClub.clubId}`]: editedClub };
+      update(ref(db), updates)
+        .then(() =>
+          toast.success(`"${editedClub.clubName}" edited successfully!`)
+        )
+        .catch(() => toast.error("Error editing the club"));
       dispatch(clubActions.addEditedClub(null));
     }
 
-    if (initialLoad === false && reqEditClub !== null && clubsList !== null) {
-      console.log(reqEditClub.info);
-      sendReqEditClub(reqEditClub.info);
-      addReqStatus(reqEditClub.status, "edit-club-req/");
+    // — SEND EDIT REQUEST
+    if (reqEditClub) {
+      const { info, status } = reqEditClub;
+      set(ref(db, `req-edit-club-list/${info.clubId}/${info.clubId}`), info);
+      set(
+        ref(
+          db,
+          `req-status-list/edit-club-req/${status.clubId}/${status.clubId}`
+        ),
+        { ...status, reqDate: new Date().toISOString() }
+      );
+      toast.success("Your club edit request has been sent!");
       dispatch(clubActions.setReqEditClub(null));
     }
 
-    // Check for new club and fetched data after initial load at least one club before add new one
-    if (
-      initialLoad === false &&
-      newClub !== null &&
-      clubsList !== null &&
-      createdManagerId !== null
-    ) {
-      addNewClub(newClub);
-      dispatch(clubActions.addNewClub(null));
-      dispatch(clubActions.setCreatedManager(null));
-    }
-    if (initialLoad === false && deletedClub !== null && clubsList !== null) {
-      deleteExistingClub();
+    // — DELETE
+    if (deletedClub) {
+      remove(ref(db, `clubslist/${deletedClub.clubId}`))
+        .then(() =>
+          toast.success(`"${deletedClub.clubName}" deleted successfully!`)
+        )
+        .catch(() => toast.error("Error deleting the club"));
       dispatch(clubActions.addDeletedClub(null));
     }
 
-    if (initialLoad === false && resetFilter && clubsList !== null) {
-      // for reseting the search filter
-      setFilterdClubsList([]);
-      setNoSearchItemFound(false);
+    // — RESET FILTER
+    if (resetFilter) {
+      setFiltered([]);
+      setNoResults(false);
       dispatch(uiActions.setResetFilter(false));
       return;
     }
 
-    if (initialLoad === false && searchParams !== null && clubsList !== null) {
-      // search logic
-      let FilterdClubs = [];
-      const searchKeyWord = searchParams.searchedWord.trim().toLowerCase();
-      // if there is no parameters and the search button clicked
-      if (
-        !initialLoad &&
-        searchParams.searchedWord === "" &&
-        searchParams.searchedCategories === null
-      ) {
-        toast.error(
-          "Enter a club name or choose a category to begin your search."
+    // — SEARCH
+    if (searchParams) {
+      let results = Object.values(clubsList);
+      const kw = searchParams.searchedWord.trim().toLowerCase();
+      if (kw) {
+        results = results.filter((c) =>
+          c.clubName.toLowerCase().startsWith(kw)
         );
-        dispatch(uiActions.setSearchParams(null));
-        return;
       }
-      // search based on both club name & categories.
-      if (
-        searchParams.searchedWord !== "" &&
-        searchParams.searchedCategories !== null
-      ) {
-        FilterdClubs = Object.values(clubsList).filter((club) => {
-          // Process club name for case-insensitive search (optional truncation removed)
-          const clubName =
-            club.clubName
-              .trim()
-              .toLowerCase()
-              .substring(0, searchKeyWord.length) === searchKeyWord;
-
-          // Category match logic:
-          const categoriesMatch = club.categories.some((category) =>
-            searchParams.searchedCategories?.some(
-              (searchCate) => category?.value === searchCate?.value
-            )
-          );
-
-          // Combined search criteria:
-          return clubName && categoriesMatch;
-        });
-
-        // if the searched item not found.
-        if (FilterdClubs.length === 0) {
-          setNoSearchItemFound(true);
-        }
+      if (searchParams.searchedCategories) {
+        results = results.filter((c) =>
+          c.categories.some((cat) =>
+            searchParams.searchedCategories.some((sc) => sc.value === cat.value)
+          )
+        );
       }
-      // searched based on club name only.
-      if (
-        searchParams.searchedWord !== "" &&
-        searchParams.searchedCategories === null
-      ) {
-        FilterdClubs = Object.values(clubsList).filter((club) => {
-          if (
-            club.clubName
-              .trim()
-              .toLowerCase()
-              .substring(0, searchKeyWord.length) === searchKeyWord
-          ) {
-            return club;
-          }
-        });
-        // if the searched item not found.
-        if (FilterdClubs.length === 0) {
-          setNoSearchItemFound(true);
-        }
-      }
-      // searched based on the categories only.
-      if (
-        searchParams.searchedCategories !== null &&
-        searchParams.searchedWord === ""
-      ) {
-        FilterdClubs = Object.values(clubsList).filter((club) => {
-          // Category match logic:
-          const categoriesMatch = club.categories.some((category) =>
-            searchParams.searchedCategories?.some(
-              (searchCate) => category?.value === searchCate?.value
-            )
-          );
-
-          return categoriesMatch;
-        });
-        // if the searched item not found.
-        if (FilterdClubs.length === 0) {
-          setNoSearchItemFound(true);
-        }
-      }
-      setFilterdClubsList(FilterdClubs);
-      // if the searched item found reset the state.
-      if (FilterdClubs.length !== 0) {
-        setNoSearchItemFound(false);
-      }
+      setNoResults(results.length === 0);
+      setFiltered(results);
       dispatch(uiActions.setSearchParams(null));
     }
   }, [
-    dispatch,
-    clubsList,
-    newClub,
-    editedClub,
-    deletedClub,
     db,
-    searchParams,
-    resetFilter,
-    noSearchItemFound,
-    createdManagerId,
+    clubsList,
+    editedClub,
     reqEditClub,
+    deletedClub,
+    resetFilter,
+    searchParams,
+    dispatch,
   ]);
 
-  let displayedClubs;
-
-  if (clubsList === null) {
-    displayedClubs = <BarLoader dashboard={true} />;
-  }
-
-  if (
-    clubsList !== null &&
-    filteredClubsList.length === 0 &&
-    !noSearchItemFound
-  ) {
-    displayedClubs = Object.values(clubsList)?.map((club) => (
-      <ClubCard key={club.clubId} clubData={club} />
-    ));
-  }
-
-  if (
-    clubsList !== null &&
-    filteredClubsList.length !== 0 &&
-    !noSearchItemFound
-  ) {
-    displayedClubs = filteredClubsList?.map((club) => (
-      <ClubCard key={club.clubId} clubData={club} />
-    ));
-  }
-
-  if (
-    clubsList !== null &&
-    noSearchItemFound &&
-    filteredClubsList.length === 0
-  ) {
-    displayedClubs = (
+  // 🖥️ Rendering
+  let displayed;
+  if (!clubsList) {
+    displayed = <BarLoader dashboard />;
+  } else if (noResults) {
+    displayed = (
       <p className={styles["no-search-item"]}>
         No results found for your search.
       </p>
     );
+  } else {
+    const listToShow =
+      filtered.length > 0 ? filtered : Object.values(clubsList);
+    displayed = listToShow.map((club) => (
+      <ClubCard key={club.clubId} clubData={club} />
+    ));
   }
 
   return (
     <main className={styles.container}>
       <NavClubs />
-      <section className={styles.section}>{displayedClubs}</section>
+      <section className={styles.section}>{displayed}</section>
     </main>
   );
 };

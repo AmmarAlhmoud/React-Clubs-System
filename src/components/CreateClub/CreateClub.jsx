@@ -1,18 +1,27 @@
+// src/components/Clubs/CreateClub.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clubActions } from "../../store/club-slice";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { toast } from "sonner";
 
 import Input from "../UI/Input";
 import ColoreButton from "../UI/ColoredButton";
+import SelectInput from "../EventsList/SelectInput";
+
+import { secondaryAuth } from "../../firebase";
+import { clubActions } from "../../store/club-slice";
 
 import cloud from "../../assets/icons/CreateClub/cloud_upload.png";
 import styles from "./CreateClub.module.css";
-import SelectInput from "../EventsList/SelectInput";
 
 const CreateClub = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const selectedCategories = useSelector(
+    (state) => state.club.selectedCategories
+  );
+
   const initialFormData = {
     clubId: "",
     clubName: "",
@@ -29,222 +38,185 @@ const CreateClub = () => {
     posts: [],
   };
 
-  const { signup } = useAuth();
   const [formData, setFormData] = useState(initialFormData);
-
-  const handleInputChange = (event) => {
-    setIsInfoEmpty(false);
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  // Managing icons to upload ------ start
-  const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-    // Create a FileReader object
-    const reader = new FileReader();
-    // Set up the onload event handler
-    reader.onload = () => {
-      // Set the image preview URL in state
-      setImagePreview(reader.result);
-      setIsBgEmpty(false);
-    };
-    // Read the selected file as a data URL
-    reader.readAsDataURL(file);
-  };
-
-  const [selectedClubIcon, setSelectedClubIcon] = useState(null);
   const [clubIconPreview, setClubIconPreview] = useState(null);
 
-  const handleClubIconUpload = (event) => {
-    const file = event.target.files[0];
-    setSelectedClubIcon(file);
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setClubIconPreview(reader.result);
-      setIsIcEmpty(false);
-    };
-
-    reader.readAsDataURL(file);
-  };
-  // Managing icons to upload ------ end
-
-  // handle club creation ------ start
-  const selectedCategories = useSelector(
-    (state) => state.club.selectedCategories
-  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isInfoEmpty, setIsInfoEmpty] = useState(false);
   const [isBgEmpty, setIsBgEmpty] = useState(false);
   const [isIcEmpty, setIsIcEmpty] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
+  // keep formData in sync with previews + categories + timestamp
   useEffect(() => {
-    const addingBgImageAndIcon = async () => {
-      if (imagePreview && clubIconPreview) {
-        try {
-          setFormData((prevFormData) => ({
-            ...prevFormData,
-            categories: selectedCategories,
-            clubBgImage: imagePreview,
-            clubIcon: clubIconPreview,
-            createdDate: new Date().toLocaleDateString(),
-          }));
-        } catch (error) {
-          toast.error("Error uploading the images please try again");
-        }
-      }
-    };
-
-    addingBgImageAndIcon();
+    if (imagePreview && clubIconPreview) {
+      setFormData((prev) => ({
+        ...prev,
+        categories: selectedCategories,
+        clubBgImage: imagePreview,
+        clubIcon: clubIconPreview,
+        createdDate: new Date().toISOString(),
+      }));
+    }
   }, [imagePreview, clubIconPreview, selectedCategories]);
 
-  const isEmptyChecker = (data) => {
-    return data.trim().length === 0;
+  const isEmpty = (val) => !val.trim().length;
+  const checks = {
+    clubName: isEmpty(formData.clubName),
+    studentId: isEmpty(formData.studentId),
+    managerName: isEmpty(formData.managerName),
+    email: isEmpty(formData.email),
+    phoneNumber: isEmpty(formData.phoneNumber),
+    description: isEmpty(formData.description),
+    categories: formData.categories.length === 0,
+    clubBgImage: isEmpty(formData.clubBgImage),
+    clubIcon: isEmpty(formData.clubIcon),
   };
 
-  const passwordCreator = (managerName, studentId) => {
-    const managerInitial = managerName.trim().substring(0, 1).toUpperCase();
-    const composedPass = managerInitial + studentId;
-    return composedPass;
+  const passwordCreator = (name, id) =>
+    name.trim().charAt(0).toUpperCase() + id;
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    setIsBgEmpty(false);
+    const reader = new FileReader();
+    reader.onload = () => setImagePreview(reader.result);
+    reader.readAsDataURL(file);
   };
 
-  const formSubmittingHandler = async (event) => {
-    event.preventDefault();
+  const handleClubIconUpload = (e) => {
+    const file = e.target.files[0];
+    setIsIcEmpty(false);
+    const reader = new FileReader();
+    reader.onload = () => setClubIconPreview(reader.result);
+    reader.readAsDataURL(file);
+  };
+
+  const handleInputChange = (e) => {
+    setIsInfoEmpty(false);
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const formSubmittingHandler = async (e) => {
+    e.preventDefault();
     setIsSubmitting(true);
-    // to check if the is any input field empty.
-    const studentId = isEmptyChecker(formData.studentId);
-    const clubName = isEmptyChecker(formData.clubName);
-    const managerName = isEmptyChecker(formData.managerName);
-    const email = isEmptyChecker(formData.email);
-    const phoneNumber = isEmptyChecker(formData.phoneNumber);
-    const description = isEmptyChecker(formData.description);
-    const categories = formData.categories.length === 0;
-    const clubBgImage = isEmptyChecker(formData.clubBgImage);
-    const clubIcon = isEmptyChecker(formData.clubIcon);
-    if (
-      studentId ||
-      clubName ||
-      clubName ||
-      managerName ||
-      email ||
-      phoneNumber ||
-      description ||
-      categories ||
-      clubBgImage ||
-      clubIcon
-    ) {
-      setIsInfoEmpty(true);
-      if (clubBgImage) {
-        setIsBgEmpty(true);
-      }
-      if (clubIcon) {
-        setIsIcEmpty(true);
-      }
-      setIsSubmitting(false);
-      toast.error(
-        "Please review the information and ensure all fields are filled"
-      );
 
+    // validation
+    if (Object.values(checks).some(Boolean)) {
+      setIsInfoEmpty(true);
+      if (checks.clubBgImage) setIsBgEmpty(true);
+      if (checks.clubIcon) setIsIcEmpty(true);
+      toast.error("Please review all fields and fill in the missing info.");
+      setIsSubmitting(false);
       return;
     }
-    // to register new club manager when creating the club.
-    signup(
-      formData.email,
-      passwordCreator(formData.managerName, formData.studentId)
-    );
-    dispatch(clubActions.addNewClub(formData));
-    navigate("/clubs-list");
-    setIsSubmitting(false);
-    setImagePreview(null);
-    setClubIconPreview(null);
-    setFormData(initialFormData);
+
+    try {
+      // 1) create manager on secondaryAuth
+      const password = passwordCreator(
+        formData.managerName,
+        formData.studentId
+      );
+      const { user } = await createUserWithEmailAndPassword(
+        secondaryAuth,
+        formData.email,
+        password
+      );
+      const managerId = user.uid;
+
+      // 2) immediately sign out secondaryAuth
+      await signOut(secondaryAuth);
+
+      // 3) dispatch bundled club + managerId
+      dispatch(
+        clubActions.addNewClub({
+          clubData: formData,
+          managerId,
+        })
+      );
+
+      // 4) navigate away
+      navigate("/clubs-list");
+    } catch (err) {
+      toast.error(err.message || "Error creating club manager");
+    } finally {
+      setIsSubmitting(false);
+      setImagePreview(null);
+      setClubIconPreview(null);
+      setFormData(initialFormData);
+      setIsBgEmpty(false);
+      setIsIcEmpty(false);
+    }
   };
 
   return (
     <main className={styles.container}>
       <h1>Create Club</h1>
-      <form onSubmit={formSubmittingHandler} className={styles["form"]}>
+      <form onSubmit={formSubmittingHandler} className={styles.form}>
         <section
           className={`${styles["images-sec"]} ${
-            !selectedFile && isBgEmpty ? styles["input-empty"] : ""
+            !imagePreview && isBgEmpty ? styles["input-empty"] : ""
           }`}
         >
           <div className={styles.upBg}>
-            {/* Club Background */}
             <input
               type="file"
               id="clubBg"
-              name="club-bg"
+              name="clubBg"
               className={styles.bgUploadInp}
               onChange={handleFileUpload}
               disabled={isSubmitting}
             />
-            {imagePreview && (
+            {imagePreview ? (
               <img
                 src={imagePreview}
                 alt="Preview"
                 className={styles.bgPreview}
               />
-            )}
-            {!selectedFile && (
-              <div className={styles.upBg}>
+            ) : (
+              <div className={styles.upBgPlaceholder}>
                 <img src={cloud} alt="upload" />
                 <h1>Click to Upload Club Background</h1>
               </div>
             )}
-            {/* Club Icon */}
-            <div
-              className={`${styles.clubImg} ${
-                !selectedClubIcon && isIcEmpty ? styles["input-empty"] : ""
-              }`}
-            >
-              {!selectedClubIcon && (
-                <>
-                  <img
-                    className={styles.clubImgIcon}
-                    src={cloud}
-                    alt="upload"
-                  />
-                  <h1>
-                    Click to Upload <br /> Club Icon
-                  </h1>
-                </>
-              )}
-              {clubIconPreview && (
-                <img
-                  src={clubIconPreview}
-                  alt="Club Icon Preview"
-                  className={styles.iconPreview}
-                />
-              )}
-              <input
-                type="file"
-                id="clubIcon"
-                name="club-icon"
-                className={styles.iconUploadInp}
-                onChange={handleClubIconUpload}
-                disabled={isSubmitting}
+          </div>
+
+          <div
+            className={`${styles.clubImg} ${
+              !clubIconPreview && isIcEmpty ? styles["input-empty"] : ""
+            }`}
+          >
+            <input
+              type="file"
+              id="clubIcon"
+              name="clubIcon"
+              className={styles.iconUploadInp}
+              onChange={handleClubIconUpload}
+              disabled={isSubmitting}
+            />
+            {clubIconPreview ? (
+              <img
+                src={clubIconPreview}
+                alt="Club Icon Preview"
+                className={styles.iconPreview}
               />
-            </div>
+            ) : (
+              <div className={styles.iconPlaceholder}>
+                <img src={cloud} alt="upload" />
+                <h1>
+                  Click to Upload <br /> Club Icon
+                </h1>
+              </div>
+            )}
           </div>
         </section>
-        <div className={styles["inputs"]}>
+
+        <div className={styles.inputs}>
           <Input
             className={styles["input-field"]}
             container={`${styles["input-container-1"]} ${
-              isInfoEmpty && isEmptyChecker(formData.clubName)
-                ? styles["input-empty"]
-                : ""
+              isInfoEmpty && checks.clubName ? styles["input-empty"] : ""
             }`}
             scaleY={1.05}
             input={{
@@ -257,12 +229,11 @@ const CreateClub = () => {
               disabled: isSubmitting,
             }}
           />
+
           <Input
             className={styles["input-field"]}
             container={`${styles["input-container-2"]} ${
-              isInfoEmpty && isEmptyChecker(formData.studentId)
-                ? styles["input-empty"]
-                : ""
+              isInfoEmpty && checks.studentId ? styles["input-empty"] : ""
             }`}
             scaleY={1.05}
             input={{
@@ -275,16 +246,15 @@ const CreateClub = () => {
               disabled: isSubmitting,
             }}
           />
+
           <Input
             className={styles["input-field"]}
             container={`${styles["input-container-1"]} ${
-              isInfoEmpty && isEmptyChecker(formData.managerName)
-                ? styles["input-empty"]
-                : ""
+              isInfoEmpty && checks.managerName ? styles["input-empty"] : ""
             }`}
             scaleY={1.05}
             input={{
-              id: "club-manager-name",
+              id: "manager-name",
               name: "managerName",
               type: "text",
               placeholder: "Manager Name",
@@ -294,13 +264,12 @@ const CreateClub = () => {
             }}
           />
         </div>
+
         <div className={styles["inputs2"]}>
           <Input
             className={styles["input-field"]}
             container={`${styles["input-container-1"]} ${
-              isInfoEmpty && isEmptyChecker(formData.email)
-                ? styles["input-empty"]
-                : ""
+              isInfoEmpty && checks.email ? styles["input-empty"] : ""
             }`}
             scaleY={1.05}
             input={{
@@ -313,12 +282,11 @@ const CreateClub = () => {
               disabled: isSubmitting,
             }}
           />
+
           <Input
             className={styles["input-field"]}
             container={`${styles["input-container-2"]} ${
-              isInfoEmpty && isEmptyChecker(formData.phoneNumber)
-                ? styles["input-empty"]
-                : ""
+              isInfoEmpty && checks.phoneNumber ? styles["input-empty"] : ""
             }`}
             scaleY={1.05}
             input={{
@@ -331,14 +299,17 @@ const CreateClub = () => {
               disabled: isSubmitting,
             }}
           />
-          <SelectInput isEmpty={isInfoEmpty} disabled={isSubmitting} />
+
+          <SelectInput
+            isEmpty={isInfoEmpty && checks.categories}
+            disabled={isSubmitting}
+          />
         </div>
-        <div className={styles["inputs"]}>
+
+        <div className={styles.inputs}>
           <textarea
             className={
-              isInfoEmpty && isEmptyChecker(formData.description)
-                ? styles["input-empty"]
-                : ""
+              isInfoEmpty && checks.description ? styles["input-empty"] : ""
             }
             id="club-description"
             name="description"
@@ -350,8 +321,11 @@ const CreateClub = () => {
             disabled={isSubmitting}
           />
         </div>
+
         <div className={styles.actions}>
-          <ColoreButton red={true}>Cancel</ColoreButton>
+          <ColoreButton red disabled={isSubmitting}>
+            Cancel
+          </ColoreButton>
           <ColoreButton type="submit" disabled={isSubmitting}>
             Create
           </ColoreButton>

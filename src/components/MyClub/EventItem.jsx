@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import DelModal from "./DelModal.jsx";
 
 import styles from "./EventItem.module.css";
+import Button from "../UI/Button.jsx";
 
 const EventItem = ({ name, icon, event, canEdit }) => {
   // For Event Deletion Modal
@@ -293,13 +294,19 @@ const EventItem = ({ name, icon, event, canEdit }) => {
         <div>
           {canEdit && checkAuthClUserType() && (
             <div>
-              <button type="button" onClick={() => setIsModalOpen(true)}>
+              <button
+                className={styles["events-btn"]}
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+              >
                 Delete Event
               </button>
               <button
                 type="button"
                 onClick={toggleEditMode}
-                className={isEditMode ? styles.editModeBtn : null}
+                className={`${styles["events-btn"]} ${
+                  isEditMode ? styles.editModeBtn : null
+                }`}
               >
                 {isEditMode ? "Editing..." : "Edit Event"}
               </button>
@@ -415,10 +422,8 @@ const EventItem = ({ name, icon, event, canEdit }) => {
         )}
         {isEditMode && (
           <div className={styles.editBtns}>
-            <button type="button" onClick={toggleEditMode}>
-              Cancel
-            </button>
-            <button type="submit">Apply</button>
+            <Button onClick={toggleEditMode}>Cancel</Button>
+            <Button type="submit">Apply</Button>
           </div>
         )}
       </form>

@@ -125,7 +125,7 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
       description: clubData.description || "",
       categories: clubData.categories || [],
       clubBgImage: clubData.clubBgImage || "",
-      createdData: clubData.createdData || new Date().toISOString(),
+      createdDate: clubData.createdDate || new Date().toISOString(),
       clubIcon: clubData.clubIcon || "",
       events: clubData.events || {},
       posts: clubData.posts || {},

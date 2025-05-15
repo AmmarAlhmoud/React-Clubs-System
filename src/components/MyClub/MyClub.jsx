@@ -67,6 +67,9 @@ const MyClub = () => {
     }
   );
 
+  console.log(clubData);
+
+
   // ** logic starting point
 
   const dispatch = useDispatch();

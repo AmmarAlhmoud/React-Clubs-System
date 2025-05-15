@@ -1,5 +1,5 @@
 import ReactDom from "react-dom";
-import ColoredButton from "../UI/ColoredButton";
+import Button from "../UI/Button";
 
 import styles from "./DelModal.module.css";
 
@@ -18,8 +18,12 @@ const ClubDelModal = ({ open, onClose, icon, title, onConfirmDelete }) => {
           <h2>{title}</h2>
         </div>
         <div className={styles.btns}>
-          <ColoredButton onClick={onClose}>Cancel</ColoredButton>
-          <ColoredButton onClick={onConfirmDelete}>Delete</ColoredButton>
+          <Button stiffness={200} scale={1.06} onClick={onClose}>
+            Cancel
+          </Button>
+          <Button stiffness={200} scale={1.06} onClick={onConfirmDelete}>
+            Delete
+          </Button>
         </div>
       </div>
     </>,
