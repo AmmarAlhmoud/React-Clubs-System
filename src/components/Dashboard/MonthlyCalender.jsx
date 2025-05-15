@@ -1,133 +1,115 @@
+// src/components/MonthlyCalender.jsx
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
 import styles from "./MonthlyCalender.module.css";
 
-const time = new Date();
-const currentMonth = time.toLocaleString("default", { month: "long" });
-const currentYear = time.getFullYear();
+const now = new Date();
+const currentYear = now.getFullYear();
+const currentMonth = now.getMonth(); // 0 = Jan, … 4 = May
+const monthName = now.toLocaleString("default", { month: "long" });
 
-const MonthlyCalender = () => {
-  const [daySelected, setDaySelected] = useState({
-    dayNO: null,
-    daySelected: null,
-  });
+// how many days in this month?
+const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  function handleEventDetails(evnt) {
-    let eventNo = parseInt(evnt.target.innerHTML);
-    setDaySelected(() => ({
-      daySelected: true,
-      dayNO: eventNo,
-    }));
-  }
+// what weekday does the 1st fall on? (0=Sun, 1=Mon…6=Sat)
+const firstWeekday = new Date(currentYear, currentMonth, 1).getDay();
+// we want Monday=0…Sunday=6, so shift:
+const offsetBlanks = (firstWeekday + 6) % 7;
 
-  function getDayOfMonth(date) {
-    // Create a Date object from the input date
-    const dateObject = new Date(date);
+export default function MonthlyCalender() {
+  const [selectedDay, setSelectedDay] = useState(null);
+  const events = useSelector((s) => s.ui.weeklyCalData) || [];
 
-    // Use getDate() to get the day of the month (1-31)
-    const dayOfMonth = dateObject.getDate();
+  // days that have at least one event
+  const eventDays = new Set(events.map((e) => new Date(e.Date).getDate()));
 
-    // Return the day of the month
-    return dayOfMonth;
-  }
+  // events for the selected day
+  const matching = selectedDay
+    ? events.filter((e) => new Date(e.Date).getDate() === selectedDay)
+    : [];
 
-  const weeklyCalData = useSelector((state) => state.ui.weeklyCalData);
-  let events;
+  const handleClick = (e) => {
+    setSelectedDay(Number(e.target.innerText));
+  };
 
-  if (weeklyCalData !== null) {
-    events = weeklyCalData;
-  }
+  // helper to build classnames
+  const cellClass = (dayNo) => {
+    const dt = new Date(currentYear, currentMonth, dayNo);
+    const wd = dt.getDay(); // 0=Sun,6=Sat
+    const isWeekend = wd === 0 || wd === 6;
+    const isEvent = eventDays.has(dayNo);
 
-  // Display event details based on selected day beside the calender (currently only first event found).
-  const matchingEvents = events?.filter(
-    (event) => getDayOfMonth(event.Date) === daySelected.dayNO
-  );
+    return [
+      styles.dayCell,
+      isWeekend ? styles.weekendDay : null,
+      isEvent ? styles.eventDay : null,
+    ]
+      .filter(Boolean)
+      .join(" ");
+  };
 
   return (
     <div className={styles.main}>
-      <h1>Monthly Calender</h1>
+      <h1>
+        {monthName} {currentYear}
+      </h1>
       <section className={styles.calenders}>
         <div>
-          <div>
-            <span>{currentMonth}</span>
-            <span>{currentYear}</span>
+          <div className={styles.header}>
+            {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((wd, i) => (
+              <div key={wd} className={i >= 5 ? styles.weekendDay : undefined}>
+                {wd}
+              </div>
+            ))}
           </div>
           <div className={styles.monthTable}>
-            <div>Mon</div>
-            <div>Tue</div>
-            <div>Wed</div>
-            <div>Thu</div>
-            <div>Fri</div>
-            <div>Sat</div>
-            <div>Sun</div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            {/* Generate an array of 31 JSX div elements and color the day if its an event day*/}
+            {/* blank offset cells */}
+            {Array.from({ length: offsetBlanks }).map((_, i) => (
+              <div key={`b${i}`} className={styles.dayCell} />
+            ))}
 
-            {Array.from({ length: 31 }, (_, index) => {
-              const event = events?.find(
-                (ev) => getDayOfMonth(ev.Date) === index + 1
-              ); // Find event for the current day
-
+            {/* actual days */}
+            {Array.from({ length: daysInMonth }, (_, i) => {
+              const dayNo = i + 1;
               return (
                 <div
-                  key={index + 1}
-                  onClick={handleEventDetails}
-                  className={event ? styles.eventDay : null}
+                  key={dayNo}
+                  className={cellClass(dayNo)}
+                  onClick={handleClick}
                 >
-                  {index + 1}
+                  {dayNo}
                 </div>
               );
             })}
           </div>
         </div>
-        {/* Selected day's event details */}
+
+        {/* details */}
         <div className={styles.eventsTime}>
-          {daySelected.daySelected ? (
-            <>
-              {matchingEvents?.length === 0 && (
-                <div className={styles.noItem}>
-                  There is no event in this day.
-                </div>
-              )}
-              {matchingEvents?.length !== 0 &&
-                matchingEvents.map((event, index) => {
-                  return (
-                    <div key={index} className={styles.itemContainer}>
-                      <div className={styles.timeConatiner}>
-                        <div>
-                          <p>{event?.Stime?.label}</p>
-                        </div>
-                        <div>
-                          <p>{event?.Etime?.label}</p>
-                        </div>
-                      </div>
-                      <div
-                        className={`${styles.eventContainer} ${
-                          index % 2 === 0 ? styles.even : styles.odd
-                        }`}
-                      >
-                        <div>
-                          <p>{event?.EventName}</p>
-                        </div>
-                        <div className={styles.location}>
-                          <p>{event?.location?.label}</p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </>
-          ) : (
+          {selectedDay === null ? (
             <h1>Select a day</h1>
+          ) : matching.length === 0 ? (
+            <div className={styles.noItem}>There is no event on this day.</div>
+          ) : (
+            matching.map((ev, idx) => (
+              <div key={idx} className={styles.itemContainer}>
+                <div className={styles.timeConatiner}>
+                  <p>{ev.Stime.label}</p>
+                  <p>{ev.Etime.label}</p>
+                </div>
+                <div
+                  className={`${styles.eventContainer} ${
+                    idx % 2 === 0 ? styles.even : styles.odd
+                  }`}
+                >
+                  <p>{ev.EventName}</p>
+                  <p className={styles.location}>{ev.location.label}</p>
+                </div>
+              </div>
+            ))
           )}
         </div>
       </section>
     </div>
   );
-};
-
-export default MonthlyCalender;
+}

@@ -37,6 +37,7 @@ const WeeklyCalender = () => {
     currentEventsList = sTEventsList;
   }
 
+  console.log(currentEventsList);
   if (selectedDay !== "" && currentEventsList !== null) {
     const filteredEvents = currentEventsList.filter((evItem) => {
       const eventDay = new Date(evItem.Date)
@@ -44,6 +45,7 @@ const WeeklyCalender = () => {
         .toLowerCase();
       return eventDay === selectedDay.toLowerCase();
     });
+
     filteredEventsList = filteredEvents.map((eventItem, index) => {
       return (
         <WeeklyCalenderItem

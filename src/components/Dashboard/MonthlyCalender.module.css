@@ -1,3 +1,5 @@
+/* MonthlyCalender.module.css */
+
 .main {
   padding: 1rem;
   max-height: 100%;
@@ -9,6 +11,7 @@
   margin-bottom: 1rem;
 }
 
+/* Layout for calendar + details pane */
 .calenders {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -22,6 +25,7 @@
   height: 332px;
 }
 
+/* Month title */
 .calenders div:first-child span {
   font-size: 1.1rem;
 }
@@ -30,6 +34,24 @@
   margin-right: 0.5rem;
 }
 
+/* Weekday header row */
+.header {
+  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.75rem;
+}
+
+.header div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  cursor: default;
+}
+
+/* Main calendar grid */
 .monthTable {
   margin-top: 0.5rem;
   height: 90%;
@@ -40,64 +62,37 @@
   gap: 0.75rem;
 }
 
-.monthTable div {
+/* Base style for every day cell (and blank offsets) */
+.dayCell {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
-  font-size: 0.75rem;
-  cursor: pointer;
-}
-
-.monthTable div:nth-of-type(n + 8):nth-of-type(-n + 11) {
-  background-color: #2c2a2a;
-}
-
-.monthTable div:nth-child(n + 12) {
   border: 1px solid white;
   border-radius: 6px;
   font-size: 11px;
+  cursor: pointer;
 }
 
-.monthTable div:nth-child(7n - 1) {
+/* Highlight weekends in purple */
+.weekendDay {
   background-color: #2bb3ff;
+  color: white;
   border: none;
 }
 
-.monthTable div:nth-child(7n) {
-  background-color: #2bb3ff;
-  border: none;
-}
-
+/* Highlight days that have events in green */
 .eventDay {
   background-color: #6ac47f;
   border: none;
 }
 
+/* Details pane styling */
 .eventsTime {
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 0.5em;
 }
-
-/* .eventsTime > div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 10px;
-}
-
-.eventsTime > div span {
-  font-size: 14px !important;
-  color: #437150;
-}
-
-.eventsTime > div p {
-  display: inline;
-  font-size: 14px;
-} */
 
 .itemContainer {
   display: grid;
@@ -109,7 +104,7 @@
   flex-direction: column;
   justify-content: space-between;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 60%);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .eventContainer {
@@ -122,7 +117,6 @@
   padding: 0.5em;
   border-radius: 0.4em;
   min-height: 60px;
-
   font-size: 0.9rem;
   font-weight: bold;
 }
@@ -134,6 +128,7 @@
   font-weight: bold;
 }
 
+/* Alternate event container backgrounds */
 .even {
   background-color: #6ac47f;
 }
@@ -143,6 +138,11 @@
 }
 
 .location {
-  color: rgba(255, 255, 255, 85%);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 0.8rem;
+}
+
+.weekendDay.eventDay {
+  background-color: purple;
+  color: white;
 }

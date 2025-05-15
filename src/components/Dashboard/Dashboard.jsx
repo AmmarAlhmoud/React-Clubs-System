@@ -47,15 +47,21 @@ const Dashboard = () => {
       initialLoad = false;
     }
 
-    if (initialLoad === false && fetchedClubsList !== null) {
-      Object.values(fetchedClubsList).map((club) => {
-        const fetchedEventsList = club?.events;
-        if (fetchedEventsList !== undefined) {
-          dispatch(
-            uiActions.setWeeklyCalData(Object.values(fetchedEventsList))
-          );
-        }
+    if (!initialLoad.current && fetchedClubsList) {
+      // Gather every event from every club
+      const allEvents = Object.values(fetchedClubsList).flatMap((club) => {
+        // club.events might be an object or array
+        return club?.events
+          ? Array.isArray(club.events)
+            ? club.events
+            : Object.values(club.events)
+          : [];
       });
+
+      console.log(allEvents);
+
+      // dispatch the full list
+      dispatch(uiActions.setWeeklyCalData(allEvents));
     }
   }, [db, dispatch, fetchedClubsList]);
 

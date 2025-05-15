@@ -1,4 +1,3 @@
-
 import styles from "./WeeklyCalenderItem.module.css";
 
 const WeeklyCalenderItem = ({
@@ -9,7 +8,6 @@ const WeeklyCalenderItem = ({
   startTime,
   endTime,
 }) => {
-
   return (
     <div className={styles.eventItem}>
       <div>

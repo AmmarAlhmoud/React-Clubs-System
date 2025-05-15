@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }) => {
       if (user) {
         setCurrentUser(user);
         localStorage.setItem("userId", user.uid);
-        // localStorage.setItem("userType", "Ad");
       } else {
         setCurrentUser(null);
         localStorage.removeItem("userId");
