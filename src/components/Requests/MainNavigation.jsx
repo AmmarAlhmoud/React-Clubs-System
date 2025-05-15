@@ -55,7 +55,9 @@ function MainNavigation({ children }) {
                 isActive ? styles.active : undefined
               }
             >
-              <div className={styles["nav-req-item"]}>
+              <div
+                className={`${styles["nav-req-item"]} ${styles["nav-req-item-edit"]}`}
+              >
                 <span>Event Edit Request</span>
               </div>
             </NavLink>

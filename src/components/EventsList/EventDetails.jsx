@@ -12,9 +12,20 @@ import Club_Page_Ic from "../../assets/icons/EventsList/description.png";
 
 import styles from "./EventDetails.module.css";
 
-const EventDetails = ({ orientation }) => {
+const EventDetails = ({ from, orientation }) => {
   const dispatch = useDispatch();
+  let currentEventDetails = {};
   const eventDetails = useSelector((state) => state.events.currentEventDetails);
+  const eventReqDetails = useSelector(
+    (state) => state.events.currentEventReqDetails
+  );
+
+  if (from === "events-list") {
+    currentEventDetails = eventDetails;
+  }
+  if (from === "requests") {
+    currentEventDetails = eventReqDetails;
+  }
 
   const {
     id,
@@ -35,7 +46,7 @@ const EventDetails = ({ orientation }) => {
     clubCategories,
     description,
     type,
-  } = eventDetails;
+  } = currentEventDetails;
 
   const parsedDate = new Date(EventDate);
   const formattedDate = new Date(parsedDate).toLocaleDateString("en-US", {
@@ -44,10 +55,21 @@ const EventDetails = ({ orientation }) => {
     year: "numeric",
   });
 
+  if (eventDetails?.type === "event-details") {
+    dispatch(eventsActions.setCurrentEventDetails({}));
+  }
+
   const closeDetailsHandler = () => {
     // close the event details
-    dispatch(eventsActions.setCurrentEventDetails(null));
-    dispatch(eventsActions.setShowEventDetails(false));
+
+    if (from === "events-list") {
+      dispatch(eventsActions.setCurrentEventDetails(null));
+      dispatch(eventsActions.setShowEventDetails(false));
+    }
+    if (from === "requests") {
+      dispatch(eventsActions.setCurrentEventReqDetails(null));
+      dispatch(eventsActions.setShowEventReqDetails(false));
+    }
   };
 
   return (

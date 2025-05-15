@@ -35,6 +35,10 @@
   background-color: #2bb3ff;
 }
 
+.nav-req-item-edit {
+  font-size: 0.78rem;
+}
+
 .main-req-content {
   color: #fff;
 }

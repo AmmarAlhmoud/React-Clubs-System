@@ -42,7 +42,7 @@ const EventRequestItem = ({
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const showDetails = useSelector((state) => state.events.showEventDetails);
+  const showDetails = useSelector((state) => state.events.showEventReqDetails);
   const showEditedEventDetails = useSelector(
     (state) => state.club.showEditedEventDetails
   );
@@ -90,7 +90,7 @@ const EventRequestItem = ({
       );
       onValue(starCountRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(data);
+        // console.log(data);
         dispatch(clubActions.setReqEditEventStatus(data));
       });
     };
@@ -112,7 +112,7 @@ const EventRequestItem = ({
 
   const showEventDetailsHandler = () => {
     dispatch(
-      eventsActions.setCurrentEventDetails({
+      eventsActions.setCurrentEventReqDetails({
         id,
         CName,
         CMName,
@@ -132,7 +132,7 @@ const EventRequestItem = ({
         type: "event-request",
       })
     );
-    dispatch(eventsActions.setShowEventDetails({ show: true, id }));
+    dispatch(eventsActions.setShowEventReqDetails({ show: true, id }));
   };
 
   const showClubDetailsHandler = () => {

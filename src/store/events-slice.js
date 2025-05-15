@@ -4,8 +4,10 @@ const initialState = {
   eventsList: null,
   eventsNameData: null,
   currentEventDetails: {},
+  currentEventReqDetails: {},
   currentPostDetails: {},
   showEventDetails: false,
+  showEventReqDetails: false,
   showPostDetails: false,
   newEvent: null,
   newPost: null,
@@ -46,6 +48,13 @@ const eventsSlice = createSlice({
         state.currentEventDetails = {};
       }
     },
+    setCurrentEventReqDetails(state, action) {
+      if (action !== null) {
+        state.currentEventReqDetails = action.payload;
+      } else {
+        state.currentEventReqDetails = {};
+      }
+    },
     setCurrentPostDetails(state, action) {
       if (action !== null) {
         state.currentPostDetails = action.payload;
@@ -55,6 +64,9 @@ const eventsSlice = createSlice({
     },
     setShowEventDetails(state, action) {
       state.showEventDetails = action.payload;
+    },
+    setShowEventReqDetails(state, action) {
+      state.showEventReqDetails = action.payload;
     },
     setShowPostDetails(state, action) {
       state.showPostDetails = action.payload;

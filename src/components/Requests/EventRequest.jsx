@@ -18,7 +18,7 @@ let initialLoad = true;
 
 const EventRequest = () => {
   const reqEventsList = useSelector((state) => state.events.reqEventsList);
-  const showDetails = useSelector((state) => state.events.showEventDetails);
+  const showDetails = useSelector((state) => state.events.showEventReqDetails);
   const reqEventData = useSelector((state) => state.events.reqEventData);
   const rejectEventStatus = useSelector(
     (state) => state.events.rejectEventStatus
@@ -86,6 +86,7 @@ const EventRequest = () => {
     if (initialLoad) {
       // fetch the current events list requests at startup
       fetchCurrentUserClub();
+      // dispatch(eventsActions.setShowEventDetails(false));
       initialLoad = false;
     }
 
@@ -172,7 +173,7 @@ const EventRequest = () => {
       {reqEventsList !== null && !showDetails && (
         <DetailsHidden DName="event" />
       )}
-      {showDetails && <EventDetails />}
+      {showDetails && <EventDetails from={"requests"} />}
     </section>
   );
 };

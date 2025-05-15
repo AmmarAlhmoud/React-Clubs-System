@@ -618,7 +618,9 @@ const EventsList = () => {
               </section>
             )}
 
-          {showEventDetails && <EventDetails orientation={true} />}
+          {showEventDetails && (
+            <EventDetails from={"events-list"} orientation={true} />
+          )}
         </main>
       </div>
     </G_Layout>
