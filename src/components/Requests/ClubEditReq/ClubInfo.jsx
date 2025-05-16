@@ -14,7 +14,7 @@ const ClubInfo = () => {
   };
 
   return (
-    <main>
+    <main className={styles.main}>
       <ClubEditReq type="old-info" />
       <ClubEditReq title="New Club information" type="new-info">
         <div className={styles.actions}>

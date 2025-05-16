@@ -141,7 +141,6 @@ const ClubEditRequest = () => {
 
   return (
     <section className={styles["event-req"]}>
-      {/* TODO: Make this request item fetch dynamicaly */}
       <ul className={styles["event-req-list"]}>{editClubList}</ul>
     </section>
   );

@@ -1,86 +1,100 @@
-.eventItem {
+.card {
   position: relative;
-  min-width: 557px;
+  height: 100%;
+  min-width: 500px !important;
+  background: #1e1e1e;
+  border-radius: 1rem;
+  color: white;
+  border: 2px solid #2c2a2a;
+  border-radius: 1rem;
 }
 
-.eventItem img:first-of-type {
-  height: 85px;
+.bgImg {
   width: 100%;
+  height: 75px;
   object-fit: cover;
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  display: block;
 }
 
-.eventItem img:last-of-type {
-  border-radius: 50%;
-  width: 65px;
-  height: 65px;
+/* header overlay */
+.header {
   position: absolute;
-  top: 50px;
-  left: 25px;
-}
-
-.eventItem div:first-of-type {
+  top: 25%;
+  left: 0;
+  right: 0;
   display: flex;
-  margin-top: 3px;
-  margin-left: 6rem;
-  width: 80%;
-  justify-content: flex-start;
   align-items: center;
-  gap: 1rem;
+  padding: 0.75rem 1rem;
+  /* background: rgba(0, 0, 0, 0.6); */
 }
 
-.eventItem div:first-of-type h1 {
-  letter-spacing: 0.5px;
+.icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
 }
 
-.eventItem div:first-of-type h2 {
+.info {
+  flex: 1;
+  text-align: center;
+  margin-left: 1rem;
+}
+
+.clubName {
+  margin-right: 1rem;
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  text-align: center;
   font-size: 0.75rem;
+  opacity: 0.85;
+  margin-top: 0.25rem;
 }
 
-.eventItem div:nth-of-type(2) {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  margin: 5px 0 10px 2.5rem;
-  max-height: 20px;
-  overflow: hidden;
-}
-
-.eventItem div:nth-of-type(2) h3 {
-  max-width: 370px;
-  font-size: 0.9rem;
-  white-space: nowrap;
-  align-self: flex-start;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #2bb3ff;
+.date,
+.location {
   color: #fff;
-  padding: 10px;
-  border-radius: 0.5rem;
-  height: 20px;
-  width: 90px;
-  cursor: pointer;
-  transition: background 300ms;
 }
 
-.eventItem p {
-  margin-left: 2.5rem;
-  font-size: 0.8rem;
-  max-width: 90%;
-  font-size: 0.8rem;
-  max-height: 30px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  margin-bottom: 0.75rem;
+.dot {
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  margin: 0 0.5rem;
+}
+
+.button {
+  margin-top: 3rem;
+  padding: 0.2rem 0.9rem;
+  background: #0ea5e9;
+  border-radius: 999px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.content {
+  margin-left: 1rem;
+  padding: 1rem;
+  padding-top: 2.8rem;
+}
+
+.title {
+  margin: 0.6rem 0 0.5rem;
+  font-size: 1rem;
+}
+
+.description {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  opacity: 0.9;
 }

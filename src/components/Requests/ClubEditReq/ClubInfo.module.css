@@ -1,7 +1,11 @@
+.main {
+  padding-bottom: 4em;
+}
+
 .actions {
   position: absolute;
-  top: 608px;
-  right: 20px;
+  top: 620px;
+  right: 10px;
   display: flex;
   justify-content: right;
   gap: 1em;

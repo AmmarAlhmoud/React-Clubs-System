@@ -29,6 +29,7 @@ import styles from "./CmDashboard.module.css";
 // Recieved dynamic dummy events
 // import DUMMY_EVENTS from "../Dashboard/dummyEvents";
 import { uiActions } from "../../store/ui-slice";
+import RecentEventsCarousel from "./RecentEventsCarousel";
 
 let initialLoad = true;
 
@@ -428,21 +429,26 @@ const CmDashboard = () => {
     });
   }
 
+  // const recentEvents = recentEventsData.map((event, index) => (
+  //   <RecentEventItem
+  //     key={index}
+  //     clubName={event.clubName}
+  //     clubIcon={event.clubIcon}
+  //     event={event}
+  //   />
+  // ));
+
+  // console.log(recentEventsData, ": from CM Dashboard");
+
   return (
     <main className={styles.container}>
       {/* Recent Events Section */}
       <section className={styles.recent}>
         <h1>Recent New Events</h1>
         <div className={styles.renderedEvents}>
-          {recentEventsData !== null &&
-            recentEventsData.map((event, index) => (
-              <RecentEventItem
-                key={index}
-                clubName={event.clubName}
-                clubIcon={event.clubIcon}
-                event={event}
-              />
-            ))}
+          {recentEventsData !== null && (
+            <RecentEventsCarousel items={recentEventsData} />
+          )}
         </div>
       </section>
       {/* Upper Right Stats Section */}

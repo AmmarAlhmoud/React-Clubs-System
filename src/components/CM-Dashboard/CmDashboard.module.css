@@ -33,11 +33,10 @@
 }
 
 .renderedEvents {
-  display: flex;
-  /* Choose axis for overflown events: */
-  flex-direction: row;
-  gap: 1rem;
-  overflow: auto;
+  position: relative;
+  /* background-color: rgb(120, 45, 45); */
+  border: 1px solid #2c2a2a;
+  border-radius: 1rem;
 }
 
 .renderedEvents::-webkit-scrollbar {
@@ -58,8 +57,8 @@
 }
 
 .renderedEvents > div {
-  border: 1px solid #2c2a2a;
-  border-radius: 1rem;
+  /* border: 1px solid #2c2a2a;
+  border-radius: 1rem; */
 }
 
 .statsTop {

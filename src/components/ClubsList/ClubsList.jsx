@@ -30,7 +30,7 @@ const ClubsList = () => {
   const [noResults, setNoResults] = useState(false);
   const initialLoad = useRef(true);
 
-  // 1️⃣ Load all clubs once
+  // 1) Load all clubs once
   useEffect(() => {
     const starRef = ref(db, "clubslist");
     onValue(starRef, (snap) => {
@@ -39,7 +39,7 @@ const ClubsList = () => {
     initialLoad.current = false;
   }, [db, dispatch]);
 
-  // 2️⃣ Only write the NEW club when newClubObj arrives
+  // 2) Only write the NEW club when newClubObj arrives
   useEffect(() => {
     if (!initialLoad.current && newClubObj) {
       const { clubData, managerId } = newClubObj;
@@ -55,7 +55,7 @@ const ClubsList = () => {
     }
   }, [newClubObj, db, dispatch]);
 
-  // 3️⃣ Handle edits, delete, requests, and search
+  // 3) Handle edits, delete, requests, and search
   useEffect(() => {
     if (initialLoad.current || !clubsList) return;
 
@@ -134,7 +134,7 @@ const ClubsList = () => {
     dispatch,
   ]);
 
-  // 🖥️ Rendering
+  // Rendering
   let displayed;
   if (!clubsList) {
     displayed = <BarLoader dashboard />;
