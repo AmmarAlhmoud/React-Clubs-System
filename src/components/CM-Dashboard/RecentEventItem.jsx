@@ -1,7 +1,17 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { ref, onValue } from "firebase/database";
+import { database } from "../../firebase";
+import { clubActions } from "../../store/club-slice";
+
 import styles from "./RecentEventItem.module.css";
 
 const RecentEventItem = ({ item }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const db = database;
+
   const { clubName, clubIcon, event } = item;
 
   const formattedDate = new Date(event?.Date).toLocaleDateString("en-US", {
@@ -22,6 +32,24 @@ const RecentEventItem = ({ item }) => {
     return trimDesk;
   };
 
+  const openingClubPageHandler = () => {
+    navigate(`/clubs-list/club-page/${event?.clubId}`);
+  };
+
+  useEffect(() => {
+    const fetchCurrentClub = (clubId) => {
+      const starCountRef = ref(db, "/clubslist/" + clubId);
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        dispatch(clubActions.setCurrentClubInfo(data));
+      });
+    };
+
+    if (event?.clubId) {
+      fetchCurrentClub(event?.clubId);
+    }
+  }, [db, dispatch, event?.clubId]);
+
   return (
     <div className={styles.card}>
       <img src={bgSrc} alt="Event background" className={styles.bgImg} />
@@ -38,12 +66,9 @@ const RecentEventItem = ({ item }) => {
           </div>
         </div>
 
-        <Link
-          to={`/clubs-list/club-page/${event?.clubId}`}
-          className={styles.button}
-        >
+        <a onClick={openingClubPageHandler} className={styles.button}>
           Club Page
-        </Link>
+        </a>
       </div>
 
       <div className={styles.content}>

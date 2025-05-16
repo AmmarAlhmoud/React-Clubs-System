@@ -10,6 +10,32 @@ const RecentEventsCarousel = ({ items }) => {
   const prev = () => setIdx((i) => (i - 1 + max) % max);
   const next = () => setIdx((i) => (i + 1) % max);
 
+  let content;
+
+  if (items?.length === 0) {
+    content = (
+      <p className={styles.noItems}>There is no recent events at the moment.</p>
+    );
+  }
+
+  if (items?.length > 0) {
+    content = items.map((item, i) => (
+      <div
+        key={i}
+        className={`${styles.slide} ${i === idx ? styles.active : ""}`}
+      >
+        <RecentEventItem
+          key={i}
+          item={{
+            clubName: item?.clubName,
+            clubIcon: item?.clubIcon,
+            event: { ...item },
+          }}
+        />
+      </div>
+    ));
+  }
+
   return (
     <div className={styles.wrapper}>
       <button onClick={prev} className={`${styles.nav} ${styles.left}`}>
@@ -20,21 +46,7 @@ const RecentEventsCarousel = ({ items }) => {
         className={styles.slider}
         style={{ transform: `translateX(-${idx * 100}%)` }}
       >
-        {items.map((item, i) => (
-          <div
-            key={i}
-            className={`${styles.slide} ${i === idx ? styles.active : ""}`}
-          >
-            <RecentEventItem
-              key={i}
-              item={{
-                clubName: item?.clubName,
-                clubIcon: item?.clubIcon,
-                event: { ...item },
-              }}
-            />
-          </div>
-        ))}
+        {content}
       </div>
 
       <button onClick={next} className={`${styles.nav} ${styles.right}`}>

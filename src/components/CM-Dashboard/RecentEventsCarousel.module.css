@@ -7,6 +7,7 @@
 }
 
 .slider {
+  position: relative;
   display: flex;
   height: 100%;
   transition: transform 0.4s ease;
@@ -69,4 +70,13 @@
 
 .current {
   background: white;
+}
+
+.noItems {
+  position: absolute;
+  top: 44%;
+  left: 130px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
