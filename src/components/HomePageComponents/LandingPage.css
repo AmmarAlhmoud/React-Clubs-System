@@ -66,17 +66,17 @@
   font-family: "Inter";
   font-style: normal;
   line-height: 68px;
-  font-weight: 300;
+  font-weight: 500;
   font-size: 50px;
   color: white;
   position: absolute;
-  left: 604px;
-  right: 0%;
+  left: 25%;
+  right: 20%;
   top: 830px;
-  bottom: 55.79%;
-  position: absolute;
+  bottom: 47.95%;
   display: flex;
   align-items: center;
+  justify-content: center;
   letter-spacing: -2px;
 }
 .Music-conglumerate {

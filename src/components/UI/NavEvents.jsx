@@ -10,8 +10,11 @@ import ColoredButton from "./ColoredButton";
 import styles from "./NavEvents.module.css";
 import CustomSelectInput from "./Search/CustomSelectInput";
 import { eventsActions } from "../../store/events-slice";
+import { useTranslation } from "react-i18next";
 
 const NavEvents = () => {
+  const { t } = useTranslation();
+
   const db = database;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [clearFilter, setClearFilter] = useState(false);
@@ -124,7 +127,9 @@ const NavEvents = () => {
           </div>
         ))
       ) : (
-        <div className={styles["no-results"]}>No matching events found</div>
+        <div className={styles["no-results"]}>
+          {t("events-list.nav-events.no-matching")}
+        </div>
       );
   }
 
@@ -141,7 +146,7 @@ const NavEvents = () => {
           <input
             type="text"
             ref={inputRef}
-            placeholder={"Event Name"}
+            placeholder={t("events-list.nav-events.event-name")}
             name="clubName"
             autoComplete="off"
             onChange={handleNameChange}
@@ -159,13 +164,13 @@ const NavEvents = () => {
         <div>
           <img src={dateIcon} alt="date" />
           <span className={dateSelected ? styles.hideS : styles.showS}>
-            Date
+            {t("events-list.nav-events.date")}
           </span>
           <input
             ref={dateRef}
             type="date"
             id="date"
-            placeholder="Date"
+            placeholder={t("events-list.nav-events.date")}
             name="date"
             onChange={handleDateChange}
             className={dateSelected ? styles.showD : styles.hideD}
@@ -179,7 +184,11 @@ const NavEvents = () => {
         </div>
 
         <div>
-          {!clearFilter && <ColoredButton type="submit">Search</ColoredButton>}
+          {!clearFilter && (
+            <ColoredButton type="submit">
+              {t("events-list.nav-events.search")}
+            </ColoredButton>
+          )}
           {clearFilter && (
             <ColoredButton red={true} onClick={resetFilterHandler}>
               X

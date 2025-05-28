@@ -14,8 +14,13 @@ import { clubActions } from "../../store/club-slice";
 
 import cloud from "../../assets/icons/CreateClub/cloud_upload.png";
 import styles from "./CreateClub.module.css";
+import { useTranslation } from "react-i18next";
+
+const TARGET_LOCALES = ["en", "tr"];
 
 const CreateClub = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selectedCategories = useSelector(
@@ -98,6 +103,38 @@ const CreateClub = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const translateText = async (text, locale) => {
+    const res = await fetch("https://libretranslate.com/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        q: text,
+        source: "auto",
+        target: locale,
+        format: "text",
+      }),
+    });
+    const { translatedText } = await res.json();
+    return translatedText;
+  };
+
+  const saveWithTranslations = async (sourceText) => {
+    // 1. Kick off all translations in parallel
+    const translationEntries = await Promise.all(
+      TARGET_LOCALES.map(async (locale) => {
+        const text = await translateText(sourceText, locale);
+        return [`description_${locale}`, text];
+      })
+    );
+
+    // 2. Build the object to write
+    const payload = {
+      ...Object.fromEntries(translationEntries),
+    };
+
+    return payload;
+  };
+
   const formSubmittingHandler = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -107,7 +144,7 @@ const CreateClub = () => {
       setIsInfoEmpty(true);
       if (checks.clubBgImage) setIsBgEmpty(true);
       if (checks.clubIcon) setIsIcEmpty(true);
-      toast.error("Please review all fields and fill in the missing info.");
+      toast.error(t("create-club.missing-info"));
       setIsSubmitting(false);
       return;
     }
@@ -128,6 +165,10 @@ const CreateClub = () => {
       // 2) immediately sign out secondaryAuth
       await signOut(secondaryAuth);
 
+      // **Could implement dynamic translation with paid service
+      // const translatedFields = await saveWithTranslations(formData.description);
+      // console.log(translatedFields);
+
       // 3) dispatch bundled club + managerId
       dispatch(
         clubActions.addNewClub({
@@ -139,7 +180,7 @@ const CreateClub = () => {
       // 4) navigate away
       navigate("/clubs-list");
     } catch (err) {
-      toast.error(err.message || "Error creating club manager");
+      toast.error(err.message || t("create-club.error-club-manager"));
     } finally {
       setIsSubmitting(false);
       setImagePreview(null);
@@ -152,7 +193,7 @@ const CreateClub = () => {
 
   return (
     <main className={styles.container}>
-      <h1>Create Club</h1>
+      <h1>{t("create-club.title")}</h1>
       <form onSubmit={formSubmittingHandler} className={styles.form}>
         <section
           className={`${styles["images-sec"]} ${
@@ -177,7 +218,7 @@ const CreateClub = () => {
             ) : (
               <div className={styles.upBgPlaceholder}>
                 <img src={cloud} alt="upload" />
-                <h1>Click to Upload Club Background</h1>
+                <h1>{t("create-club.upload-back")}</h1>
               </div>
             )}
           </div>
@@ -205,7 +246,8 @@ const CreateClub = () => {
               <div className={styles.iconPlaceholder}>
                 <img src={cloud} alt="upload" />
                 <h1>
-                  Click to Upload <br /> Club Icon
+                  {t("create-club.click-upload")} <br />{" "}
+                  {t("create-club.club-icon")}
                 </h1>
               </div>
             )}
@@ -223,7 +265,7 @@ const CreateClub = () => {
               id: "club-name",
               name: "clubName",
               type: "text",
-              placeholder: "Club Name",
+              placeholder: t("create-club.name"),
               value: formData.clubName,
               onChange: handleInputChange,
               disabled: isSubmitting,
@@ -240,7 +282,7 @@ const CreateClub = () => {
               id: "student-id",
               name: "studentId",
               type: "text",
-              placeholder: "Student ID",
+              placeholder: t("create-club.id"),
               value: formData.studentId,
               onChange: handleInputChange,
               disabled: isSubmitting,
@@ -257,7 +299,7 @@ const CreateClub = () => {
               id: "manager-name",
               name: "managerName",
               type: "text",
-              placeholder: "Manager Name",
+              placeholder: t("create-club.m-name"),
               value: formData.managerName,
               onChange: handleInputChange,
               disabled: isSubmitting,
@@ -276,7 +318,7 @@ const CreateClub = () => {
               id: "email",
               name: "email",
               type: "text",
-              placeholder: "Email Address",
+              placeholder: t("create-club.email"),
               value: formData.email,
               onChange: handleInputChange,
               disabled: isSubmitting,
@@ -293,7 +335,7 @@ const CreateClub = () => {
               id: "phone-number",
               name: "phoneNumber",
               type: "text",
-              placeholder: "Contact Number",
+              placeholder: t("create-club.number"),
               value: formData.phoneNumber,
               onChange: handleInputChange,
               disabled: isSubmitting,
@@ -315,7 +357,7 @@ const CreateClub = () => {
             name="description"
             rows="6"
             cols="142"
-            placeholder="Enter your club description here..."
+            placeholder={t("create-club.desc")}
             value={formData.description}
             onChange={handleInputChange}
             disabled={isSubmitting}
@@ -324,10 +366,10 @@ const CreateClub = () => {
 
         <div className={styles.actions}>
           <ColoreButton red disabled={isSubmitting}>
-            Cancel
+            {t("create-club.cancel")}
           </ColoreButton>
           <ColoreButton type="submit" disabled={isSubmitting}>
-            Create
+            {t("create-club.create")}
           </ColoreButton>
         </div>
       </form>

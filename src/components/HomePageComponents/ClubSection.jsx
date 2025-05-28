@@ -8,22 +8,49 @@ import P4 from "../../assets/pic4.png";
 import P5 from "../../assets/pic5.png";
 import P6 from "../../assets/pic6.png";
 import TitleDescription from "./TitleDescription";
+import { useTranslation } from "react-i18next";
 
 const ClubsSection = () => {
+  const { t } = useTranslation();
+
   const clubsData = [
-    { image: P1, title: "Babycare Club", description: "Oh my God!" },
-    { image: P2, title: "Chemicals Club", description: "who cares mf" },
-    { image: P3, title: "UU AFAD Club", description: "i hate programming" },
-    { image: P4, title: "Adventure Time Club", description: "css is shit!" },
-    { image: P5, title: "Dance Club", description: "i am exhausted" },
-    { image: P6, title: "Chess Club", description: "can't wait" },
+    {
+      image: P1,
+      title: t("home.club-sec.club-1.title"),
+      description: t("home.club-sec.club-1.desc"),
+    },
+    {
+      image: P2,
+      title: t("home.club-sec.club-2.title"),
+      description: t("home.club-sec.club-2.desc"),
+    },
+    {
+      image: P3,
+      title: t("home.club-sec.club-3.title"),
+      description: t("home.club-sec.club-3.desc"),
+    },
+    {
+      image: P4,
+      title: t("home.club-sec.club-4.title"),
+      description: t("home.club-sec.club-4.desc"),
+    },
+    {
+      image: P5,
+      title: t("home.club-sec.club-5.title"),
+      description: t("home.club-sec.club-5.desc"),
+    },
+    {
+      image: P6,
+      title: t("home.club-sec.club-6.title"),
+      description: t("home.club-sec.club-6.desc"),
+    },
   ];
 
   return (
     <div className="clubs-section">
       <TitleDescription
-        title="clubs"
-        description="wide variety of clubs viewing from Most popular"
+        title={t("home.club-sec.clubs")}
+        description={t("home.club-sec.desc")}
       />
       <div className="clubs-container">
         {clubsData.map((club, index) => (

@@ -52,19 +52,19 @@
 }
 
 .header div:last-child button:first-child {
-  background-color: #f23378;
-}
-
-.header div:last-child button:last-child {
   background-color: #2bb3ff;
 }
 
+.header div:last-child button:last-child {
+  background-color: #f23378;
+}
+
 .header div:last-child button:first-child:hover {
-  background-color: #d51e60;
+  background-color: #1a8dc2;
 }
 
 .header div:last-child button:last-child:hover {
-  background-color: #1a8dc2;
+  background-color: #d51e60;
 }
 
 .main p {

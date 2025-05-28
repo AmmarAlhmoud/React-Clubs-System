@@ -7,6 +7,7 @@ import { eventsActions } from "../../store/events-slice";
 import ColoredButton from "../UI/ColoredButton";
 
 import styles from "./ClubPostItem.module.css";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
@@ -24,6 +25,8 @@ const ClubPostItem = ({
   requestPost,
   type,
 }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const db = database;
   const showDetails = useSelector((state) => state.events.showPostDetails);
@@ -182,7 +185,9 @@ const ClubPostItem = ({
         <ul className={styles["post-info"]}>
           <li className={styles.sec1}>
             <span>
-              <p className={styles["post-tag"]}>Post Name</p>
+              <p className={styles["post-tag"]}>
+                {t("requests.club-post-req.post-item.post")}
+              </p>
               <p className={styles["post-tag-content"]}>{PostName}</p>
             </span>
           </li>
@@ -190,19 +195,21 @@ const ClubPostItem = ({
       )}
       {type !== "edit-post" && (
         <div className={styles.actions}>
-          <ColoredButton onClick={acceptPostReqHandler}>Accept</ColoredButton>
+          <ColoredButton onClick={acceptPostReqHandler}>
+            {t("requests.club-post-req.post-item.accept")}
+          </ColoredButton>
           <ColoredButton red={true} onClick={rejectPostReqHandler}>
-            Reject
+            {t("requests.club-post-req.post-item.reject")}
           </ColoredButton>
         </div>
       )}
       {type === "edit-post" && (
         <div className={styles.actions}>
           <ColoredButton onClick={acceptEditPostReqHandler}>
-            Accept
+            {t("requests.club-post-req.post-item.accept")}
           </ColoredButton>
           <ColoredButton red={true} onClick={rejectEditPostReqHandler}>
-            Reject
+            {t("requests.club-post-req.post-item.reject")}
           </ColoredButton>
         </div>
       )}
@@ -213,7 +220,7 @@ const ClubPostItem = ({
           }`}
         >
           <ColoredButton purble={true} onClick={showDetailsHandler}>
-            Details
+            {t("requests.club-post-req.post-item.details")}
           </ColoredButton>
         </div>
       )}
@@ -226,7 +233,7 @@ const ClubPostItem = ({
           }`}
         >
           <ColoredButton purble={true} onClick={showEditDetailsHandler}>
-            Details
+            {t("requests.club-post-req.post-item.details")}
           </ColoredButton>
         </div>
       )}

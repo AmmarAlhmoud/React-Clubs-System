@@ -58,17 +58,18 @@
   top: 30px;
   right: -245px;
   display: flex;
-  justify-content: right;
+  justify-content: center;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: 1rem;
   font-weight: 800;
   z-index: 14;
-  padding: 1em 1em 1em 0;
+  padding: 1em 1em 1em 2.8em;
   width: 15rem;
   height: 4rem;
   border-radius: 2em;
   color: white;
   background-color: #05161a;
+  text-align: center;
 }
 
 .main-img-logo {

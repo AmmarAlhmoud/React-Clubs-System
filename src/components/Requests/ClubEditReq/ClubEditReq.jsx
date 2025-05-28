@@ -13,8 +13,11 @@ import SelectInput from "../../EventsList/SelectInput";
 import BarLoader from "../../UI/BarLoader";
 
 import styles from "./ClubEditReq.module.css";
+import { useTranslation } from "react-i18next";
 
 const ClubEditReq = ({ title, className, type, Editable, children }) => {
+  const { t } = useTranslation();
+
   // Auth and role
   const userId = getAuthUserId();
   const userType = getAuthUserType();
@@ -220,7 +223,7 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
     ];
     if (checks.some(Boolean)) {
       setIsInfoEmpty(true);
-      toast.error("Make sure that you fill all the fields.");
+      toast.error(t("clubs-list.club-card.club-edit-req.fill-fields"));
       setIsBgEmpty(isEmpty(formData.clubBgImage));
       setIsIcEmpty(isEmpty(formData.clubIcon));
       setIsSubmitting(false);
@@ -299,7 +302,10 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
   return (
     <main className={`${styles.container} ${className || ""}`}>
       <h1>
-        {title || (type === "old-info" ? "Old Club Request" : "Edit Club")}
+        {title ||
+          (type === "old-info"
+            ? "Old Club Request"
+            : t("clubs-list.club-card.club-edit-req.edit-club"))}
       </h1>
       <form
         onSubmit={type === "old-info" ? () => {} : formSubmittingHandler}
@@ -317,8 +323,7 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
         >
           {Editable && (
             <p className={styles["click-to-change"]}>
-              *You can click on the background image and the club icon to change
-              them.
+              {t("clubs-list.club-card.club-edit-req.note")}
             </p>
           )}
           <div className={styles.upBg}>
@@ -340,7 +345,7 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
             {!selectedFile && !formData.clubBgImage && (
               <div className={styles.upBg}>
                 <img src={cloud} alt="upload" />
-                <h1>Click to Upload Club Background</h1>
+                <h1>{t("clubs-list.club-card.club-edit-req.upload-back")}</h1>
               </div>
             )}
             <div
@@ -360,7 +365,8 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
                     alt="upload"
                   />
                   <h1>
-                    Click to Upload <br /> Club Icon
+                    {t("clubs-list.club-card.club-edit-req.click-upload")}{" "}
+                    <br /> {t("clubs-list.club-card.club-edit-req.club-icon")}
                   </h1>
                 </>
               )}
@@ -401,7 +407,7 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
               id: "club-name",
               name: "clubName",
               type: "text",
-              placeholder: "Club Name",
+              placeholder: t("clubs-list.club-card.club-edit-req.name"),
               value: formData.clubName,
               onChange: handleInputChange,
               disabled: isSubmitting || EditClubReqForAd,
@@ -419,7 +425,7 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
               id: "student-id",
               name: "studentId",
               type: "text",
-              placeholder: "Student ID",
+              placeholder: t("clubs-list.club-card.club-edit-req.id"),
               value: formData.studentId,
               onChange: handleInputChange,
               disabled: isSubmitting || Cl || EditClubReqForAd,
@@ -437,7 +443,7 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
               id: "club-manager-name",
               name: "managerName",
               type: "text",
-              placeholder: "Manager Name",
+              placeholder: t("clubs-list.club-card.club-edit-req.m-name"),
               value: formData.managerName,
               onChange: handleInputChange,
               disabled: isSubmitting || Cl || EditClubReqForAd,
@@ -458,7 +464,7 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
               id: "email",
               name: "email",
               type: "text",
-              placeholder: "Email Address",
+              placeholder: t("clubs-list.club-card.club-edit-req.email"),
               value: formData.email,
               onChange: handleInputChange,
               disabled: isSubmitting || Cl || EditClubReqForAd,
@@ -480,7 +486,7 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
               id: "phone-number",
               name: "phoneNumber",
               type: "text",
-              placeholder: "Contact Number",
+              placeholder: t("clubs-list.club-card.club-edit-req.number"),
               value: formData.phoneNumber,
               onChange: handleInputChange,
               disabled: isSubmitting || EditClubReqForAd,
@@ -509,8 +515,8 @@ const ClubEditReq = ({ title, className, type, Editable, children }) => {
             id="club-description"
             name="description"
             rows="6"
-            cols="142"
-            placeholder="Enter your club description here..."
+            cols="146"
+            placeholder={t("clubs-list.club-card.club-edit-req.desc")}
             value={formData.description}
             onChange={handleInputChange}
             disabled={isSubmitting || EditClubReqForAd}

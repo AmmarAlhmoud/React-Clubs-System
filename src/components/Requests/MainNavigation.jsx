@@ -2,8 +2,11 @@
 import { NavLink } from "react-router-dom";
 
 import styles from "./MainNavigation.module.css";
+import { useTranslation } from "react-i18next";
 
 function MainNavigation({ children }) {
+  const { t } = useTranslation();
+
   return (
     <>
       <nav className={styles["main-req-nav"]}>
@@ -18,7 +21,7 @@ function MainNavigation({ children }) {
               }
             >
               <div className={styles["nav-req-item"]}>
-                <span>Event Request</span>
+                <span>{t("requests.main-nav.event-req")}</span>
               </div>
             </NavLink>
             <NavLink
@@ -30,7 +33,7 @@ function MainNavigation({ children }) {
               }
             >
               <div className={styles["nav-req-item"]}>
-                <span>Club Post Request</span>
+                <span>{t("requests.main-nav.club-post-req")}</span>
               </div>
             </NavLink>
             <NavLink
@@ -42,7 +45,7 @@ function MainNavigation({ children }) {
               }
             >
               <div className={styles["nav-req-item"]}>
-                <span>Club Edit Request</span>
+                <span>{t("requests.main-nav.club-edit-req")}</span>
               </div>
             </NavLink>
           </section>
@@ -58,7 +61,7 @@ function MainNavigation({ children }) {
               <div
                 className={`${styles["nav-req-item"]} ${styles["nav-req-item-edit"]}`}
               >
-                <span>Event Edit Request</span>
+                <span>{t("requests.main-nav.event-edit-req")}</span>
               </div>
             </NavLink>
             <NavLink
@@ -70,7 +73,7 @@ function MainNavigation({ children }) {
               }
             >
               <div className={styles["nav-req-item"]}>
-                <span>Post Edit Request</span>
+                <span>{t("requests.main-nav.post-edit-req")}</span>
               </div>
             </NavLink>
           </section>

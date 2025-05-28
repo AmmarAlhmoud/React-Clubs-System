@@ -9,8 +9,11 @@ import { ref, onValue } from "firebase/database";
 import cateIcon from "../../assets/icons/ClubsList/categories.png";
 import searchIcon from "../../assets/icons/ClubsList/search.png";
 import { clubActions } from "../../store/club-slice";
+import { useTranslation } from "react-i18next";
 
 const NavClubs = () => {
+  const { t } = useTranslation();
+
   const db = database;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [clearFilter, setClearFilter] = useState(false);
@@ -113,7 +116,9 @@ const NavClubs = () => {
           </div>
         ))
       ) : (
-        <div className={styles["no-results"]}>No matching clubs found</div>
+        <div className={styles["no-results"]}>
+          {t("clubs-list.club-card.club-edit-req.nav.no-match")}
+        </div>
       );
   }
 
@@ -130,7 +135,7 @@ const NavClubs = () => {
           <input
             type="text"
             ref={inputRef}
-            placeholder="Club Name"
+            placeholder={t("clubs-list.club-card.club-edit-req.nav.club-name")}
             name="clubName"
             autoComplete="off"
             value={searchedName}
@@ -150,7 +155,11 @@ const NavClubs = () => {
         </div>
 
         <div>
-          {!clearFilter && <ColoredButton type="submit">Search</ColoredButton>}
+          {!clearFilter && (
+            <ColoredButton type="submit">
+              {t("clubs-list.club-card.club-edit-req.nav.search")}
+            </ColoredButton>
+          )}
           {clearFilter && (
             <ColoredButton red={true} onClick={resetFilterHandler}>
               X

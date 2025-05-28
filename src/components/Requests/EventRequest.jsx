@@ -13,10 +13,13 @@ import BarLoader from "../UI/BarLoader";
 import CM_Logo from "../../assets/icons/EventsList/club_manager_logo.png";
 
 import styles from "./EventRequest.module.css";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
 const EventRequest = () => {
+  const { t } = useTranslation();
+
   const reqEventsList = useSelector((state) => state.events.reqEventsList);
   const showDetails = useSelector((state) => state.events.showEventReqDetails);
   const reqEventData = useSelector((state) => state.events.reqEventData);
@@ -56,11 +59,13 @@ const EventRequest = () => {
       update(ref(db), updates2)
         .then(() => {
           toast.success(
-            `"${newEventToClub.EventName}" event request has been accepted`
+            `"${newEventToClub.EventName}" ${t(
+              "requests.event-req.accept-event-req"
+            )}`
           );
         })
         .catch(() => {
-          toast.error("Error accepting the event request please try again");
+          toast.error(t("requests.event-req.error-accept-event-req"));
         });
     };
 
@@ -86,7 +91,6 @@ const EventRequest = () => {
     if (initialLoad) {
       // fetch the current events list requests at startup
       fetchCurrentUserClub();
-      // dispatch(eventsActions.setShowEventDetails(false));
       initialLoad = false;
     }
 
@@ -99,7 +103,6 @@ const EventRequest = () => {
       addNewEventToClub(reqEventData.info);
       editEventReqStatus(reqEventData.status);
       removeEventReq(reqEventData.info);
-      // TODO: CHECK IF THIS WORKS
       dispatch(eventsActions.setShowEventDetails(false));
       dispatch(eventsActions.setReqEventData(null));
     }
@@ -112,10 +115,9 @@ const EventRequest = () => {
     ) {
       editEventReqStatus(rejectEventStatus);
       removeEventReq(rejectEventStatus);
-      // TODO: CHECK IF THIS WORKS
       dispatch(eventsActions.setShowEventDetails(false));
       dispatch(eventsActions.setRejectEventStatus(null));
-      toast.success("The event request has been rejected");
+      toast.success(t("requests.event-req.reject-event-req"));
     }
   }, [dispatch, db, reqEventData, reqEventsList, rejectEventStatus]);
 
@@ -162,7 +164,7 @@ const EventRequest = () => {
   ) {
     eventsList = (
       <p className={styles["no-req-event-item"]}>
-        There is no event requests at the moment.
+        {t("requests.event-req.no-event")}
       </p>
     );
   }
@@ -171,7 +173,7 @@ const EventRequest = () => {
     <section className={styles["event-req"]}>
       <ul className={styles["event-req-list"]}>{eventsList}</ul>
       {reqEventsList !== null && !showDetails && (
-        <DetailsHidden DName="event" />
+        <DetailsHidden DName={t("requests.event-req.event")} />
       )}
       {showDetails && <EventDetails from={"requests"} />}
     </section>

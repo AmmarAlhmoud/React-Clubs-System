@@ -2,7 +2,7 @@
   min-height: 100vh;
   padding: 1.5em 2em 1.5em 0;
   display: grid;
-  grid-template-columns: 14% 1fr;
+  grid-template-columns: 15% 1fr;
   column-gap: 1.6em;
   background-color: #212225;
 }
@@ -156,4 +156,3 @@
   stroke: #ab4d7d;
   transition: stroke 0.4s ease-in-out;
 }
-

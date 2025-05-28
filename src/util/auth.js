@@ -55,13 +55,13 @@ export const displayAuthUserType = () => {
     return null;
   }
   if (userType === "Ad") {
-    return "SKS";
+    return "sks";
   }
   if (userType === "Cl") {
-    return "Club Manager";
+    return "club-manager";
   }
   if (userType === "St") {
-    return "Student";
+    return "studnet";
   }
 };
 

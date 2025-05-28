@@ -15,8 +15,11 @@ import ColoreButton from "../UI/ColoredButton.jsx";
 import cloud from "../../assets/icons/CreateClub/cloud_upload.png";
 import styles from "../CreateClub/CreateClub.module.css";
 import Dropdown from "../EventsList/dropdown";
+import { useTranslation } from "react-i18next";
 
 const RequestEvent = () => {
+  const { t } = useTranslation();
+
   const initialFormData = {
     clubId: "",
     clubName: "",
@@ -195,7 +198,7 @@ const RequestEvent = () => {
             EventImage: imagePreview,
           }));
         } catch (error) {
-          toast.error("Error uploading the event image please try again");
+          toast.error(t("req-event.error-uploading"));
         }
       }
 
@@ -275,13 +278,9 @@ const RequestEvent = () => {
         setIsDateEmpty(true);
       }
       setIsSubmitting(false);
-      toast.error(
-        "Please review the information and ensure all fields are filled"
-      );
+      toast.error(t("req-event.fill-info"));
       return;
     }
-
-  
 
     dispatch(
       eventsActions.addNewEvent({
@@ -306,7 +305,7 @@ const RequestEvent = () => {
 
   return (
     <main className={styles.container}>
-      <h1>Request Event</h1>
+      <h1>{t("req-event.event")}</h1>
       <form onSubmit={formSubmittingHandler} className={styles["form"]}>
         <section
           className={`${styles["images-sec"]} ${
@@ -333,7 +332,7 @@ const RequestEvent = () => {
             {!selectedFile && (
               <div className={styles.upBg}>
                 <img src={cloud} alt="upload" />
-                <h1>Drag or Browse From computer files sorted automatically</h1>
+                <h1>{t("req-event.drag")}</h1>
               </div>
             )}
           </div>
@@ -351,7 +350,7 @@ const RequestEvent = () => {
               id: "event-name",
               name: "EventName",
               type: "text",
-              placeholder: "Event Name",
+              placeholder: t("req-event.name"),
               value: formData.EventName,
               onChange: handleInputChange,
               disabled: isSubmitting,
@@ -369,7 +368,7 @@ const RequestEvent = () => {
               id: "speakers-id",
               name: "Speakers",
               type: "text",
-              placeholder: "Speakers",
+              placeholder: t("req-event.speakers"),
               value: formData.Speakers,
               onChange: handleInputChange,
               disabled: isSubmitting,
@@ -387,7 +386,7 @@ const RequestEvent = () => {
               id: "contact-number",
               name: "ContactNumber",
               type: "text",
-              placeholder: "Contact Number",
+              placeholder: t("req-event.number"),
               value: formData.ContactNumber,
               onChange: handleInputChange,
               disabled: isSubmitting,
@@ -407,7 +406,7 @@ const RequestEvent = () => {
             isEmpty={isInfoEmpty}
             disabled={isSubmitting}
             list={TimeList}
-            placeholder="Starting Time"
+            placeholder={t("req-event.start-time")}
           />
           <Dropdown
             identifier="ending-time"
@@ -415,7 +414,7 @@ const RequestEvent = () => {
             isEmpty={isInfoEmpty}
             disabled={isSubmitting}
             list={TimeList}
-            placeholder="End Time"
+            placeholder={t("req-event.end-time")}
           />
           <Dropdown
             identifier="location"
@@ -423,7 +422,7 @@ const RequestEvent = () => {
             isEmpty={isInfoEmpty}
             disabled={isSubmitting}
             list={LocationList}
-            placeholder="Location"
+            placeholder={t("req-event.location")}
           />
         </div>
         <div className={styles["inputs"]}>
@@ -436,17 +435,17 @@ const RequestEvent = () => {
             id="club-description"
             name="description"
             rows="6"
-            cols="142"
-            placeholder="Enter your request description here..."
+            cols="146"
+            placeholder={t("req-event.desc")}
             value={formData.description}
             onChange={handleInputChange}
             disabled={isSubmitting}
           />
         </div>
         <div className={styles.actions}>
-          <ColoreButton red={true}>Cancel</ColoreButton>
+          <ColoreButton red={true}>{t("req-event.cancel")}</ColoreButton>
           <ColoreButton type="submit" disabled={isSubmitting}>
-            Create
+            {t("req-event.create")}
           </ColoreButton>
         </div>
       </form>

@@ -13,10 +13,13 @@ import DetailsHidden from "./DetailsHidden";
 import BarLoader from "../UI/BarLoader";
 
 import styles from "./ClubPostRequest.module.css";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
 const ClubPostRequest = () => {
+  const { t } = useTranslation();
+
   const reqPostsList = useSelector((state) => state.events.reqPostsList);
   const showDetails = useSelector((state) => state.events.showPostDetails);
   const reqPostData = useSelector((state) => state.events.reqPostData);
@@ -54,11 +57,13 @@ const ClubPostRequest = () => {
       update(ref(db), updates2)
         .then(() => {
           toast.success(
-            `"${newPostToClub.PostTitle}" post request has been accepted`
+            `"${newPostToClub.PostTitle}" ${t(
+              "requests.club-post-req.accept-post-req"
+            )}`
           );
         })
         .catch(() => {
-          toast.error("Error accepting the post request please try again");
+          toast.error(t("requests.club-post-req.error-accept-post-req"));
         });
     };
 
@@ -113,7 +118,7 @@ const ClubPostRequest = () => {
       // TODO: CHECK IF THIS WORKS
       dispatch(eventsActions.setShowPostDetails(false));
       dispatch(eventsActions.setRejectPostStatus(null));
-      toast.success("The post request has been rejected");
+      toast.success(t("requests.club-post-req.reject-post-req"));
     }
   }, [dispatch, db, reqPostData, reqPostsList, rejectPostStatus]);
 
@@ -152,7 +157,7 @@ const ClubPostRequest = () => {
   ) {
     postsList = (
       <p className={styles["no-req-post-item"]}>
-        There is no post requests at the moment.
+        {t("requests.club-post-req.no-post")}
       </p>
     );
   }
@@ -160,7 +165,9 @@ const ClubPostRequest = () => {
   return (
     <section className={styles["club-post"]}>
       <ul className={styles["club-post-list"]}>{postsList}</ul>
-      {reqPostsList !== null && !showDetails && <DetailsHidden DName="post" />}
+      {reqPostsList !== null && !showDetails && (
+        <DetailsHidden DName={t("requests.club-post-req.post")} />
+      )}
       {showDetails && <ClubPostRequestDetails />}
     </section>
   );

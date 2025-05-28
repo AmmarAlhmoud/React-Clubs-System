@@ -10,8 +10,11 @@ import CLogo from "../../assets/icons/EventsList/club_manager_logo.png";
 import Club_Post_Img from "../../assets/icons/EventsList/event_image.png";
 
 import styles from "./ClubPostRequestDetails.module.css";
+import { useTranslation } from "react-i18next";
 
 const ClubPostRequestDetails = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const postDetails = useSelector((state) => state.events.currentPostDetails);
 
@@ -33,7 +36,9 @@ const ClubPostRequestDetails = () => {
         </div>
       </section>
       <section className={styles.sec2}>
-        <h2 className={styles.h2}>Post Title :</h2>
+        <h2 className={styles.h2}>
+          {t("requests.club-post-req.post-details.title")}
+        </h2>
         <div>
           <h2 className={styles.h2}>{PostName}</h2>
           <p className={styles["post-desc"]}>{description}</p>

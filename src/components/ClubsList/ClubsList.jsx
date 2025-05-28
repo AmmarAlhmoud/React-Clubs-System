@@ -12,8 +12,11 @@ import NavClubs from "../UI/NavClubs";
 import ClubCard from "./ClubCard";
 import BarLoader from "../UI/BarLoader";
 import styles from "./ClubsList.module.css";
+import { useTranslation } from "react-i18next";
 
 const ClubsList = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const db = database;
 
@@ -48,9 +51,9 @@ const ClubsList = () => {
         clubId: managerId,
       })
         .then(() =>
-          toast.success(`"${clubData.clubName}" club has been created!`)
+          toast.success(`"${clubData.clubName}" ${t("clubs-list.created")}`)
         )
-        .catch(() => toast.error("Error creating the club"))
+        .catch(() => toast.error(t("clubs-list.error-creating")))
         .finally(() => dispatch(clubActions.addNewClub(null)));
     }
   }, [newClubObj, db, dispatch]);
@@ -64,9 +67,9 @@ const ClubsList = () => {
       const updates = { [`/clubslist/${editedClub.clubId}`]: editedClub };
       update(ref(db), updates)
         .then(() =>
-          toast.success(`"${editedClub.clubName}" edited successfully!`)
+          toast.success(`"${editedClub.clubName}" ${t("clubs-list.edited")}`)
         )
-        .catch(() => toast.error("Error editing the club"));
+        .catch(() => toast.error(t("clubs-list.error-editting")));
       dispatch(clubActions.addEditedClub(null));
     }
 
@@ -81,7 +84,7 @@ const ClubsList = () => {
         ),
         { ...status, reqDate: new Date().toISOString() }
       );
-      toast.success("Your club edit request has been sent!");
+      toast.success(t("clubs-list.edit-req"));
       dispatch(clubActions.setReqEditClub(null));
     }
 
@@ -89,9 +92,9 @@ const ClubsList = () => {
     if (deletedClub) {
       remove(ref(db, `clubslist/${deletedClub.clubId}`))
         .then(() =>
-          toast.success(`"${deletedClub.clubName}" deleted successfully!`)
+          toast.success(`"${deletedClub.clubName}" ${t("clubs-list.deleted")}`)
         )
-        .catch(() => toast.error("Error deleting the club"));
+        .catch(() => toast.error(t("clubs-list.error-deleting")));
       dispatch(clubActions.addDeletedClub(null));
     }
 
@@ -140,9 +143,7 @@ const ClubsList = () => {
     displayed = <BarLoader dashboard />;
   } else if (noResults) {
     displayed = (
-      <p className={styles["no-search-item"]}>
-        No results found for your search.
-      </p>
+      <p className={styles["no-search-item"]}>{t("clubs-list.no-result")}</p>
     );
   } else {
     const listToShow =

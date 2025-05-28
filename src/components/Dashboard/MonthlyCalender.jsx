@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./MonthlyCalender.module.css";
+import { useTranslation } from "react-i18next";
 
 const now = new Date();
 const currentYear = now.getFullYear();
 const currentMonth = now.getMonth(); // 0 = Jan, … 4 = May
-const monthName = now.toLocaleString("default", { month: "long" });
+// const monthName = now.toLocaleString("default", { month: "long" });
 
 // how many days in this month?
 const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -17,6 +18,8 @@ const firstWeekday = new Date(currentYear, currentMonth, 1).getDay();
 const offsetBlanks = (firstWeekday + 6) % 7;
 
 export default function MonthlyCalender() {
+  const { t } = useTranslation();
+
   const [selectedDay, setSelectedDay] = useState(null);
   const events = useSelector((s) => s.ui.weeklyCalData) || [];
 
@@ -51,12 +54,20 @@ export default function MonthlyCalender() {
   return (
     <div className={styles.main}>
       <h1>
-        {monthName} {currentYear}
+        {t(`dashboard.monthly-calendar.months.${currentMonth}`)} {currentYear}
       </h1>
       <section className={styles.calenders}>
         <div>
           <div className={styles.header}>
-            {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((wd, i) => (
+            {[
+              t("dashboard.monthly-calendar.week-days-short.0"),
+              t("dashboard.monthly-calendar.week-days-short.1"),
+              t("dashboard.monthly-calendar.week-days-short.2"),
+              t("dashboard.monthly-calendar.week-days-short.3"),
+              t("dashboard.monthly-calendar.week-days-short.4"),
+              t("dashboard.monthly-calendar.week-days-short.5"),
+              t("dashboard.monthly-calendar.week-days-short.6"),
+            ].map((wd, i) => (
               <div key={wd} className={i >= 5 ? styles.weekendDay : undefined}>
                 {wd}
               </div>
@@ -87,9 +98,11 @@ export default function MonthlyCalender() {
         {/* details */}
         <div className={styles.eventsTime}>
           {selectedDay === null ? (
-            <h1>Select a day</h1>
+            <h1>{t("dashboard.monthly-calendar.select-a-day")}</h1>
           ) : matching.length === 0 ? (
-            <div className={styles.noItem}>There is no event on this day.</div>
+            <div className={styles.noItem}>
+              {t("dashboard.monthly-calendar.no-events-this-day")}
+            </div>
           ) : (
             matching.map((ev, idx) => (
               <div key={idx} className={styles.itemContainer}>

@@ -11,10 +11,13 @@ import BarLoader from "../UI/BarLoader";
 import CM_Logo from "../../assets/icons/EventsList/club_manager_logo.png";
 
 import styles from "./ClubEditRequest.module.css";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
 const ClubEditRequest = () => {
+  const { t } = useTranslation();
+
   const reqClubEditList = useSelector((state) => state.club.reqClubEditList);
   const updatedClubInfo = useSelector((state) => state.club.updatedClubInfo);
 
@@ -43,11 +46,13 @@ const ClubEditRequest = () => {
       update(ref(db), updates)
         .then(() => {
           toast.success(
-            `"${editedClub.clubName}" club edit request has been accepted`
+            `"${editedClub.clubName}" ${t(
+              "requests.club-edit-req.accept-edit-req"
+            )}`
           );
         })
         .catch(() => {
-          toast.error("Error editting the club please try again");
+          toast.error(t("requests.club-edit-req.error-accept-edit-req"));
         });
     };
 
@@ -98,7 +103,7 @@ const ClubEditRequest = () => {
       removeEditingReq(rejectClubEditingReq);
       editClubReqStatus(rejectClubEditingReq);
       dispatch(clubActions.rejectClubEditingReq(null));
-      toast.success("The club edit request has been rejected");
+      toast.success(t("requests.club-edit-req.reject-edit-req"));
     }
   }, [dispatch, db, updatedClubInfo, rejectClubEditingReq, reqClubEditList]);
 
@@ -134,7 +139,7 @@ const ClubEditRequest = () => {
   ) {
     editClubList = (
       <p className={styles["no-req-edit-club-item"]}>
-        There is no club edit request at the moment.
+        {t("requests.club-edit-req.no-edit")}
       </p>
     );
   }

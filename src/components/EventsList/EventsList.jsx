@@ -14,10 +14,12 @@ import BarLoader from "../UI/BarLoader";
 import CM_Logo from "../../assets/icons/EventsList/club_manager_logo.png";
 
 import styles from "./EventsList.module.css";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
 const EventsList = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const db = database;
 
@@ -28,450 +30,278 @@ const EventsList = () => {
   const newEvent = useSelector((state) => state.events.newEvent);
   const newPost = useSelector((state) => state.events.newPost);
   const deletedEvent = useSelector((state) => state.events.deletedEvent);
-  const [isFetching, setIsFetching] = useState(false);
 
-  //search events
+  const [isFetching, setIsFetching] = useState(false);
   const searchEventParams = useSelector((state) => state.ui.searchEventParams);
   const resetEventFilter = useSelector((state) => state.ui.resetEventFilter);
   const [filterdEventsData, setFilterdEventsData] = useState([]);
   const [noSearchItemFound, setNoSearchItemFound] = useState(false);
 
-  const filterEventsByAll = (eventsData, searchEventParams) => {
-    return Object.values(eventsData).map((club) => {
+  // ——— Filter helpers ———
+  const filterEventsByAll = (eventsData, searchEventParams) =>
+    Object.values(eventsData).map((club) => {
       const listOfEvents = Object.values(club);
-
-      // Combine club name, category, and date filters
-      const filteredEvents = listOfEvents.filter((eventItem) => {
-        // Check if club name matches (if provided)
+      const filtered = listOfEvents.filter((e) => {
         const nameMatches =
-          searchEventParams.searchedWord === "" ||
-          eventItem.clubName
+          !searchEventParams.searchedWord ||
+          e.clubName
             .trim()
             .toLowerCase()
-            .substring(0, searchEventParams.searchedWord.length) ===
-            searchEventParams.searchedWord;
-
-        // Check if categories match (if provided)
+            .startsWith(searchEventParams.searchedWord);
         const categoryMatches =
-          searchEventParams.searchedEventCategories === null ||
-          searchEventParams.searchedEventCategories.some((searchCate) =>
-            eventItem.clubCategories.some(
-              (category) => category.value === searchCate.value
-            )
+          !searchEventParams.searchedEventCategories ||
+          searchEventParams.searchedEventCategories.some((sc) =>
+            e.clubCategories.some((c) => c.value === sc.value)
           );
-
-        // Check if date matches (if provided)
         const dateMatches =
-          searchEventParams.searchedDate === "" ||
-          (new Date(eventItem.Date).getFullYear() ===
-            new Date(searchEventParams.searchedDate).getFullYear() &&
-            new Date(eventItem.Date).getMonth() ===
-              new Date(searchEventParams.searchedDate).getMonth() &&
-            new Date(eventItem.Date).getDate() ===
-              new Date(searchEventParams.searchedDate).getDate());
-
-        // Return events that match all criteria
+          !searchEventParams.searchedDate ||
+          (() => {
+            const ev = new Date(e.Date);
+            const sd = new Date(searchEventParams.searchedDate);
+            return (
+              ev.getFullYear() === sd.getFullYear() &&
+              ev.getMonth() === sd.getMonth() &&
+              ev.getDate() === sd.getDate()
+            );
+          })();
         return nameMatches && categoryMatches && dateMatches;
       });
-
-      // Return filtered events or noItem flag
-      return filteredEvents.length > 0
-        ? { ...filteredEvents }
-        : { noItem: true };
+      return filtered.length > 0 ? { ...filtered } : { noItem: true };
     });
-  };
 
-  const filterEventsByDate = (eventsData, searchEventParams) => {
-    return Object.values(eventsData).map((club) => {
+  const filterEventsByDate = (eventsData, searchEventParams) =>
+    Object.values(eventsData).map((club) => {
       const listOfEvents = Object.values(club);
-
-      // date filter
-      const filteredEvents = listOfEvents.filter((eventItem) => {
-        // Check if date matches (if provided)
-        const dateMatches =
-          searchEventParams.searchedDate === "" ||
-          (new Date(eventItem.Date).getFullYear() ===
-            new Date(searchEventParams.searchedDate).getFullYear() &&
-            new Date(eventItem.Date).getMonth() ===
-              new Date(searchEventParams.searchedDate).getMonth() &&
-            new Date(eventItem.Date).getDate() ===
-              new Date(searchEventParams.searchedDate).getDate());
-
-        // Return events that match
-        return dateMatches;
+      const filtered = listOfEvents.filter((e) => {
+        if (!searchEventParams.searchedDate) return true;
+        const ev = new Date(e.Date);
+        const sd = new Date(searchEventParams.searchedDate);
+        return (
+          ev.getFullYear() === sd.getFullYear() &&
+          ev.getMonth() === sd.getMonth() &&
+          ev.getDate() === sd.getDate()
+        );
       });
-
-      // Return filtered events or noItem flag
-      return filteredEvents.length > 0
-        ? { ...filteredEvents }
-        : { noItem: true };
+      return filtered.length > 0 ? { ...filtered } : { noItem: true };
     });
-  };
 
-  const filterEventsByNameAndCategory = (eventsData, searchEventParams) => {
-    return Object.values(eventsData).map((club) => {
+  const filterEventsByNameAndCategory = (eventsData, searchEventParams) =>
+    Object.values(eventsData).map((club) => {
       const listOfEvents = Object.values(club);
-
-      // Combine club name and category filters
-      const filteredEvents = listOfEvents.filter((eventItem) => {
-        // Check if club name matches (if provided)
+      const filtered = listOfEvents.filter((e) => {
         const nameMatches =
-          searchEventParams.searchedWord === "" ||
-          eventItem.clubName
+          !searchEventParams.searchedWord ||
+          e.clubName
             .trim()
             .toLowerCase()
-            .substring(0, searchEventParams.searchedWord.length) ===
-            searchEventParams.searchedWord;
-
-        // Check if categories match (if provided)
+            .startsWith(searchEventParams.searchedWord);
         const categoryMatches =
-          searchEventParams.searchedEventCategories === null ||
-          searchEventParams.searchedEventCategories.some((searchCate) =>
-            eventItem.clubCategories.some(
-              (category) => category.value === searchCate.value
-            )
+          !searchEventParams.searchedEventCategories ||
+          searchEventParams.searchedEventCategories.some((sc) =>
+            e.clubCategories.some((c) => c.value === sc.value)
           );
-
-        // Return events that match both criteria
         return nameMatches && categoryMatches;
       });
-
-      // Return filtered events or noItem flag
-      return filteredEvents.length > 0
-        ? { ...filteredEvents }
-        : { noItem: true };
+      return filtered.length > 0 ? { ...filtered } : { noItem: true };
     });
-  };
 
   const filteredEventsByName = (eventsData, searchEventParams) => {
-    const searchKeyWord = searchEventParams.searchedWord.trim().toLowerCase();
+    const key = searchEventParams.searchedWord.trim().toLowerCase();
     return Object.values(eventsData).map((club) => {
       const listOfEvents = Object.values(club);
-      const filterdEventsFromClub = listOfEvents.filter((eventItem) => {
-        return (
-          eventItem.EventName.trim()
-            .toLowerCase()
-            .substring(0, searchKeyWord.length) === searchKeyWord
-        );
-      });
-      if (filterdEventsFromClub.length > 0) {
-        return { ...filterdEventsFromClub };
-      } else {
-        return {
-          noItem: true,
-        };
-      }
+      const filtered = listOfEvents.filter((e) =>
+        e.EventName.trim().toLowerCase().startsWith(key)
+      );
+      return filtered.length > 0 ? { ...filtered } : { noItem: true };
     });
   };
 
-  const filteredEventsByCategory = (eventsData, searchEventParams) => {
-    return Object.values(eventsData).map((club) => {
+  const filteredEventsByCategory = (eventsData, searchEventParams) =>
+    Object.values(eventsData).map((club) => {
       const listOfEvents = Object.values(club);
-
-      // Combine club name, category, and date filters
-      const filteredEvents = listOfEvents.filter((eventItem) => {
-        // Check if categories match (if provided)
-        const categoryMatches = searchEventParams.searchedEventCategories.some(
-          (searchCate) =>
-            eventItem.clubCategories.some(
-              (category) => category.value === searchCate.value
-            )
-        );
-
-        // Return events that match all criteria
-        return categoryMatches;
-      });
-
-      // Return filtered events or noItem flag
-      return filteredEvents.length > 0
-        ? { ...filteredEvents }
-        : { noItem: true };
+      const filtered = listOfEvents.filter((e) =>
+        searchEventParams.searchedEventCategories.some((sc) =>
+          e.clubCategories.some((c) => c.value === sc.value)
+        )
+      );
+      return filtered.length > 0 ? { ...filtered } : { noItem: true };
     });
-  };
 
-  const filteredEventsByNameAndDate = (eventsData, searchEventParams) => {
-    return Object.values(eventsData).map((club) => {
+  const filteredEventsByNameAndDate = (eventsData, searchEventParams) =>
+    Object.values(eventsData).map((club) => {
       const listOfEvents = Object.values(club);
-
-      // Combine club name, category, and date filters
-      const filteredEvents = listOfEvents.filter((eventItem) => {
-        // Check if club name matches (if provided)
+      const filtered = listOfEvents.filter((e) => {
         const nameMatches =
-          searchEventParams.searchedWord === "" ||
-          eventItem.clubName
+          !searchEventParams.searchedWord ||
+          e.clubName
             .trim()
             .toLowerCase()
-            .substring(0, searchEventParams.searchedWord.length) ===
-            searchEventParams.searchedWord;
-
-        // Check if date matches (if provided)
+            .startsWith(searchEventParams.searchedWord);
+        const ev = new Date(e.Date);
+        const sd = new Date(searchEventParams.searchedDate);
         const dateMatches =
-          searchEventParams.searchedDate === "" ||
-          (new Date(eventItem.Date).getFullYear() ===
-            new Date(searchEventParams.searchedDate).getFullYear() &&
-            new Date(eventItem.Date).getMonth() ===
-              new Date(searchEventParams.searchedDate).getMonth() &&
-            new Date(eventItem.Date).getDate() ===
-              new Date(searchEventParams.searchedDate).getDate());
-
-        // Return events that match all criteria
+          !searchEventParams.searchedDate ||
+          (ev.getFullYear() === sd.getFullYear() &&
+            ev.getMonth() === sd.getMonth() &&
+            ev.getDate() === sd.getDate());
         return nameMatches && dateMatches;
       });
-
-      // Return filtered events or noItem flag
-      return filteredEvents.length > 0
-        ? { ...filteredEvents }
-        : { noItem: true };
+      return filtered.length > 0 ? { ...filtered } : { noItem: true };
     });
-  };
 
-  const filteredEventsByDateAndCategories = (eventsData, searchEventParams) => {
-    return Object.values(eventsData).map((club) => {
+  const filteredEventsByDateAndCategories = (eventsData, searchEventParams) =>
+    Object.values(eventsData).map((club) => {
       const listOfEvents = Object.values(club);
-
-      // Combine club name, category, and date filters
-      const filteredEvents = listOfEvents.filter((eventItem) => {
-        // Check if categories match
+      const filtered = listOfEvents.filter((e) => {
         const categoryMatches =
-          searchEventParams.searchedEventCategories === null ||
-          searchEventParams.searchedEventCategories.some((searchCate) =>
-            eventItem.clubCategories.some(
-              (category) => category.value === searchCate.value
-            )
+          !searchEventParams.searchedEventCategories ||
+          searchEventParams.searchedEventCategories.some((sc) =>
+            e.clubCategories.some((c) => c.value === sc.value)
           );
-        // Check if date matches
+        const ev = new Date(e.Date);
+        const sd = new Date(searchEventParams.searchedDate);
         const dateMatches =
-          searchEventParams.searchedDate === "" ||
-          (new Date(eventItem.Date).getFullYear() ===
-            new Date(searchEventParams.searchedDate).getFullYear() &&
-            new Date(eventItem.Date).getMonth() ===
-              new Date(searchEventParams.searchedDate).getMonth() &&
-            new Date(eventItem.Date).getDate() ===
-              new Date(searchEventParams.searchedDate).getDate());
-
-        // Return events that match all criteria
+          !searchEventParams.searchedDate ||
+          (ev.getFullYear() === sd.getFullYear() &&
+            ev.getMonth() === sd.getMonth() &&
+            ev.getDate() === sd.getDate());
         return categoryMatches && dateMatches;
       });
-
-      // Return filtered events or noItem flag
-      return filteredEvents.length > 0
-        ? { ...filteredEvents }
-        : { noItem: true };
+      return filtered.length > 0 ? { ...filtered } : { noItem: true };
     });
-  };
 
   useEffect(() => {
+    // fetch
     const fetchEventsList = () => {
       setIsFetching(true);
       const starCountRef = ref(db, "/events-list");
       onValue(starCountRef, (snapshot) => {
-        const data = snapshot.val();
-        dispatch(eventsActions.replaceEventsData(data));
+        dispatch(eventsActions.replaceEventsData(snapshot.val()));
         setIsFetching(false);
       });
     };
 
-    const addNewEvent = (newEvent) => {
-      set(
-        ref(db, "req-events-list/" + newEvent.clubId + "/" + newEvent.EventId),
-        {
-          ...newEvent,
-        }
-      )
-        .then(() => {
-          toast.success(`"${newEvent.EventName}" event request has been send!`);
-        })
-        .catch(() => {
-          toast.error("Error sending the event request please try again");
-        });
-    };
-
-    const addNewPost = (newPost) => {
-      set(ref(db, "req-posts-list/" + newPost.clubId + "/" + newPost.PostId), {
-        ...newPost,
-      })
-        .then(() => {
-          toast.success(`"${newPost.PostTitle}" post request has been send!`);
-        })
-        .catch(() => {
-          toast.error("Error sending the post request please try again");
-        });
-    };
-
-    const addReqStatus = (newReqStatus, to) => {
-      set(
-        ref(
-          db,
-          "req-status-list/" +
-            to +
-            newReqStatus.clubId +
-            "/" +
-            newReqStatus.reqId
-        ),
-        {
-          ...newReqStatus,
-          reqDate: new Date().toISOString(),
-        }
-      );
-    };
-
-    const deleteExistingEvent = () => {
-      const starCountRef1 = ref(
-        db,
-        "clubslist/" + deletedEvent.clubId + "/events/" + deletedEvent.EventId
-      );
-      remove(starCountRef1);
-      const starCountRef2 = ref(
-        db,
-        "events-list/" + deletedEvent.clubId + "/" + deletedEvent.EventId
-      );
-      remove(starCountRef2)
-        .then(() => {
+    // add new event
+    const addNewEvent = (info) =>
+      set(ref(db, `req-events-list/${info.clubId}/${info.EventId}`), info)
+        .then(() =>
           toast.success(
-            `"${deletedEvent.EventName}" evnet has been deleted successfully!`
-          );
-        })
-        .catch(() => {
-          toast.error("Error deleting the evnet please try again");
-        });
+            `"${info.EventName}" ${t("events-list.send-event-req")}`
+          )
+        )
+        .catch(() => toast.error(t("events-list.send-error-event-req")));
+
+    // add new post
+    const addNewPost = (info) =>
+      set(ref(db, `req-posts-list/${info.clubId}/${info.PostId}`), info)
+        .then(() =>
+          toast.success(`"${info.PostTitle}" ${t("events-list.send-post-req")}`)
+        )
+        .catch(() => toast.error(t("events-list.send-error-post-req")));
+
+    // add request status
+    const addReqStatus = (status, to) =>
+      set(ref(db, `req-status-list/${to}${status.clubId}/${status.reqId}`), {
+        ...status,
+        reqDate: new Date().toISOString(),
+      });
+
+    // delete existing event
+    const deleteExistingEvent = () => {
+      const clubRef = ref(
+        db,
+        `clubslist/${deletedEvent.clubId}/events/${deletedEvent.EventId}`
+      );
+      const listRef = ref(
+        db,
+        `events-list/${deletedEvent.clubId}/${deletedEvent.EventId}`
+      );
+      remove(clubRef);
+      remove(listRef)
+        .then(() =>
+          toast.success(
+            `"${deletedEvent.EventName}" ${t("events-list.delete-event-req")}`
+          )
+        )
+        .catch(() => toast.error(t("events-list.delete-error-event-req")));
     };
 
     if (initialLoad) {
-      // fetch the events after abrovel at first load
       fetchEventsList();
       initialLoad = false;
     }
 
-    if (initialLoad === false && newEvent !== null) {
+    if (!initialLoad && newEvent) {
       addNewEvent(newEvent.info);
       addReqStatus(newEvent.status, "event-request/");
       dispatch(eventsActions.addNewEvent(null));
     }
-    if (initialLoad === false && newPost !== null) {
+
+    if (!initialLoad && newPost) {
       addNewPost(newPost.info);
       addReqStatus(newPost.status, "post-request/");
       dispatch(eventsActions.addNewPost(null));
     }
-    if (initialLoad === false && deletedEvent !== null) {
+
+    if (!initialLoad && deletedEvent) {
       deleteExistingEvent();
       dispatch(eventsActions.addDeletedEvent(null));
     }
 
-    if (initialLoad === false && resetEventFilter && eventsData !== null) {
-      // for reseting the search filter
+    if (!initialLoad && resetEventFilter && eventsData) {
       setFilterdEventsData([]);
       setNoSearchItemFound(false);
       dispatch(uiActions.setResetEventFilter(false));
       return;
     }
 
-    if (
-      initialLoad === false &&
-      searchEventParams !== null &&
-      eventsData !== null
-    ) {
-      // search logic
-      let FilteredEvents = [];
-      // if there is no parameters and the search button clicked
-      if (
-        !initialLoad &&
-        searchEventParams.searchedWord === "" &&
-        searchEventParams.searchedDate === "" &&
-        searchEventParams.searchedEventCategories === null
-      ) {
-        toast.error(
-          "Enter a club name or date or choose a category to begin your search."
-        );
+    if (!initialLoad && searchEventParams && eventsData) {
+      const { searchedWord, searchedDate, searchedEventCategories } =
+        searchEventParams;
+
+      if (!searchedWord && !searchedDate && !searchedEventCategories) {
+        toast.error(t("events-list.enter-clubname-date-cate"));
         dispatch(uiActions.setSearchEventParams(null));
         return;
       }
 
-      // search based on both club name & categories.
-      if (
-        searchEventParams.searchedWord !== "" &&
-        searchEventParams.searchedEventCategories !== null &&
-        searchEventParams.searchedDate === ""
-      ) {
-        FilteredEvents = filterEventsByNameAndCategory(
-          eventsData,
-          searchEventParams
-        );
-      }
+      let FilteredEvents = [];
 
-      // searched based on club name only.
-      if (
-        searchEventParams.searchedWord !== "" &&
-        searchEventParams.searchedEventCategories === null &&
-        searchEventParams.searchedDate === ""
-      ) {
+      if (searchedWord && !searchedDate && !searchedEventCategories) {
         FilteredEvents = filteredEventsByName(eventsData, searchEventParams);
-
-        // if the searched item not found.
-        if (FilteredEvents[0].noItem === true) {
-          setNoSearchItemFound(true);
-        }
-      }
-
-      // searched based on the categories only.
-      if (
-        searchEventParams.searchedEventCategories !== null &&
-        searchEventParams.searchedWord === "" &&
-        searchEventParams.searchedDate === ""
-      ) {
+      } else if (!searchedWord && !searchedDate && searchedEventCategories) {
         FilteredEvents = filteredEventsByCategory(
           eventsData,
           searchEventParams
         );
-      }
-      // searched based on the date only.
-      if (
-        searchEventParams.searchedEventCategories === null &&
-        searchEventParams.searchedWord === "" &&
-        searchEventParams.searchedDate !== ""
-      ) {
+      } else if (!searchedWord && searchedDate && !searchedEventCategories) {
         FilteredEvents = filterEventsByDate(eventsData, searchEventParams);
-      }
-      // searched based on the club name & date.
-      if (
-        searchEventParams.searchedEventCategories === null &&
-        searchEventParams.searchedWord !== "" &&
-        searchEventParams.searchedDate !== ""
-      ) {
+      } else if (searchedWord && searchedDate && !searchedEventCategories) {
         FilteredEvents = filteredEventsByNameAndDate(
           eventsData,
           searchEventParams
         );
-      }
-      // searched based on the date & categories.
-      if (
-        searchEventParams.searchedEventCategories !== null &&
-        searchEventParams.searchedWord === "" &&
-        searchEventParams.searchedDate !== ""
-      ) {
+      } else if (!searchedWord && searchedDate && searchedEventCategories) {
         FilteredEvents = filteredEventsByDateAndCategories(
           eventsData,
           searchEventParams
         );
-      }
-
-      // search based on both club name & date & categories.
-      if (
-        searchEventParams.searchedDate !== "" &&
-        searchEventParams.searchedEventCategories !== null &&
-        searchEventParams.searchedWord !== ""
-      ) {
+      } else if (searchedWord && !searchedDate && searchedEventCategories) {
+        FilteredEvents = filterEventsByNameAndCategory(
+          eventsData,
+          searchEventParams
+        );
+      } else if (searchedWord && searchedDate && searchedEventCategories) {
         FilteredEvents = filterEventsByAll(eventsData, searchEventParams);
       }
 
-      // Check for no search item found ||| no working
-      // if (FilteredEvents.some((clubEvents) => clubEvents.noItem)) {
-      //   setNoSearchItemFound(true);
-      // }
       setFilterdEventsData(FilteredEvents);
-      // if the searched item found reset the state.
-      if (FilteredEvents[0]?.noItem !== true) {
-        setNoSearchItemFound(false);
-      }
+      const allClubsEmpty =
+        Array.isArray(FilteredEvents) &&
+        FilteredEvents.length > 0 &&
+        FilteredEvents.every((club) => club.noItem === true);
+      setNoSearchItemFound(allClubsEmpty);
+
       dispatch(uiActions.setSearchEventParams(null));
     }
   }, [
@@ -483,113 +313,85 @@ const EventsList = () => {
     searchEventParams,
     resetEventFilter,
     eventsData,
+    t,
   ]);
 
+  // ——— Render logic ———
   let eventsList = null;
 
-  if (eventsData === null) {
-    eventsList = <BarLoader events={true} />;
+  if (!eventsData) {
+    eventsList = <BarLoader events />;
   }
 
-  if (
-    eventsData !== null &&
-    filterdEventsData.length === 0 &&
-    !noSearchItemFound
-  ) {
-    eventsList = Object.values(eventsData).map((club) =>
-      Object.values(club).map((eventItem) => {
-        return (
-          <EventItem
-            key={eventItem.EventId}
-            id={eventItem.EventId}
-            clubId={eventItem.clubId}
-            CName={eventItem.clubName}
-            CMName={eventItem.clubManager}
-            CLogo={eventItem.clubIcon}
-            clubCategories={eventItem.clubCategories}
-            CMLogo={CM_Logo}
-            Speakers={eventItem.Speakers}
-            EventName={eventItem.EventName}
-            EventImage={eventItem.EventImage}
-            EventLocation={eventItem.location}
-            EventDate={eventItem.Date}
-            EventSTime={eventItem.Stime}
-            EventETime={eventItem.Etime}
-            CMEmail={eventItem.managerEmail}
-            CMPhone={eventItem.ContactNumber}
-            description={eventItem.description}
-            type="event-detail"
-            EventDetails={eventItem}
-          />
-        );
-      })
-    );
+  if (eventsData && filterdEventsData.length === 0 && !noSearchItemFound) {
+    eventsList = Object.values(eventsData)
+      .flatMap((club) => Object.values(club))
+      .map((e) => (
+        <EventItem
+          key={e.EventId}
+          id={e.EventId}
+          clubId={e.clubId}
+          CName={e.clubName}
+          CMName={e.clubManager}
+          CLogo={e.clubIcon}
+          clubCategories={e.clubCategories}
+          CMLogo={CM_Logo}
+          Speakers={e.Speakers}
+          EventName={e.EventName}
+          EventImage={e.EventImage}
+          EventLocation={e.location}
+          EventDate={e.Date}
+          EventSTime={e.Stime}
+          EventETime={e.Etime}
+          CMEmail={e.managerEmail}
+          CMPhone={e.ContactNumber}
+          description={e.description}
+          type="event-detail"
+          EventDetails={e}
+        />
+      ));
   }
 
-  // console.log("from no filterd ", filterdEventsData);
-
-  if (
-    eventsData !== null &&
-    filterdEventsData.length !== 0 &&
-    !noSearchItemFound
-  ) {
-    // console.log("this is the club: ");
-    eventsList = filterdEventsData.map((club) => {
-      if (club.noItem === true) {
-        return null;
-      } else {
-        return Object.values(club).map((eventItem) => {
-          return (
+  if (eventsData && filterdEventsData.length > 0 && !noSearchItemFound) {
+    eventsList = filterdEventsData.flatMap((club) =>
+      club.noItem
+        ? []
+        : Object.values(club).map((e) => (
             <EventItem
-              key={eventItem.EventId}
-              id={eventItem.EventId}
-              clubId={eventItem.clubId}
-              CName={eventItem.clubName}
-              CMName={eventItem.clubManager}
-              CLogo={eventItem.clubIcon}
-              clubCategories={eventItem.clubCategories}
+              key={e.EventId}
+              id={e.EventId}
+              clubId={e.clubId}
+              CName={e.clubName}
+              CMName={e.clubManager}
+              CLogo={e.clubIcon}
+              clubCategories={e.clubCategories}
               CMLogo={CM_Logo}
-              Speakers={eventItem.Speakers}
-              EventName={eventItem.EventName}
-              EventImage={eventItem.EventImage}
-              EventLocation={eventItem.location}
-              EventDate={eventItem.Date}
-              EventSTime={eventItem.Stime}
-              EventETime={eventItem.Etime}
-              CMEmail={eventItem.managerEmail}
-              CMPhone={eventItem.ContactNumber}
-              description={eventItem.description}
+              Speakers={e.Speakers}
+              EventName={e.EventName}
+              EventImage={e.EventImage}
+              EventLocation={e.location}
+              EventDate={e.Date}
+              EventSTime={e.Stime}
+              EventETime={e.Etime}
+              CMEmail={e.managerEmail}
+              CMPhone={e.ContactNumber}
+              description={e.description}
               type="event-detail"
-              EventDetails={eventItem}
+              EventDetails={e}
             />
-          );
-        });
-      }
-    });
-  }
-
-  if (
-    eventsData !== null &&
-    noSearchItemFound &&
-    filterdEventsData[0].noItem === true
-  ) {
-    console.log("No events found");
-    eventsList = (
-      <p className={styles["no-event-item"]}>
-        No results found for your search.
-      </p>
+          ))
     );
   }
 
-  if (
-    eventsData === null &&
-    isFetching === false &&
-    filterdEventsData.length === 0
-  ) {
+  if (eventsData && noSearchItemFound) {
     eventsList = (
-      <p className={styles["no-event-item"]}>
-        There is no events at the moment.
-      </p>
+      <p className={styles["no-event-item"]}>{t("events-list.no-results")}</p>
+    );
+  }
+
+  if (!eventsData && !isFetching && filterdEventsData.length === 0) {
+    eventsList = (
+      <p className={styles["no-event-item"]}>{t("events-list.no-events")}</p>
     );
   }
 
@@ -598,10 +400,10 @@ const EventsList = () => {
       <div className={styles.container}>
         <NavEvents />
         <main className={styles.main}>
-          <section className={styles["events"]}>
+          <section className={styles.events}>
             <ul
               className={`${styles["events-list"]} ${
-                eventsData === null ? styles["event-list-hidden"] : ""
+                !eventsData ? styles["event-list-hidden"] : ""
               }`}
             >
               {eventsList}
@@ -609,17 +411,14 @@ const EventsList = () => {
           </section>
           {!showEventDetails &&
             !isFetching &&
-            eventsData !== null &&
-            filterdEventsData[0]?.noItem !== true && (
+            eventsData &&
+            !filterdEventsData[0]?.noItem && (
               <section className={styles["event-hidden"]}>
-                <p className={styles.hint}>
-                  Click on “Details” to show Event details.
-                </p>
+                <p className={styles.hint}>{t("events-list.show-details")}</p>
               </section>
             )}
-
           {showEventDetails && (
-            <EventDetails from={"events-list"} orientation={true} />
+            <EventDetails from="events-list" orientation={true} />
           )}
         </main>
       </div>

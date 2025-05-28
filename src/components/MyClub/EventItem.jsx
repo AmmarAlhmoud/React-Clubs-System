@@ -8,8 +8,11 @@ import DelModal from "./DelModal.jsx";
 
 import styles from "./EventItem.module.css";
 import Button from "../UI/Button.jsx";
+import { useTranslation } from "react-i18next";
 
 const EventItem = ({ name, icon, event, canEdit }) => {
+  const { t } = useTranslation();
+
   // For Event Deletion Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   // For editing inputs mode
@@ -27,11 +30,14 @@ const EventItem = ({ name, icon, event, canEdit }) => {
   const eventLocationRef = useRef();
   const eventSpeakersRef = useRef();
 
-  const formattedDate = new Date(event.Date).toLocaleDateString("en-US", {
+  let formattedDate = new Date(event.Date).toLocaleDateString("en-US", {
     day: "2-digit",
     month: "short",
     year: "numeric",
   });
+
+  const month = formattedDate.split(" ")[0];
+  formattedDate = formattedDate.replace(month, t(`months.${month}`));
 
   const formatDateForInput = (dateString) => {
     // Parse the ISOString date, considering time zone if needed
@@ -112,17 +118,27 @@ const EventItem = ({ name, icon, event, canEdit }) => {
     // Determine the most relevant unit (considering 20-hour threshold)
     let timePeriod;
     if (days) {
-      timePeriod = `${days} day${days > 1 ? "s" : ""}`;
+      timePeriod = `${days} ${t("club-page.event-item.day")}${
+        days > 1 ? "s" : ""
+      }`;
     } else if (hours > 20) {
-      timePeriod = `${hours} hour${hours > 1 ? "s" : ""}`;
+      timePeriod = `${hours} ${t("club-page.event-item.hour")}${
+        hours > 1 ? "s" : ""
+      }`;
     } else if (hours > 0) {
       // Only show hours if greater than 0 and less than or equal to 20
-      timePeriod = `${hours} hour${hours > 1 ? "s" : ""}`;
+      timePeriod = `${hours} ${t("club-page.event-item.hour")}${
+        hours > 1 ? "s" : ""
+      }`;
     } else if (minutes > 0) {
       // Include minutes if greater than 0
-      timePeriod = `${minutes} minute${minutes > 1 ? "s" : ""}`;
+      timePeriod = `${minutes} ${t("club-page.event-item.minute")}${
+        minutes > 1 ? "s" : ""
+      }`;
     } else {
-      timePeriod = `${seconds} second${seconds > 1 ? "s" : ""}`;
+      timePeriod = `${seconds} ${t("club-page.event-item.second")}${
+        seconds > 1 ? "s" : ""
+      }`;
     }
 
     // Return the formatted time period
@@ -140,9 +156,7 @@ const EventItem = ({ name, icon, event, canEdit }) => {
     if (timeParts.length === 1) {
       // Single input: check if numeric (hours) or invalid format
       if (isNaN(parseInt(timeParts[0]))) {
-        toast.error(
-          "Invalid time format please provide a valid time format ex: 1:20, 20, 1 20"
-        );
+        toast.error(t("club-page.event-item.invalid-time"));
         return null;
       } else {
         hours = parseInt(timeParts[0]);
@@ -153,9 +167,7 @@ const EventItem = ({ name, icon, event, canEdit }) => {
       minutes = parseInt(timeParts[1]);
     } else {
       // Invalid format (return default)
-      toast.error(
-        "Invalid time format please provide a valid time format ex: 1:20, 20, 1 20"
-      );
+      toast.error(t("club-page.event-item.invalid-time"));
       return null;
     }
 
@@ -223,8 +235,8 @@ const EventItem = ({ name, icon, event, canEdit }) => {
     const newEtime = convertTimeToObject(eventETimeRef.current.value);
     const newLocation = addStringToObject(eventLocationRef.current.value);
     const newSpeakers = eventSpeakersRef.current.value;
-    console.log(newLocation);
-    console.log(areDatesNotEqual(newDate, event.Date));
+    // console.log(newLocation);
+    // console.log(areDatesNotEqual(newDate, event.Date));
 
     if (
       newName !== event.EventName ||
@@ -275,9 +287,7 @@ const EventItem = ({ name, icon, event, canEdit }) => {
     } else {
       setIsEditMode((prev) => !prev);
       setUploadedImage(null);
-      toast.error(
-        "Please change the event information before sending the request!"
-      );
+      toast.error(t("club-page.event-item.change-info"));
     }
   };
 
@@ -295,20 +305,22 @@ const EventItem = ({ name, icon, event, canEdit }) => {
           {canEdit && checkAuthClUserType() && (
             <div>
               <button
-                className={styles["events-btn"]}
-                type="button"
-                onClick={() => setIsModalOpen(true)}
-              >
-                Delete Event
-              </button>
-              <button
                 type="button"
                 onClick={toggleEditMode}
                 className={`${styles["events-btn"]} ${
                   isEditMode ? styles.editModeBtn : null
                 }`}
               >
-                {isEditMode ? "Editing..." : "Edit Event"}
+                {isEditMode
+                  ? `${t("club-page.event-item.editing")}`
+                  : `${t("club-page.event-item.edit-event")}`}
+              </button>
+              <button
+                className={styles["events-btn"]}
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+              >
+                {t("club-page.event-item.del-event")}
               </button>
             </div>
           )}
@@ -378,19 +390,20 @@ const EventItem = ({ name, icon, event, canEdit }) => {
         ) : (
           <div className={styles.moreEventDetails}>
             <h3>
-              Date: <span>{formattedDate}</span>
+              {t("club-page.event-item.date")} <span>{formattedDate}</span>
             </h3>
             <h3>
-              Time:{" "}
+              {t("club-page.event-item.time")}{" "}
               <span>
                 {event.Stime?.label} - {event.Etime?.label}
               </span>
             </h3>
             <h3>
-              Location: <span>{event.location?.label}</span>
+              {t("club-page.event-item.location")}{" "}
+              <span>{event.location?.label}</span>
             </h3>
             <h3 className={styles.eventSpeakers}>
-              Speakers: {addCommas(event.Speakers)}
+              {t("club-page.event-item.speakers")} {addCommas(event.Speakers)}
             </h3>
           </div>
         )}
@@ -402,7 +415,7 @@ const EventItem = ({ name, icon, event, canEdit }) => {
               className={styles.preview}
             />
             <label htmlFor="file-upload" className={styles.imgUpload}>
-              Edit
+              {t("club-page.event-item.edit")}
             </label>
             <input
               id="file-upload"
@@ -422,8 +435,10 @@ const EventItem = ({ name, icon, event, canEdit }) => {
         )}
         {isEditMode && (
           <div className={styles.editBtns}>
-            <Button onClick={toggleEditMode}>Cancel</Button>
-            <Button type="submit">Apply</Button>
+            <Button onClick={toggleEditMode}>
+              {t("club-page.event-item.cancel")}
+            </Button>
+            <Button type="submit">{t("club-page.event-item.apply")}</Button>
           </div>
         )}
       </form>
@@ -431,7 +446,7 @@ const EventItem = ({ name, icon, event, canEdit }) => {
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         icon={icon}
-        title={"this event"}
+        title={`${event?.EventName} ?`}
         onConfirmDelete={deleteEventHandler}
       />
     </div>

@@ -14,8 +14,11 @@ import ColoreButton from "../UI/ColoredButton";
 
 import cloud from "../../assets/icons/CreateClub/cloud_upload.png";
 import styles from "../CreateClub/CreateClub.module.css";
+import { useTranslation } from "react-i18next";
 
 const RequestPost = () => {
+  const { t } = useTranslation();
+
   const initialFormData = {
     clubId: "",
     clubName: "",
@@ -107,7 +110,7 @@ const RequestPost = () => {
             PostId: generateUniqueIDFromStr(prevFormData.PostTitle),
           }));
         } catch (error) {
-          toast.error("Error uploading the post image please try again");
+          toast.error(t("req-post.error-uploading"));
         }
       }
     };
@@ -133,9 +136,7 @@ const RequestPost = () => {
         setIsEvImageEmpty(true);
       }
       setIsSubmitting(false);
-      toast.error(
-        "Please review the information and ensure all fields are filled"
-      );
+      toast.error(t("req-post.fill-fields"));
       return;
     }
     dispatch(
@@ -161,7 +162,7 @@ const RequestPost = () => {
 
   return (
     <main className={styles.container}>
-      <h1>Request Post</h1>
+      <h1>{t("req-post.post")}</h1>
       <form onSubmit={formSubmittingHandler} className={styles["p-form"]}>
         <section
           className={`${styles["images-sec"]} ${
@@ -188,7 +189,7 @@ const RequestPost = () => {
             {!selectedFile && (
               <div className={styles.upBg}>
                 <img src={cloud} alt="upload" />
-                <h1>Drag or Browse From computer files sorted automatically</h1>
+                <h1>{t("req-post.drag")}</h1>
               </div>
             )}
           </div>
@@ -206,7 +207,7 @@ const RequestPost = () => {
               id: "post-title",
               name: "PostTitle",
               type: "text",
-              placeholder: "Post Title",
+              placeholder: t("req-post.title"),
               value: formData.PostTitle,
               onChange: handleInputChange,
               disabled: isSubmitting,
@@ -223,17 +224,17 @@ const RequestPost = () => {
             id="club-description"
             name="description"
             rows="9"
-            cols="142"
-            placeholder="Enter your request description here..."
+            cols="146"
+            placeholder={t("req-post.desc")}
             value={formData.description}
             onChange={handleInputChange}
             disabled={isSubmitting}
           />
         </div>
         <div className={styles.pActions}>
-          <ColoreButton red={true}>Cancel</ColoreButton>
+          <ColoreButton red={true}>{t("req-post.cancel")}</ColoreButton>
           <ColoreButton type="submit" disabled={isSubmitting}>
-            Create
+            {t("req-post.create")}
           </ColoreButton>
         </div>
       </form>

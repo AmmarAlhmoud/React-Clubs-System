@@ -14,10 +14,13 @@ import totalClubsIcon from "../../assets/images/Dashboard/totalClubsIcon.png";
 
 import styles from "./Dashboard.module.css";
 import BarLoader from "../UI/BarLoader.jsx";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
 const Dashboard = () => {
+  const { t } = useTranslation();
+
   const db = database;
   const dispatch = useDispatch();
 
@@ -58,7 +61,7 @@ const Dashboard = () => {
           : [];
       });
 
-      console.log(allEvents);
+      // console.log(allEvents);
 
       // dispatch the full list
       dispatch(uiActions.setWeeklyCalData(allEvents));
@@ -129,7 +132,7 @@ const Dashboard = () => {
   // if there is no requests in the request list
   if (hasAllUndefined && !isFetching) {
     requestsList = (
-      <p className={styles.noItem}>There is no requests at the moment!</p>
+      <p className={styles.noItem}>{t("dashboard.no-requests")}</p>
     );
   }
 
@@ -137,7 +140,7 @@ const Dashboard = () => {
     <main className={styles.container}>
       {/* ----- Requests start ----- */}
       <section className={styles.requests}>
-        <h1>Requests</h1>
+        <h1>{t("dashboard.requests")}</h1>
         {requestsList}
       </section>
       {/* ----- Requests end ----- */}
@@ -146,37 +149,40 @@ const Dashboard = () => {
         <div>
           <div className={styles.statsW}>
             <img src={waitingIcon} alt="waiting" />
-            <h1>Waiting</h1>
+            <h1>{t("dashboard.waiting")}</h1>
             <h2>
-              <span>{pendingRequestsList?.length || 0}</span>Requests
+              <span>{pendingRequestsList?.length || 0}</span>
+              {t("dashboard.requests")}
             </h2>
           </div>
         </div>
         <div>
           <div className={styles.statsA}>
             <img src={acceptedIcon} alt="accepted" />
-            <h1>Accepted</h1>
+            <h1>{t("dashboard.accepted")}</h1>
             <h2>
-              <span>{acceptedRequestsList?.length || 0}</span>Requests
+              <span>{acceptedRequestsList?.length || 0}</span>
+              {t("dashboard.requests")}
             </h2>
             <h2>
-              <span>{acceptedRequestedEventsList?.length || 0}</span>Event
-              Requests
+              <span>{acceptedRequestedEventsList?.length || 0}</span>
+              {t("dashboard.event-requests")}
             </h2>
           </div>
         </div>
         <div>
           <div className={styles.statsD}>
             <img src={deniedIcon} alt="denied" />
-            <h1>Denied</h1>
+            <h1>{t("dashboard.denied")}</h1>
             <h2>
-              <span>{rejectedRequestsList?.length || 0}</span>Requests
+              <span>{rejectedRequestsList?.length || 0}</span>
+              {t("dashboard.requests")}
             </h2>
           </div>
         </div>
         <div>
           <div className={styles.statsTC}>
-            <h1>Total Clubs</h1>
+            <h1>{t("dashboard.total-clubs")}</h1>
             <img src={totalClubsIcon} alt="total clubs" />
             <h2>{totalClubsNum}</h2>
           </div>

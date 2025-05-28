@@ -1,0 +1,547 @@
+{
+  "welcome": "Welcome Back",
+  "powerd-by": "Powered by",
+  "home": {
+    "nav": {
+      "uni": "USKUDAR",
+      "dashboard": "Dashboard",
+      "events": "Events",
+      "clubs": "Clubs",
+      "about": "About",
+      "help": "Help",
+      "login": "Login",
+      "logout": "Logout"
+    },
+    "title": "USKUDAR SEE THE FUTURE WITH US",
+    "bottom-bar": {
+      "diverse": "Diverse clubs!",
+      "fun": "Fun-filled Events!",
+      "craft": "Craft your Community",
+      "learn": "Learn more"
+    },
+    "title-sec": "TODAY'S EVENT",
+    "club-sec": {
+      "clubs": "Clubs",
+      "desc": "Wide variety of clubs viewing from Most popular",
+      "club-1": {
+        "title": "Babycare Club",
+        "desc": "Oh my God!"
+      },
+      "club-2": {
+        "title": "Chemicals Club",
+        "desc": "Who cares mf"
+      },
+      "club-3": {
+        "title": "UU AFAD Club",
+        "desc": "I hate programming"
+      },
+      "club-4": {
+        "title": "Adventure Time Club",
+        "desc": "Css is shit!"
+      },
+      "club-5": {
+        "title": "Dance Club",
+        "desc": "I am exhausted"
+      },
+      "club-6": {
+        "title": "Chess Club",
+        "desc": "I Can't wait"
+      }
+    },
+    "club-prev": {
+      "events": "Events",
+      "desc": "upcoming events for this month",
+      "club-1": { "title": "Istanbul sile", "desc": "Oh my God!" },
+      "club-2": {
+        "title": "Africa",
+        "desc": "Who cares"
+      },
+      "club-3": {
+        "title": "Bali Indonesia",
+        "desc": "I hate programming"
+      },
+      "club-4": {
+        "title": "Sydney Australia",
+        "desc": "Css is shit!"
+      },
+      "club-5": {
+        "title": "Morocco Africa",
+        "desc": "I am exhausted"
+      },
+      "club-6": {
+        "title": "Alberta Canada",
+        "desc": "I Can't wait"
+      }
+    },
+    "footer": {
+      "title": "Our Location",
+      "contact-us": "Contact Us",
+      "contact": "Contact"
+    }
+  },
+  "g-layout": {
+    "sks": "SKS",
+    "club-manager": "Club Manager",
+    "student": "Student",
+    "home": "Home",
+    "my-club": "My Club",
+    "dashboard": "Dashboard",
+    "events-list": "Events List",
+    "requests": "Requests",
+    "request-event": "Request Event",
+    "request-post": "Request Post",
+    "clubs-list": "Clubs List",
+    "create-club": "Create Club",
+    "edit-my-club": "Edit My Club",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "no-requests": "There is no requests at the moment!",
+    "requests": "Requests",
+    "waiting": "Waiting",
+    "accepted": "Accepted",
+    "event-requests": "Event Requests",
+    "denied": "Denied",
+    "total-clubs": "Total Clubs",
+    "request-date": "Request Date",
+    "weekly-calendar": {
+      "no-events-currently": "There is no events currently.",
+      "no-events-this-day": "There is no events at this day.",
+      "title": "Weekly Calendar",
+      "day": "Day",
+      "mon": "Monday",
+      "tues": "Tuesday",
+      "wed": "Wednesday",
+      "thur": "Thursday",
+      "fri": "Friday",
+      "sat": "Saturday",
+      "sun": "Sunday"
+    },
+    "monthly-calendar": {
+      "select-a-day": "Select a day",
+      "no-events-this-day": "There is no events at this day.",
+      "months": {
+        "0": "January",
+        "1": "February",
+        "2": "March",
+        "3": "April",
+        "4": "May",
+        "5": "June",
+        "6": "July",
+        "7": "August",
+        "8": "September",
+        "9": "October",
+        "10": "November",
+        "11": "December"
+      },
+      "week-days-short": {
+        "0": "Mon",
+        "1": "Tue",
+        "2": "Wed",
+        "3": "Thu",
+        "4": "Fri",
+        "5": "Sat",
+        "6": "Sun"
+      }
+    }
+  },
+  "cm-dashboard": {
+    "recent-new-events": "Recent New Events",
+    "club-page": "Club Page",
+    "my-next-event": "My Next Event",
+    "total-events": "Total Events",
+    "event": "Event",
+    "responded": "Responded",
+    "responded-status": {
+      "event": "Event",
+      "post": "Post",
+      "edit-event": "Edit Event",
+      "edit-post": "Edit Post",
+      "edit-club": "Edit Club"
+    },
+    "request-results": "Request Results",
+    "pending": "Pending",
+    "pending-requests": "Pending Requests",
+    "add-event-request": "Add Event Request",
+    "add-post-request": "Add Post Request",
+    "delete-model": {
+      "question": "Are you sure you want to delete",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "del-post-event": "your post/event",
+    "del-request": "your request",
+    "recent-carousel": "There is no recent events at the moment."
+  },
+  "st-dashboard": {
+    "recent-new-events": "Recent New Events"
+  },
+  "events-list": {
+    "no-results": "No results found for your search.",
+    "no-events": "There is no events at the moment.",
+    "show-details": "Click on “Details” to show Event details.",
+    "send-event-req": "event request has been send!",
+    "send-error-event-req": "Error sending the event request please try again",
+    "send-post-req": "post request has been send!",
+    "send-error-post-req": "Error sending the post request please try again",
+    "delete-event-req": "evnet has been deleted successfully!",
+    "delete-error-event-req": "Error deleting the evnet please try again",
+    "enter-clubname-date-cate": "Enter a club name or date or choose a category to begin your search.",
+    "nav-events": {
+      "no-matching": "No matching events found",
+      "event-name": "Event Name",
+      "date": "Date",
+      "search": "Search",
+      "categories-input": {
+        "title": "Categories",
+        "categories-list": {
+          "0": "Science",
+          "1": "Humanities",
+          "2": "Business",
+          "3": "Math",
+          "4": "Visual",
+          "5": "Performing",
+          "6": "Writing",
+          "7": "Media",
+          "8": "Games",
+          "9": "Culture",
+          "10": "Lifestyle",
+          "11": "Hobbies",
+          "12": "Activism",
+          "13": "Service",
+          "14": "Faith",
+          "15": "Individual",
+          "16": "Team",
+          "17": "Fitness",
+          "18": "Outdoor",
+          "19": "Technology"
+        }
+      }
+    },
+    "event-item": {
+      "event": "Event",
+      "location": "Location",
+      "date-time": "Date & Time",
+      "details": "Details",
+      "event-del-model": {
+        "question": "Are you sure you want to delete",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      }
+    },
+    "event-details": {
+      "club-page": "Club Page",
+      "title": "Event Title:",
+      "speakers": "Speakers :",
+      "starting-time": "Starting Time:",
+      "ending-time": "Ending Time:",
+      "date": "Date:",
+      "location": "Location:",
+      "email": "Email:",
+      "contact": "Contact:"
+    }
+  },
+  "club-page": {
+    "del-post": "post has been deleted successfully!",
+    "error-del-post": "Error deleting the post please try again",
+    "del-event": "event has been deleted successfully!",
+    "error-del-event": "Error deleting the event please try again",
+    "post-edit-req": "post edit request has been send!",
+    "error-post-edit-req": "Error sending the post edit request please try again",
+    "event-edit-req": "event edit request has been send!",
+    "error-event-edit-req": "Error sending the event edit request please try again",
+    "no-events": "There is not events at the moment!",
+    "no-posts": "There is not posts at the moment!",
+    "manager": "Manager :",
+    "created-date": "Created Date",
+    "posts": "Posts",
+    "events": "Events",
+    "desc": "Description",
+    "contact": "Contact",
+    "event-item": {
+      "day": "day",
+      "hour": "hour",
+      "minute": "minute",
+      "second": "second",
+      "invalid-time": "Invalid time format please provide a valid time format ex: 1:20, 20, 1 20",
+      "change-info": "Please change the event information before sending the request!",
+      "del-event": "Delete Event",
+      "editing": "Editing...",
+      "edit-event": "Edit Event",
+      "date": "Date:",
+      "time": "Time:",
+      "location": "Location:",
+      "speakers": "Speakers:",
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "apply": "Apply"
+    },
+    "post-item": {
+      "day": "day",
+      "hour": "hour",
+      "minute": "minute",
+      "second": "second",
+      "change-info": "Please change the post information before sending the request!",
+      "delete-post": "Delete Post",
+      "editing": "Editing...",
+      "edit-post": "Edit Post",
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "apply": "Apply"
+    }
+  },
+  "requests": {
+    "main-nav": {
+      "event-req": "Event Request",
+      "club-post-req": "Club Post Request",
+      "club-edit-req": "Club Edit Request",
+      "event-edit-req": "Event Edit Request",
+      "post-edit-req": "Post Edit Request"
+    },
+    "event-req": {
+      "accept-event-req": "event request has been accepted",
+      "error-accept-event-req": "Error accepting the event request please try again",
+      "reject-event-req": "The event request has been rejected",
+      "no-event": "There is no event requests at the moment.",
+      "click-details": "Click on “Details” to show {{DName}} details.",
+      "event": "event",
+      "event-item": {
+        "event": "Event Name",
+        "location": "Location",
+        "date-time": "Date & Time",
+        "details": "Details",
+        "contact": "Contact Number",
+        "email": "Email",
+        "accept": "Accept",
+        "reject": "Reject"
+      }
+    },
+    "club-post-req": {
+      "accept-post-req": "post request has been accepted",
+      "error-accept-post-req": "Error accepting the post request please try again",
+      "reject-post-req": "The post request has been rejected",
+      "no-post": "There is no post requests at the moment.",
+      "post": "post",
+      "post-item": {
+        "post": "Post Name",
+        "details": "Details",
+        "accept": "Accept",
+        "reject": "Reject"
+      },
+      "post-details": {
+        "title": "Post Title :"
+      }
+    },
+    "club-edit-req": {
+      "accept-edit-req": " club edit request has been accepted",
+      "error-accept-edit-req": "Error editting the club please try again",
+      "reject-edit-req": "The club edit request has been rejected",
+      "no-edit": "There is no club edit requests at the moment.",
+      "approve": "Approve",
+      "reject": "Reject"
+    },
+    "event-edit-req": {
+      "accept-event-req": "event edit request has been accepted",
+      "error-accept-event-req": "Error accepting the event edit request please try again",
+      "reject-event-req": "The event edit request has been rejected",
+      "no-event": "There is no event edit requests at the moment.",
+      "event": "event",
+      "req-details": {
+        "title-1": "Original Request",
+        "desc": "Description",
+        "email": "Email:",
+        "contact": "Contact:",
+        "location": "Location:",
+        "date": "Date:",
+        "time": "Time:",
+        "title-2": "New Request"
+      }
+    },
+    "post-edit-req": {
+      "accept-post-req": "post edit request has been accepted",
+      "error-accept-post-req": "Error accepting the post edit request please try again",
+      "reject-post-req": "The post edit request has been rejected",
+      "no-post": "There is no post edit requests at the moment.",
+      "post": "post",
+      "req-details": {
+        "title-1": "Original Request",
+        "desc": "Description",
+        "title-2": "New Request"
+      }
+    }
+  },
+  "req-event": {
+    "error-uploading": "Error uploading the event image please try again",
+    "fill-info": "Please review the information and ensure all fields are filled",
+    "drag": "Drag or Browse From computer files sorted automatically",
+    "name": "Event Name",
+    "speakers": "Speakers",
+    "number": "Contact Number",
+    "start-time": "Start Time",
+    "end-time": "End Time",
+    "location": "Location",
+    "desc": "Enter your request description here...",
+    "event": "Request Event",
+    "cancel": "Cancel",
+    "create": "Create"
+  },
+  "req-post": {
+    "error-uploading": "Error uploading the post image please try again",
+    "fill-fields": "Please review the information and ensure all fields are filled",
+    "post": "Request Post",
+    "drag": "Drag or Browse From computer files sorted automatically",
+    "title": "Post Title",
+    "desc": "Enter your request description here...",
+    "cancel": "Cancel",
+    "create": "Create"
+  },
+  "clubs-list": {
+    "created": "club has been created!",
+    "error-creating": "Error creating the club",
+    "edited": "edited successfully!",
+    "error-editting": "Error editing the club",
+    "edit-req": "Your club edit request has been sent!",
+    "deleted": "deleted successfully!",
+    "error-deleting": "Error deleting the club",
+    "no-result": "No results found for your search.",
+    "club-card": {
+      "discover": "Discover",
+      "del-model": {
+        "question": "Are you sure you want to delete",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      },
+      "edit-page": {
+        "title": "Edit Club Information",
+        "cancel": "Cancel",
+        "apply": "Apply"
+      },
+      "club-edit-req": {
+        "nav": {
+          "no-match": "No matching clubs found",
+          "club-name": "Club Name",
+          "search": "Search"
+        },
+        "fill-fields": "Make sure that you fill all the fields.",
+        "edit-club": "Edit Club",
+        "note": "*You can click on the background image and the club icon to change them.",
+        "upload-back": "Click to Upload Club Background",
+        "click-upload": "Click to Upload",
+        "club-icon": "Club Icon",
+        "name": "Club Name",
+        "id": "Student ID",
+        "m-name": "Manager Name",
+        "email": "Email Address",
+        "number": "Contact Number",
+        "cate": "Categories",
+        "desc": "Enter your club description here..."
+      }
+    }
+  },
+  "create-club": {
+    "missing-info": "Please review all fields and fill in the missing info.",
+    "error-club-manager": "Error creating club manager",
+    "title": "Create Club",
+    "upload-back": "Click to Upload Club Background",
+    "click-upload": "Click to Upload",
+    "club-icon": "Club Icon",
+    "name": "Club Name",
+    "id": "Student ID",
+    "m-name": "Manager Name",
+    "email": "Email Address",
+    "number": "Contact Number",
+    "desc": "Enter your club description here...",
+    "cancel": "Cancel",
+    "create": "Create"
+  },
+  "cate-list-label": {
+    "0": "Science",
+    "1": "Humanities",
+    "2": "Business",
+    "3": "Math",
+    "4": "Visual Arts",
+    "5": "Performing Arts",
+    "6": "Writing",
+    "7": "Media",
+    "8": "Games",
+    "9": "Culture",
+    "10": "Lifestyle",
+    "11": "Hobbies",
+    "12": "Activism",
+    "13": "Service",
+    "14": "Faith",
+    "15": "Individual",
+    "16": "Team",
+    "17": "Fitness",
+    "18": "Outdoor",
+    "19": "Technology"
+  },
+  "cate-list-value": {
+    "science": "Science",
+    "humanities": "Humanities",
+    "business": "Business",
+    "math": "Math",
+    "visual-arts": "Visual Arts",
+    "performing-arts": "Performing Arts",
+    "writing": "Writing",
+    "media": "Media",
+    "games": "Games",
+    "culture": "Culture",
+    "lifestyle": "Lifestyle",
+    "hobbies": "Hobbies",
+    "activism": "Activism",
+    "service": "Service",
+    "faith": "Faith",
+    "individual": "Individual",
+    "team": "Team",
+    "fitness": "Fitness",
+    "outdoor": "Outdoor",
+    "technology": "Technology"
+  },
+  "months": {
+    "Jan": "January",
+    "Feb": "February",
+    "Mar": "March",
+    "Apr": "April",
+    "May": "May",
+    "Jun": "June",
+    "Jul": "July",
+    "Aug": "August",
+    "Sep": "September",
+    "Oct": "October",
+    "Nov": "November",
+    "Dec": "December"
+  },
+  "login": {
+    "invalid-input": "Invalid Input",
+    "check-input": "check your input",
+    "invalid-cred": "Invalid Credentials",
+    "double-check": "Double-check your email and password.",
+    "title": "Login your account",
+    "email": "Email",
+    "password": "Password",
+    "enter": "Login",
+    "return-home": "Return Home",
+    "model": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "try-again": "Try Again",
+      "continue": "Continue"
+    },
+    "test-cases": {
+      "email": {
+        "invalid": "Enter a valid email address.",
+        "noAt": "Email must contain the @ symbol.",
+        "noSpaces": "Spaces are not allowed in the email address. Remove any spaces.",
+        "adminFormat": "Valid email format for Admin – name.surname@Ad.uskudar.com",
+        "clubManagerFormat": "Valid email format for Club Manager – name.surname@Cl.uskudar.com",
+        "studentFormat": "Valid email format for Student – name.surname@St.uskudar.com"
+      },
+      "password": {
+        "notBlank": "Password field cannot be left blank.",
+        "minLength": "Password must be at least 8 characters long.",
+        "noSpaces": "Spaces are not allowed in the password. Remove any spaces."
+      }
+    }
+  }
+}

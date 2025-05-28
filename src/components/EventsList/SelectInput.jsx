@@ -1,30 +1,93 @@
 import { useDispatch, useSelector } from "react-redux";
 import { clubActions } from "../../store/club-slice";
 import Select from "react-select";
+import { useTranslation } from "react-i18next";
 
 const SelectInput = ({ isEmpty, selectedCate, isNew, type, disabled }) => {
+  const { t } = useTranslation();
+
   const selectedItems = useSelector((state) => state.club.selectedCategories);
   const options = [
-    { label: "Science", value: "Science" },
-    { label: "Humanities", value: "Humanities" },
-    { label: "Business", value: "Business" },
-    { label: "Math", value: "Math" },
-    { label: "Visual", value: "Visual Arts" }, // Assuming "Visual" refers to Visual Arts
-    { label: "Performing", value: "Performing Arts" }, // Assuming "Performing" refers to Performing Arts
-    { label: "Writing", value: "Writing" },
-    { label: "Media", value: "Media" },
-    { label: "Games", value: "Games" },
-    { label: "Culture", value: "Culture" },
-    { label: "Lifestyle", value: "Lifestyle" },
-    { label: "Hobbies", value: "Hobbies" },
-    { label: "Activism", value: "Activism" },
-    { label: "Service", value: "Service" },
-    { label: "Faith", value: "Faith" },
-    { label: "Individual", value: "Individual" },
-    { label: "Team", value: "Team" },
-    { label: "Fitness", value: "Fitness" },
-    { label: "Outdoor", value: "Outdoor" },
-    { label: "Technology", value: "Technology" },
+    {
+      label: t("cate-list-label.0"),
+      value: "science",
+    },
+    {
+      label: t("cate-list-label.1"),
+      value: "humanities",
+    },
+    {
+      label: t("cate-list-label.2"),
+      value: "business",
+    },
+    {
+      label: t("cate-list-label.3"),
+      value: "math",
+    },
+    {
+      label: t("cate-list-label.4"),
+      value: "visual-arts",
+    },
+    {
+      label: t("cate-list-label.5"),
+      value: "performing-arts",
+    },
+    {
+      label: t("cate-list-label.6"),
+      value: "writing",
+    },
+    {
+      label: t("cate-list-label.7"),
+      value: "media",
+    },
+    {
+      label: t("cate-list-label.8"),
+      value: "games",
+    },
+    {
+      label: t("cate-list-label.9"),
+      value: "culture",
+    },
+    {
+      label: t("cate-list-label.10"),
+      value: "lifestyle",
+    },
+    {
+      label: t("cate-list-label.11"),
+      value: "hobbies",
+    },
+    {
+      label: t("cate-list-label.12"),
+      value: "activism",
+    },
+    {
+      label: t("cate-list-label.13"),
+      value: "service",
+    },
+    {
+      label: t("cate-list-label.14"),
+      value: "faith",
+    },
+    {
+      label: t("cate-list-label.15"),
+      value: "individual",
+    },
+    {
+      label: t("cate-list-label.16"),
+      value: "team",
+    },
+    {
+      label: t("cate-list-label.17"),
+      value: "fitness",
+    },
+    {
+      label: t("cate-list-label.18"),
+      value: "outdoor",
+    },
+    {
+      label: t("cate-list-label.19"),
+      value: "technology",
+    },
   ];
 
   const whiteColor = (styles) => {
@@ -137,7 +200,7 @@ const SelectInput = ({ isEmpty, selectedCate, isNew, type, disabled }) => {
 
   return (
     <Select
-      placeholder="Categories"
+      placeholder={t("clubs-list.club-card.club-edit-req.cate")}
       isDisabled={disabled}
       onChange={selectedItemsHandler}
       isSearchable

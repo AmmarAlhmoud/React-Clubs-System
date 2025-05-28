@@ -14,8 +14,11 @@ import setIcon from "../../assets/icons/ClubsList/settings.png";
 import styles from "./ClubCard.module.css";
 import CateList from "../EventsList/CateList";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ClubCard = ({ clubData }) => {
+  const { t } = useTranslation();
+
   // For Club Deletion Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
@@ -60,11 +63,13 @@ const ClubCard = ({ clubData }) => {
               <CateItem
                 key={index}
                 className={styles["cate-item"]}
-                cateName={category?.label}
+                cateName={t(`cate-list-value.${category?.value}`)}
               />
             ))}
           </CateList>
-          <ColoreButton onClick={openingClubPageHandler}>Discover</ColoreButton>
+          <ColoreButton onClick={openingClubPageHandler}>
+            {t("clubs-list.club-card.discover")}
+          </ColoreButton>
         </div>
       </div>
       <ClubDelModal

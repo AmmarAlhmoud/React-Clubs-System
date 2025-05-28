@@ -20,13 +20,6 @@ const DateInput = ({ disabled, isEmpty, startTyping }) => {
   };
 
   useEffect(() => {
-    //  ** on use **
-    // const parsedDate = new Date(isoString)
-    // const formattedDate = new Date(parsedDate).toLocaleDateString("en-US", {
-    //   day: "2-digit",
-    //   month: "short",
-    //   year: "numeric",
-    // });
     if (selectedDate) {
       const date = selectedDate.toISOString();
       dispatch(eventsActions.setSelectedDate(date));

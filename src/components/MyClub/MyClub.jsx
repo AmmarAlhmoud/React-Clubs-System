@@ -19,12 +19,15 @@ import CateItem from "../EventsList/CateItem";
 import styles from "./MyClub.module.css";
 
 import BarLoader from "../UI/BarLoader";
+import { useTranslation } from "react-i18next";
 
 // For showing - hiding editing buttons (editor mode)
 let showEditButtons = true;
 // let initialLoad = true;
 
 const MyClub = () => {
+  const { t } = useTranslation();
+
   window.scrollTo(0, 0);
 
   let clubData = {};
@@ -58,7 +61,7 @@ const MyClub = () => {
     clubData = currentClubInfoEvent;
   }
 
-  const formattedDate = new Date(clubData?.createdDate).toLocaleDateString(
+  let formattedDate = new Date(clubData?.createdDate).toLocaleDateString(
     "en-US",
     {
       day: "2-digit",
@@ -67,7 +70,10 @@ const MyClub = () => {
     }
   );
 
-  console.log(clubData);
+  const month = formattedDate.split(" ")[0];
+  formattedDate = formattedDate.replace(month, t(`months.${month}`));
+
+  // console.log(clubData);
 
   // ** logic starting point
 
@@ -113,11 +119,11 @@ const MyClub = () => {
       remove(starCountRef2)
         .then(() => {
           toast.success(
-            `"${deletedPost.PostTitle}" post has been deleted successfully!`
+            `"${deletedPost.PostTitle}" ${t("club-page.del-post")}`
           );
         })
         .catch(() => {
-          toast.error("Error deleting the post please try again");
+          toast.error(t("club-page.error-del-post"));
         });
     };
     const deleteEvent = (deletedEvent) => {
@@ -134,11 +140,11 @@ const MyClub = () => {
       remove(starCountRef2)
         .then(() => {
           toast.success(
-            `"${deletedEvent.EventName}" event has been deleted successfully!`
+            `"${deletedEvent.EventName}" ${t("club-page.del-event")}`
           );
         })
         .catch(() => {
-          toast.error("Error deleting the event please try again");
+          toast.error(t("club-page.error-del-event"));
         });
     };
     const addNewEditPostReq = (newEditPost) => {
@@ -153,11 +159,11 @@ const MyClub = () => {
       )
         .then(() => {
           toast.success(
-            `"${newEditPost.PostTitle}" post edit request has been send!`
+            `"${newEditPost.PostTitle}" ${t("club-page.post-edit-req")}`
           );
         })
         .catch(() => {
-          toast.error("Error sending the post edit request please try again");
+          toast.error(t("club-page.error-post-edit-req"));
         });
     };
     const addReqStatusForPost = (newReqStatus, to) => {
@@ -191,11 +197,11 @@ const MyClub = () => {
       )
         .then(() => {
           toast.success(
-            `"${newEditEvent.EventName}" event edit request has been send!`
+            `"${newEditEvent.EventName}" ${t("club-page.event-edit-req")}`
           );
         })
         .catch(() => {
-          toast.error("Error sending the event edit request please try again");
+          toast.error(t("club-page.error-event-edit-req"));
         });
     };
     const addReqStatusForEvent = (newReqStatus, to) => {
@@ -281,9 +287,7 @@ const MyClub = () => {
           );
         });
     } else {
-      eventsList = (
-        <p className={styles.noItem}>"There is not events at the moment!"</p>
-      );
+      eventsList = <p className={styles.noItem}>{t("club-page.no-events")}</p>;
     }
 
     const fetchedPostsList = clubData.posts;
@@ -304,9 +308,7 @@ const MyClub = () => {
           );
         });
     } else {
-      postsList = (
-        <p className={styles.noItem}>"There is not posts at the moment!"</p>
-      );
+      postsList = <p className={styles.noItem}>{t("club-page.no-posts")}</p>;
     }
   }
 
@@ -324,11 +326,15 @@ const MyClub = () => {
               <div>
                 <h1>{clubData?.clubName}</h1>
                 <h2>
-                  Manager : <span>{clubData?.managerName}</span>
+                  {t("club-page.manager")} <span>{clubData?.managerName}</span>
                 </h2>
                 <CateList className={styles.cateList}>
                   {clubData?.categories?.map((cate) => (
-                    <CateItem key={cate.label} cateName={cate.label} />
+                    // TODO: make sure to translate it here also
+                    <CateItem
+                      key={cate.label}
+                      cateName={t(`cate-list-value.${cate?.value}`)}
+                    />
                   ))}
                 </CateList>
               </div>
@@ -336,9 +342,9 @@ const MyClub = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th>Created Date</th>
-                      <th>Posts</th>
-                      <th>Events</th>
+                      <th>{t("club-page.created-date")}</th>
+                      <th>{t("club-page.posts")}</th>
+                      <th>{t("club-page.events")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -354,11 +360,11 @@ const MyClub = () => {
           </div>
           <section className={styles.details}>
             <div className={styles.clubDesc}>
-              <h1>Description</h1>
+              <h1>{t("club-page.desc")}</h1>
               <p>{clubData?.description}</p>
             </div>
             <div className={styles.clubContact}>
-              <h1>Contact</h1>
+              <h1>{t("club-page.contact")}</h1>
               <h2>
                 <img src={mailIcon} alt="" />
                 <span>{clubData?.email}</span>

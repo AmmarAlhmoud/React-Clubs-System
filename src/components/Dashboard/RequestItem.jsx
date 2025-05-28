@@ -1,6 +1,9 @@
 import styles from "./RequestItem.module.css";
+import { useTranslation } from "react-i18next";
 
 const RequestItem = ({ name, icon, type, reqDate }) => {
+  const { t } = useTranslation();
+
   // button color
   let btnClass = null;
   if (type === "event-request") {
@@ -17,11 +20,14 @@ const RequestItem = ({ name, icon, type, reqDate }) => {
     btnClass = styles.purple;
   }
 
-  const formattedDate = new Date(reqDate).toLocaleDateString("en-US", {
+  let formattedDate = new Date(reqDate).toLocaleDateString("en-US", {
     day: "2-digit",
     month: "short",
     year: "numeric",
   });
+
+  const month = formattedDate.split(" ")[0];
+  formattedDate = formattedDate.replace(month, t(`months.${month}`));
 
   const time = new Date(reqDate);
 
@@ -52,7 +58,7 @@ const RequestItem = ({ name, icon, type, reqDate }) => {
         <img src={icon} alt="club icon" />
         <h2>{name}</h2>
       </header>
-      <h3>Request Date</h3>
+      <h3>{t("dashboard.request-date")}</h3>
       <footer>
         <span>{`${hours}:${minutes}`}</span>
         <span>{formattedDate}</span>

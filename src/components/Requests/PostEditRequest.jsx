@@ -13,10 +13,13 @@ import DetailsHidden from "./DetailsHidden";
 import BarLoader from "../UI/BarLoader";
 
 import styles from "./PostEditRequest.module.css";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
 const PostEditRequest = () => {
+  const { t } = useTranslation();
+
   const reqEditPostsList = useSelector((state) => state.club.reqEditPostsList);
   const showDetails = useSelector((state) => state.club.showEditPostDetails);
   const reqEditPostData = useSelector((state) => state.club.reqEditPostData);
@@ -56,11 +59,13 @@ const PostEditRequest = () => {
       update(ref(db), updates2)
         .then(() => {
           toast.success(
-            `"${editedPostToClub.PostTitle}" post edit request has been accepted`
+            `"${editedPostToClub.PostTitle}" ${t(
+              "requests.post-edit-req.accept-post-req"
+            )}`
           );
         })
         .catch(() => {
-          toast.error("Error accepting the post edit request please try again");
+          toast.error(t("requests.post-edit-req.error-accept-post-req"));
         });
     };
 
@@ -114,7 +119,7 @@ const PostEditRequest = () => {
       removeEditPostReq(rejectEditPostStatus);
       dispatch(clubActions.setShowEditPostDetails(false));
       dispatch(clubActions.setRejectEditPostStatus(null));
-      toast.success("The post edit request has been rejected");
+      toast.success(t("requests.post-edit-req.reject-post-req"));
     }
   }, [dispatch, db, reqEditPostsList, reqEditPostData, rejectEditPostStatus]);
 
@@ -154,7 +159,7 @@ const PostEditRequest = () => {
   ) {
     editPostsList = (
       <p className={styles["no-req-edit-post-item"]}>
-        There is no post edit requests at the moment.
+        {t("requests.post-edit-req.no-post")}
       </p>
     );
   }
@@ -163,7 +168,7 @@ const PostEditRequest = () => {
     <section className={styles["club-post"]}>
       <ul className={styles["club-post-list"]}>{editPostsList}</ul>
       {reqEditPostsList !== null && !showDetails && (
-        <DetailsHidden DName="post" />
+        <DetailsHidden DName={t("requests.post-edit-req.post")} />
       )}
       {showDetails && <PostEditRequestDetails />}
     </section>

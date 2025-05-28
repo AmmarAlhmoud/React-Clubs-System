@@ -2,8 +2,11 @@ import ReactDom from "react-dom";
 import Button from "../UI/Button";
 
 import styles from "./DelModal.module.css";
+import { useTranslation } from "react-i18next";
 
 const ClubDelModal = ({ open, onClose, icon, title, onConfirmDelete }) => {
+  const { t } = useTranslation();
+
   if (!open) {
     return null;
   }
@@ -14,15 +17,15 @@ const ClubDelModal = ({ open, onClose, icon, title, onConfirmDelete }) => {
       <div className={styles.modal}>
         <img src={icon} alt="club logo" />
         <div className={styles.text}>
-          <h1>Are you sure you want to delete</h1>
+          <h1>{t("cm-dashboard.delete-model.question")}</h1>
           <h2>{title}</h2>
         </div>
         <div className={styles.btns}>
           <Button stiffness={200} scale={1.06} onClick={onClose}>
-            Cancel
+            {t("cm-dashboard.delete-model.cancel")}
           </Button>
           <Button stiffness={200} scale={1.06} onClick={onConfirmDelete}>
-            Delete
+            {t("cm-dashboard.delete-model.delete")}
           </Button>
         </div>
       </div>

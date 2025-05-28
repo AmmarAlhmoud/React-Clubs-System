@@ -7,8 +7,11 @@ import styles from "./LO-Layout.module.css";
 import Logo from "../../assets/logo.png";
 import Girl_img from "../../assets/images/LO/girl_avatar.png";
 import Uni_logo from "../../assets/uni_logo.png";
+import { useTranslation } from "react-i18next";
 
 const LOLayout = (props) => {
+  const { t } = useTranslation();
+
   return (
     <motion.div
       initial={{ width: 0 }}
@@ -20,7 +23,7 @@ const LOLayout = (props) => {
       <section className={styles["layout-main-container"]}>
         <main className={styles["main-content"]}>
           <section className={styles["main-container-image"]}>
-            <div className={styles.welcome}>Welcome Back</div>
+            <div className={styles.welcome}>{t("welcome")}</div>
             <Image
               className={styles["main-img-logo"]}
               src={Uni_logo}
@@ -39,7 +42,7 @@ const LOLayout = (props) => {
       </section>
       <footer className={styles.footer}>
         <p>
-          Powered by
+          {t("powerd-by")}
           <img
             className={styles["footer-logo"]}
             src={Logo}

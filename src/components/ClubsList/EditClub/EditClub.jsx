@@ -4,15 +4,18 @@ import ClubEditReq from "../../Requests/ClubEditReq/ClubEditReq";
 import ColoreButton from "../../UI/ColoredButton";
 
 import styles from "./EditClub.module.css";
+import { useTranslation } from "react-i18next";
 
 const EditClub = () => {
+  const { t } = useTranslation();
+
   const userType = getAuthUserType();
   const navigate = useNavigate();
 
   return (
     <ClubEditReq
       className={styles.container}
-      title="Edit Club Information"
+      title={t("clubs-list.club-card.edit-page.title")}
       type={userType === "Ad" ? "edit-club-Ad" : "edit-my-club"}
       Editable={true}
     >
@@ -23,9 +26,11 @@ const EditClub = () => {
             navigate("/clubs-list");
           }}
         >
-          Cancel
+          {t("clubs-list.club-card.edit-page.cancel")}
         </ColoreButton>
-        <ColoreButton type="submit">Apply</ColoreButton>
+        <ColoreButton type="submit">
+          {t("clubs-list.club-card.edit-page.apply")}
+        </ColoreButton>
       </div>
     </ClubEditReq>
   );

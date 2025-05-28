@@ -3,21 +3,20 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { database } from "../../firebase";
 import { ref, onValue } from "firebase/database";
-import { clubActions } from "../../store/club-slice";
 import { getAuthUserId } from "../../util/auth";
 
-import members from "../../assets/icons/CM-Dashboard/members.png";
+// import members from "../../assets/icons/CM-Dashboard/members.png";
 import next_event from "../../assets/icons/CM-Dashboard/next_event.png";
 import total_events from "../../assets/icons/CM-Dashboard/total_events.png";
 import responded from "../../assets/icons/CM-Dashboard/responded.png";
 import pending from "../../assets/icons/CM-Dashboard/pending.png";
 import accepted from "../../assets/icons/CM-Dashboard/accepted.png";
 import rejected from "../../assets/icons/CM-Dashboard/rejected.png";
-import del from "../../assets/icons/CM-Dashboard/delete.png";
-import cancel from "../../assets/icons/CM-Dashboard/cancel.png";
+// import del from "../../assets/icons/CM-Dashboard/delete.png";
+// import cancel from "../../assets/icons/CM-Dashboard/cancel.png";
 import question from "../../assets/icons/CM-Dashboard/question.png";
 
-import RecentEventItem from "./RecentEventItem";
+// import RecentEventItem from "./RecentEventItem";
 import WeeklyCalender from "../Dashboard/WeeklyCalender";
 import DelModal from "../MyClub/DelModal";
 
@@ -30,10 +29,13 @@ import styles from "./CmDashboard.module.css";
 // import DUMMY_EVENTS from "../Dashboard/dummyEvents";
 import { uiActions } from "../../store/ui-slice";
 import RecentEventsCarousel from "./RecentEventsCarousel";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
 const CmDashboard = () => {
+  const { t } = useTranslation();
+
   // For Event or Post Deletion Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   // For Request Deletion Modal
@@ -244,7 +246,7 @@ const CmDashboard = () => {
     {
       let reqType;
       pendingList = reqList.map((event, index) => {
-        const formattedDate = new Date(event?.reqDate).toLocaleDateString(
+        let formattedDate = new Date(event?.reqDate).toLocaleDateString(
           "en-US",
           {
             day: "2-digit",
@@ -253,22 +255,25 @@ const CmDashboard = () => {
           }
         );
 
+        const month = formattedDate.split(" ")[0];
+        formattedDate = formattedDate.replace(month, t(`months.${month}`));
+
         let type = event.reqType;
         if (event.status === "pending") {
           if (type === "event-request") {
-            reqType = "Event";
+            reqType = t("cm-dashboard.responded-status.event");
           }
           if (type === "post-request") {
-            reqType = "Post";
+            reqType = t("cm-dashboard.responded-status.post");
           }
           if (type === "edit-event") {
-            reqType = "Edit Event";
+            reqType = t("cm-dashboard.responded-status.edit-event");
           }
           if (type === "edit-post") {
-            reqType = "Edit Post";
+            reqType = t("cm-dashboard.responded-status.edit-post");
           }
           if (type === "edit-club") {
-            reqType = "Edit Club";
+            reqType = t("cm-dashboard.responded-status.edit-club");
           }
 
           pendingRequestsList.push(1);
@@ -294,7 +299,7 @@ const CmDashboard = () => {
     {
       let reqType;
       acceptingList = reqList.map((event, index) => {
-        const formattedDate = new Date(event?.reqDate).toLocaleDateString(
+        let formattedDate = new Date(event?.reqDate).toLocaleDateString(
           "en-US",
           {
             day: "2-digit",
@@ -303,22 +308,25 @@ const CmDashboard = () => {
           }
         );
 
+        const month = formattedDate.split(" ")[0];
+        formattedDate = formattedDate.replace(month, t(`months.${month}`));
+
         let type = event.reqType;
 
         if (type === "event-request") {
-          reqType = "Event";
+          reqType = t("cm-dashboard.responded-status.event");
         }
         if (type === "post-request") {
-          reqType = "Post";
+          reqType = t("cm-dashboard.responded-status.post");
         }
         if (type === "edit-event") {
-          reqType = "Edit Event";
+          reqType = t("cm-dashboard.responded-status.edit-event");
         }
         if (type === "edit-post") {
-          reqType = "Edit Post";
+          reqType = t("cm-dashboard.responded-status.edit-post");
         }
         if (type === "edit-club") {
-          reqType = "Edit Club";
+          reqType = t("cm-dashboard.responded-status.edit-club");
         }
         if (event.status === "accepted") {
           ResponseStatus = true;
@@ -427,24 +435,16 @@ const CmDashboard = () => {
       month: "short",
       year: "numeric",
     });
+
+    const month = formattedDate.split(" ")[0];
+    formattedDate = formattedDate.replace(month, t(`months.${month}`));
   }
-
-  // const recentEvents = recentEventsData.map((event, index) => (
-  //   <RecentEventItem
-  //     key={index}
-  //     clubName={event.clubName}
-  //     clubIcon={event.clubIcon}
-  //     event={event}
-  //   />
-  // ));
-
-  // console.log(recentEventsData, ": from CM Dashboard");
 
   return (
     <main className={styles.container}>
       {/* Recent Events Section */}
       <section className={styles.recent}>
-        <h1>Recent New Events</h1>
+        <h1>{t("cm-dashboard.recent-new-events")}</h1>
         <div className={styles.renderedEvents}>
           {recentEventsData !== null && (
             <RecentEventsCarousel items={recentEventsData} />
@@ -456,7 +456,7 @@ const CmDashboard = () => {
         <div>
           <img src={next_event} alt="" />
           <div className={styles.inner}>
-            <h1>My Next Event</h1>
+            <h1>{t("cm-dashboard.my-next-event")}</h1>
             <h2>{myNextEvent !== null && formattedDate}</h2>
             <h3>
               {myNextEvent !== null && myNextEvent?.Stime?.label} -{" "}
@@ -467,9 +467,9 @@ const CmDashboard = () => {
         <div>
           <img src={total_events} alt="" />
           <div className={styles.inner}>
-            <h1>Total Events</h1>
+            <h1>{t("cm-dashboard.total-events")}</h1>
             <h2>
-              <span>{totalEvents}</span> Event
+              <span>{totalEvents}</span> {t("cm-dashboard.event")}
             </h2>
           </div>
         </div>
@@ -485,12 +485,13 @@ const CmDashboard = () => {
           <div>
             <img src={responded} alt="responded" />
             <h1>
-              <span>{acceptingRequestsList?.length || 0}</span> Responded
+              <span>{acceptingRequestsList?.length || 0}</span>{" "}
+              {t("cm-dashboard.responded")}
             </h1>
           </div>
           <div className={styles.respondedData}>
             {/* Rendering Responded Events*/}
-            <h2>Request Results</h2>
+            <h2>{t("cm-dashboard.request-results")}</h2>
             <div className={styles.renderedResponses}>{acceptingList}</div>
           </div>
           <div className={styles.filler}></div>
@@ -500,20 +501,25 @@ const CmDashboard = () => {
           <div>
             <img src={pending} alt="pending" />
             <h1>
-              <span>{pendingRequestsList?.length || 0}</span> Pending
+              <span>{pendingRequestsList?.length || 0}</span>{" "}
+              {t("cm-dashboard.pending")}
             </h1>
           </div>
           <div className={styles.pendingData}>
             {/* Rendering Requested Events*/}
-            <h2>Pending Requests</h2>
+            <h2>{t("cm-dashboard.pending-requests")}</h2>
             <div className={styles.renderedResponses}>{pendingList}</div>
           </div>
           <div className={styles.filler}>
             <Link to="/request-event">
-              <button className={styles.btn2}>Add Event Request</button>
+              <button className={styles.btn2}>
+                {t("cm-dashboard.add-event-request")}
+              </button>
             </Link>
             <Link to="/request-post">
-              <button className={styles.btn2}>Add Post Request</button>
+              <button className={styles.btn2}>
+                {t("cm-dashboard.add-post-request")}
+              </button>
             </Link>
           </div>
         </div>
@@ -523,7 +529,7 @@ const CmDashboard = () => {
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         icon={question}
-        title={"your post/event"}
+        title={t("cm-dashboard.del-post-event")}
         onConfirmDelete={""}
       />
       {/* Request Cancel Modal */}
@@ -531,7 +537,7 @@ const CmDashboard = () => {
         open={isReqModalOpen}
         onClose={() => setIsReqModalOpen(false)}
         icon={question}
-        title={"your request"}
+        title={t("cm-dashboard.del-request")}
         onConfirmDelete={""}
       />
     </main>

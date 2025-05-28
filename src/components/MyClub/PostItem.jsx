@@ -7,8 +7,11 @@ import { toast } from "sonner";
 import DelModal from "./DelModal.jsx";
 
 import styles from "./PostItem.module.css";
+import { useTranslation } from "react-i18next";
 
 const PostItem = ({ name, icon, post, canEdit }) => {
+  const { t } = useTranslation();
+
   // Post Deletion Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   // Editing inputs mode
@@ -57,17 +60,27 @@ const PostItem = ({ name, icon, post, canEdit }) => {
     // Determine the most relevant unit (considering 20-hour threshold)
     let timePeriod;
     if (days) {
-      timePeriod = `${days} day${days > 1 ? "s" : ""}`;
+      timePeriod = `${days} ${t("club-page.post-item.day")}${
+        days > 1 ? "s" : ""
+      }`;
     } else if (hours > 20) {
-      timePeriod = `${hours} hour${hours > 1 ? "s" : ""}`;
+      timePeriod = `${hours} ${t("club-page.post-item.hour")}${
+        hours > 1 ? "s" : ""
+      }`;
     } else if (hours > 0) {
       // Only show hours if greater than 0 and less than or equal to 20
-      timePeriod = `${hours} hour${hours > 1 ? "s" : ""}`;
+      timePeriod = `${hours} ${t("club-page.post-item.hour")}${
+        hours > 1 ? "s" : ""
+      }`;
     } else if (minutes > 0) {
       // Include minutes if greater than 0
-      timePeriod = `${minutes} minute${minutes > 1 ? "s" : ""}`;
+      timePeriod = `${minutes} ${t("club-page.post-item.minute")}${
+        minutes > 1 ? "s" : ""
+      }`;
     } else {
-      timePeriod = `${seconds} second${seconds > 1 ? "s" : ""}`;
+      timePeriod = `${seconds} ${t("club-page.post-item.second")}${
+        seconds > 1 ? "s" : ""
+      }`;
     }
 
     // Return the formatted time period
@@ -124,9 +137,7 @@ const PostItem = ({ name, icon, post, canEdit }) => {
     } else {
       setIsEditMode((prev) => !prev);
       setUploadedImage(null);
-      toast.error(
-        "Please change the post information before sending the request!"
-      );
+      toast.error(t("club-page.post-item.change-info"));
     }
   };
 
@@ -143,15 +154,17 @@ const PostItem = ({ name, icon, post, canEdit }) => {
         <div>
           {canEdit && checkAuthClUserType() && (
             <div>
-              <button type="button" onClick={() => setIsModalOpen(true)}>
-                Delete Post
-              </button>
               <button
                 type="button"
                 onClick={toggleEditMode}
                 className={isEditMode ? styles.editModeBtn : null}
               >
-                {isEditMode ? "Editing..." : "Edit Post"}
+                {isEditMode
+                  ? `${t("club-page.post-item.editing")}`
+                  : `${t("club-page.post-item.edit-post")}`}
+              </button>
+              <button type="button" onClick={() => setIsModalOpen(true)}>
+                {t("club-page.post-item.delete-post")}
               </button>
             </div>
           )}
@@ -187,7 +200,7 @@ const PostItem = ({ name, icon, post, canEdit }) => {
               className={styles.preview}
             />
             <label htmlFor="file-upload" className={styles.imgUpload}>
-              Edit
+              {t("club-page.post-item.edit")}
             </label>
             <input
               id="file-upload"
@@ -208,9 +221,9 @@ const PostItem = ({ name, icon, post, canEdit }) => {
         {isEditMode && (
           <div className={styles.editBtns}>
             <button type="button" onClick={toggleEditMode}>
-              Cancel
+              {t("club-page.post-item.cancel")}
             </button>
-            <button type="submit">Apply</button>
+            <button type="submit">{t("club-page.post-item.apply")}</button>
           </div>
         )}
       </form>
@@ -218,7 +231,7 @@ const PostItem = ({ name, icon, post, canEdit }) => {
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         icon={icon}
-        title={"this post"}
+        title={`${name} ?`}
         onConfirmDelete={deletePostHandler}
       />
     </div>

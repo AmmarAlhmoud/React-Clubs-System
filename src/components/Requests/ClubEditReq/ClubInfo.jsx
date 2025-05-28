@@ -5,8 +5,11 @@ import ClubEditReq from "./ClubEditReq";
 import ColoreButton from "../../UI/ColoredButton";
 
 import styles from "./ClubInfo.module.css";
+import { useTranslation } from "react-i18next";
 
 const ClubInfo = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const getSubmittingName = (event) => {
@@ -24,14 +27,14 @@ const ClubInfo = () => {
             name="reject"
             onClick={getSubmittingName.bind(this)}
           >
-            Reject
+            {t("requests.club-edit-req.reject")}
           </ColoreButton>
           <ColoreButton
             type="submit"
             name="approve"
             onClick={getSubmittingName.bind(this)}
           >
-            Approve
+             {t("requests.club-edit-req.approve")}
           </ColoreButton>
         </div>
       </ClubEditReq>

@@ -11,8 +11,11 @@ import M4 from "../../assets/Music4.png";
 import ClubsSection from "./ClubSection";
 import ClubPreview from "./ClubPreview";
 import Footer from "./Footer";
+import { useTranslation } from "react-i18next";
 
 const LandingPage = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="landing-page">
       <div className="content">
@@ -20,7 +23,7 @@ const LandingPage = () => {
         <div className="overlay">
           <Navbar />
         </div>
-        <h1 className="text1">USKUDAR SEE THE FUTURE WITH US</h1>
+        <h1 className="text1">{t("home.title")}</h1>
       </div>
       <div className="bottombar">
         <Bottombar />
@@ -33,7 +36,7 @@ const LandingPage = () => {
         className="additional-image"
       />
       <img src={Greenlayer} alt="Image" className="Greenlayer" />
-      <h1 className="text2">TODAY'S EVENT</h1>
+      <h1 className="text2">{t("home.title-sec")}</h1>
       <div className="Music-conglumerate">
         <div className="Music-row">
           <img src={M1} alt="Image" className="music" />
@@ -44,8 +47,9 @@ const LandingPage = () => {
           <img src={M4} alt="Image" className="music" />
         </div>
       </div>
-
+      <div id="home-clubs-list" />
       <ClubsSection />
+      <div id="home-events-list" />
       <ClubPreview />
       <Footer />
     </div>

@@ -6,8 +6,11 @@ import Button from "./Button";
 import successful from "../../assets/images/CL/successful.png";
 import confirmation from "../../assets/images/CL/confirmation.png";
 import error from "../../assets/images/CL/error.png";
+import { useTranslation } from "react-i18next";
 
 function Modal({ err, onClick, marginTop, padding }) {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const dismissHandler = () => {
@@ -29,10 +32,10 @@ function Modal({ err, onClick, marginTop, padding }) {
           onClick={dismissHandler}
           className={styles.cancel}
         >
-          Cancel
+          {t("login.model.cancel")}
         </Button>
         <Button id={`${err?.id}_confirm`} onClick={onClick}>
-          Confirm
+          {t("login.model.confirm")}
         </Button>
       </div>
     );
@@ -45,7 +48,7 @@ function Modal({ err, onClick, marginTop, padding }) {
         onClick={dismissHandler}
         style={{ marginTop: marginTop, padding: padding }}
       >
-        Try Again
+        {t("login.model.try-again")}
       </Button>
     );
   } else {
@@ -53,7 +56,7 @@ function Modal({ err, onClick, marginTop, padding }) {
     type.alt = "successful";
     type.action = (
       <Button id={`${err?.id}_continue`} onClick={dismissHandler}>
-        Continue
+        {t("login.model.continue")}
       </Button>
     );
   }

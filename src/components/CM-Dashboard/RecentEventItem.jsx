@@ -6,19 +6,25 @@ import { database } from "../../firebase";
 import { clubActions } from "../../store/club-slice";
 
 import styles from "./RecentEventItem.module.css";
+import { useTranslation } from "react-i18next";
 
 const RecentEventItem = ({ item }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const db = database;
 
   const { clubName, clubIcon, event } = item;
 
-  const formattedDate = new Date(event?.Date).toLocaleDateString("en-US", {
+  let formattedDate = new Date(event?.Date).toLocaleDateString("en-US", {
     day: "2-digit",
     month: "short",
     year: "numeric",
   });
+
+  const month = formattedDate.split(" ")[0];
+  formattedDate = formattedDate.replace(month, t(`months.${month}`));
 
   const bgSrc = event?.EventImage;
   const iconSrc = clubIcon;
@@ -67,7 +73,7 @@ const RecentEventItem = ({ item }) => {
         </div>
 
         <a onClick={openingClubPageHandler} className={styles.button}>
-          Club Page
+          {t("cm-dashboard.club-page")}
         </a>
       </div>
 

@@ -14,10 +14,13 @@ import C_Logo from "../../assets/icons/EventsList/med_logo.png";
 import CM_Logo from "../../assets/icons/EventsList/club_manager_logo.png";
 
 import styles from "./EventEditRequest.module.css";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
 const EventEditRequest = () => {
+  const { t } = useTranslation();
+
   const reqEditEventsList = useSelector(
     (state) => state.club.reqEditEventsList
   );
@@ -64,13 +67,13 @@ const EventEditRequest = () => {
       update(ref(db), updates2)
         .then(() => {
           toast.success(
-            `"${EditedEventToClub.EventName}" event edit request has been accepted`
+            `"${EditedEventToClub.EventName}" ${t(
+              "requests.event-edit-req.accept-event-req"
+            )}`
           );
         })
         .catch(() => {
-          toast.error(
-            "Error accepting the event edit request please try again"
-          );
+          toast.error(t("requests.event-edit-req.error-accept-event-req"));
         });
     };
 
@@ -125,7 +128,7 @@ const EventEditRequest = () => {
       removeEditedEventReq(rejectEditedEventStatus);
       dispatch(clubActions.setShowEditedEventDetails(false));
       dispatch(clubActions.setRejectEditedEventStatus(null));
-      toast.success("The event edit request has been rejected");
+      toast.success(t("requests.event-edit-req.reject-event-req"));
     }
   }, [
     dispatch,
@@ -178,7 +181,7 @@ const EventEditRequest = () => {
   ) {
     editedEventsList = (
       <p className={styles["no-req-edit-event-item"]}>
-        There is no events requests at the moment.
+        {t("requests.event-edit-req.no-event")}
       </p>
     );
   }
@@ -187,7 +190,7 @@ const EventEditRequest = () => {
     <section className={styles["event-req"]}>
       <ul className={styles["event-req-list"]}>{editedEventsList}</ul>
       {reqEditEventsList !== null && !showDetails && (
-        <DetailsHidden DName="event" />
+        <DetailsHidden DName={t("requests.event-edit-req.event")} />
       )}
       {showDetails && <EventEditRequestDetails />}
     </section>

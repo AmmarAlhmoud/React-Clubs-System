@@ -11,8 +11,11 @@ import CateItem from "./CateItem";
 import Club_Page_Ic from "../../assets/icons/EventsList/description.png";
 
 import styles from "./EventDetails.module.css";
+import { useTranslation } from "react-i18next";
 
 const EventDetails = ({ from, orientation }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   let currentEventDetails = {};
   const eventDetails = useSelector((state) => state.events.currentEventDetails);
@@ -49,11 +52,14 @@ const EventDetails = ({ from, orientation }) => {
   } = currentEventDetails;
 
   const parsedDate = new Date(EventDate);
-  const formattedDate = new Date(parsedDate).toLocaleDateString("en-US", {
+  let formattedDate = new Date(parsedDate).toLocaleDateString("en-US", {
     day: "2-digit",
     month: "short",
     year: "numeric",
   });
+
+  const month = formattedDate.split(" ")[0];
+  formattedDate = formattedDate.replace(month, t(`months.${month}`));
 
   if (eventDetails?.type === "event-details") {
     dispatch(eventsActions.setCurrentEventDetails({}));
@@ -82,7 +88,11 @@ const EventDetails = ({ from, orientation }) => {
       {type !== "event-request" && (
         <div className={styles.details}>
           <Link to={`club-page/${clubId}`}>
-            <Icon src={Club_Page_Ic} alt="club page" title="Club Page" />
+            <Icon
+              src={Club_Page_Ic}
+              alt="club page"
+              title={t("events-list.event-details.club-page")}
+            />
           </Link>
         </div>
       )}
@@ -94,7 +104,7 @@ const EventDetails = ({ from, orientation }) => {
         <Image src={EventImage} alt="Event image" />
       </div>
       <div className={styles["event-title"]}>
-        <h3>Event Title:</h3>
+        <h3>{t("events-list.event-details.title")}</h3>
         <div>
           <h4>{EventName}</h4>
           {/* TODO: check if this work as expected */}
@@ -102,7 +112,10 @@ const EventDetails = ({ from, orientation }) => {
             <CateList>
               {clubCategories &&
                 clubCategories?.map((cate) => (
-                  <CateItem key={cate?.label} cateName={cate?.label} />
+                  <CateItem
+                    key={cate?.label}
+                    cateName={t(`cate-list-value.${cate?.value}`)}
+                  />
                 ))}
             </CateList>
           )}
@@ -111,7 +124,7 @@ const EventDetails = ({ from, orientation }) => {
       <p className={styles["event-desc"]}>{description}</p>
       <div className={styles["event-desc-container"]}>
         <span>
-          Speakers : <span>{Speakers}</span>
+          {t("events-list.event-details.speakers")} <span>{Speakers}</span>
         </span>
         <div className={styles["event-desc-container-in"]}>
           <div className={styles.left}>
@@ -134,29 +147,29 @@ const EventDetails = ({ from, orientation }) => {
           </div>
           <div className={styles.right}>
             <div>
-              Starting Time:
+              {t("events-list.event-details.starting-time")}
               <span className={styles["event-span"]}> {EventSTime.label}</span>
             </div>
             <div>
-              Ending Time:
+              {t("events-list.event-details.ending-time")}
               <span className={styles["event-span"]}> {EventETime.label}</span>
             </div>
             <div>
-              Date:
+              {t("events-list.event-details.date")}
               <span className={styles["event-span"]}> {formattedDate}</span>
             </div>
             <div>
-              Location:
+              {t("events-list.event-details.location")}
               <span className={styles["event-span"]}>
                 {EventLocation.label}
               </span>
             </div>
             <div>
-              Email:
+              {t("events-list.event-details.email")}
               <span className={styles["event-span"]}> {CMEmail}</span>
             </div>
             <div>
-              Contact:
+              {t("events-list.event-details.contact")}
               <span className={styles["event-span"]}> {CMPhone}</span>
             </div>
           </div>

@@ -5,8 +5,11 @@ import { clubActions } from "../../store/club-slice";
 import ColoreButton from "../UI/ColoredButton";
 
 import styles from "./ClubDelModal.module.css";
+import { useTranslation } from "react-i18next";
 
 const ClubDelModal = ({ open, onClose, icon, title, clubId, clubName }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   if (!open) {
@@ -23,13 +26,15 @@ const ClubDelModal = ({ open, onClose, icon, title, clubId, clubName }) => {
       <div className={styles.modal}>
         <img src={icon} alt="club logo" />
         <div className={styles.text}>
-          <h1>Are you sure you want to delete</h1>
+          <h1>{t("clubs-list.club-card.del-model.question")}</h1>
           <h2>{title}</h2>
         </div>
         <div className={styles.btns}>
-          <ColoreButton onClick={onClose}>Cancel</ColoreButton>
+          <ColoreButton onClick={onClose}>
+            {t("clubs-list.club-card.del-model.cancel")}
+          </ColoreButton>
           <ColoreButton red={true} onClick={deleteClubHandler}>
-            Delete
+            {t("clubs-list.club-card.del-model.delete")}
           </ColoreButton>
         </div>
       </div>

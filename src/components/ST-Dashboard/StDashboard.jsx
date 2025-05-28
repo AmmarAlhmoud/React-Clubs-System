@@ -10,10 +10,13 @@ import WeeklyCalender from "../Dashboard/WeeklyCalender";
 import styles from "./StDashboard.module.css";
 
 import BarLoader from "../UI/BarLoader";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
 const StDashboard = () => {
+  const { t } = useTranslation();
+
   const [isFetching, setIsFetching] = useState(false);
   const db = database;
   const dispatch = useDispatch();
@@ -53,7 +56,7 @@ const StDashboard = () => {
     <main className={styles.container}>
       {/* Recent Events Section */}
       <section className={styles.recent}>
-        <h1>Recent New Events</h1>
+        <h1>{t("st-dashboard.recent-new-events")}</h1>
         <div className={styles.renderedEvents}>
           {sTEventsList === null && isFetching && (
             <BarLoader noItemWeeklyST={true} />

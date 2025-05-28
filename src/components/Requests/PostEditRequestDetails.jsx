@@ -9,10 +9,13 @@ import Image from "../UI/Image";
 
 import styles from "./PostEditRequestDetails.module.css";
 import BarLoader from "../UI/BarLoader";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
 const PostEditRequestDetails = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const postEditDetails = useSelector(
     (state) => state.club.currentEditPostDetails
@@ -86,21 +89,27 @@ const PostEditRequestDetails = () => {
         <section className={styles["post-details"]}>
           <CloseBtn onClick={closeDetailsHandler} />
           <section className={styles.sec1}>
-            <h2 className={styles.h2}>Original Request</h2>
+            <h2 className={styles.h2}>
+              {t("requests.post-edit-req.req-details.title-1")}
+            </h2>
             <div className={styles["post-image"]}>
               <Image src={currentPost?.PostImage} alt="post Original Image" />
             </div>
           </section>
           <section className={styles.sec2}>
             <div>
-              <h2 className={styles.h2}>Description</h2>
+              <h2 className={styles.h2}>
+                {t("requests.post-edit-req.req-details.desc")}
+              </h2>
               <p className={styles["post-desc"]}>{currentPost?.description}</p>
             </div>
           </section>
           <div className={styles.border} />
 
           <section className={styles.sec3}>
-            <h2 className={styles.h2}>New Request</h2>
+            <h2 className={styles.h2}>
+              {t("requests.post-edit-req.req-details.title-2")}
+            </h2>
             <div
               className={`${styles["post-image"]} ${
                 isPostImageNew ? styles.newDataImg : ""
@@ -111,7 +120,9 @@ const PostEditRequestDetails = () => {
           </section>
           <section className={styles.sec4}>
             <div>
-              <h2 className={styles.h2}>Description</h2>
+              <h2 className={styles.h2}>
+                {t("requests.post-edit-req.req-details.desc")}
+              </h2>
               <p
                 className={`${styles["post-desc"]} ${
                   isPostDescNew ? styles.newDataDesc : ""

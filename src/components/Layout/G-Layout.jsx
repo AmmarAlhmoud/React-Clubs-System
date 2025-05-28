@@ -20,11 +20,15 @@ import Club_M_Ic from "../../assets/icons/EventsList/club_manager_logo.png";
 
 import styles from "./G-Layout.module.css";
 import EventsListSvg from "../Svgs/EventsListSvg";
+import { useTranslation } from "react-i18next";
 
 const G_Layout = (props) => {
+  const { t } = useTranslation();
+
   const { logout } = useAuth();
   const navigate = useNavigate();
   const displayedUserType = displayAuthUserType();
+  // TODO: translate user types
   const displayedUserName = displayAuthUserName();
 
   const logoutHandler = () => {
@@ -46,7 +50,7 @@ const G_Layout = (props) => {
             className={styles.img}
           />
           <p className={styles["user-name"]}>{displayedUserName}</p>
-          <p className={styles.role}>{displayedUserType}</p>
+          <p className={styles.role}>{t(`g-layout.${displayedUserType}`)}</p>
         </div>
         <ul className={styles["aside-nav-list"]}>
           {checkAuthAdUserType() && (
@@ -64,7 +68,7 @@ const G_Layout = (props) => {
                       isActive ? styles.active : undefined;
                     }}
                   />
-                  <p>Home</p>
+                  <p>{t("g-layout.home")}</p>
                 </div>
               </NavLink>
             </li>
@@ -80,7 +84,7 @@ const G_Layout = (props) => {
               >
                 <div className={styles["aside-nav-item"]}>
                   <HomeSvg />
-                  <p>My Club</p>
+                  <p>{t("g-layout.my-club")}</p>
                 </div>
               </NavLink>
             </li>
@@ -95,7 +99,7 @@ const G_Layout = (props) => {
             >
               <div className={styles["aside-nav-item"]}>
                 <DashboardSvg />
-                <p>Dashboard</p>
+                <p>{t("g-layout.dashboard")}</p>
               </div>
             </NavLink>
           </li>
@@ -109,7 +113,7 @@ const G_Layout = (props) => {
             >
               <div className={styles["aside-nav-item"]}>
                 <EventsListSvg />
-                <p>Events List</p>
+                <p>{t("g-layout.events-list")}</p>
               </div>
             </NavLink>
           </li>
@@ -126,7 +130,7 @@ const G_Layout = (props) => {
               >
                 <div className={styles["aside-nav-item"]}>
                   <RequestsSvg />
-                  <p>Requests</p>
+                  <p>{t("g-layout.requests")}</p>
                 </div>
               </NavLink>
             </li>
@@ -142,7 +146,7 @@ const G_Layout = (props) => {
               >
                 <div className={styles["aside-nav-item"]}>
                   <RequestsSvg />
-                  <p>Request Event</p>
+                  <p>{t("g-layout.request-event")}</p>
                 </div>
               </NavLink>
             </li>
@@ -158,7 +162,7 @@ const G_Layout = (props) => {
               >
                 <div className={styles["aside-nav-item"]}>
                   <RequestPostSvg />
-                  <p>Request Post</p>
+                  <p>{t("g-layout.request-post")}</p>
                 </div>
               </NavLink>
             </li>
@@ -173,7 +177,7 @@ const G_Layout = (props) => {
             >
               <div className={styles["aside-nav-item"]}>
                 <ClubsListSvg />
-                <p>Clubs List</p>
+                <p>{t("g-layout.clubs-list")}</p>
               </div>
             </NavLink>
           </li>
@@ -188,7 +192,7 @@ const G_Layout = (props) => {
               >
                 <div className={styles["aside-nav-item"]}>
                   <CreateClubSvg />
-                  <p>Create Club</p>
+                  <p>{t("g-layout.create-club")}</p>
                 </div>
               </NavLink>
             </li>
@@ -204,7 +208,7 @@ const G_Layout = (props) => {
               >
                 <div className={styles["aside-nav-item"]}>
                   <CreateClubSvg />
-                  <p>Edit My Club</p>
+                  <p>{t("g-layout.edit-my-club")}</p>
                 </div>
               </NavLink>
             </li>
@@ -217,7 +221,7 @@ const G_Layout = (props) => {
           }`}
         >
           <LogoutSvg />
-          <p>Logout</p>
+          <p>{t("g-layout.logout")}</p>
         </div>
       </aside>
       <main className={styles["content-container"]}>{props.children}</main>

@@ -1,0 +1,550 @@
+{
+  "welcome": "Tekrar Hoş Geldiniz",
+  "powerd-by": "Tarafından desteklenmektedir",
+  "home": {
+    "nav": {
+      "uni": "USKUDAR",
+      "dashboard": "Gösterge Paneli",
+      "events": "Etkinlikler",
+      "clubs": "Kulüpler",
+      "about": "Hakkında",
+      "help": "Yardım",
+      "login": "Giriş Yap",
+      "logout": "Çıkış Yap"
+    },
+    "title": "USKUDAR GELECEĞİ BİZLE GÖRÜN",
+    "bottom-bar": {
+      "diverse": "Çeşitli kulüpler!",
+      "fun": "Eğlenceli etkinlikler!",
+      "craft": "Topluluğunuzu oluşturun",
+      "learn": "Daha fazla bilgi"
+    },
+    "title-sec": "BUGÜNÜN ETKİNLİĞİ",
+    "club-sec": {
+      "clubs": "Kulüpler",
+      "desc": "En popülerden geniş bir kulüp seçkisi",
+      "club-1": {
+        "title": "Bebek Bakım Kulübü",
+        "desc": "Aman Tanrım!"
+      },
+      "club-2": {
+        "title": "Kimya Kulübü",
+        "desc": "Umrumda değil"
+      },
+      "club-3": {
+        "title": "UU AFAD Kulübü",
+        "desc": "Programlamayı sevmiyorum"
+      },
+      "club-4": {
+        "title": "Macera Zamanı Kulübü",
+        "desc": "CSS berbattır!"
+      },
+      "club-5": {
+        "title": "Dans Kulübü",
+        "desc": "Yorgunum"
+      },
+      "club-6": {
+        "title": "Satranç Kulübü",
+        "desc": "Sabırsızlanıyorum"
+      }
+    },
+    "club-prev": {
+      "events": "Etkinlikler",
+      "desc": "Bu ayki yaklaşan etkinlikler",
+      "club-1": {
+        "title": "İstanbul sil",
+        "desc": "Aman Tanrım!"
+      },
+      "club-2": {
+        "title": "Afrika",
+        "desc": "Umrumda değil"
+      },
+      "club-3": {
+        "title": "Bali Endonezya",
+        "desc": "Programlamayı sevmiyorum"
+      },
+      "club-4": {
+        "title": "Sydney Avustralya",
+        "desc": "CSS berbattır!"
+      },
+      "club-5": {
+        "title": "Fas Afrika",
+        "desc": "Yorgunum"
+      },
+      "club-6": {
+        "title": "Alberta Kanada",
+        "desc": "Sabırsızlanıyorum"
+      }
+    },
+    "footer": {
+      "title": "Konumumuz",
+      "contact-us": "Bizimle İletişime Geçin",
+      "contact": "İletişim"
+    }
+  },
+  "g-layout": {
+    "sks": "SKS",
+    "club-manager": "Kulüp Yöneticisi",
+    "student": "Öğrenci",
+    "home": "Anasayfa",
+    "my-club": "Kulübüm",
+    "dashboard": "Gösterge Paneli",
+    "events-list": "Etkinlik Listesi",
+    "requests": "Talepler",
+    "request-event": "Etkinlik Talebi",
+    "request-post": "Gönderi Talebi",
+    "clubs-list": "Kulüpler Listesi",
+    "create-club": "Kulüp Oluştur",
+    "edit-my-club": "Kulübümü Düzenle",
+    "logout": "Çıkış Yap"
+  },
+  "dashboard": {
+    "no-requests": "Şu anda talep yok!",
+    "requests": "Talepler",
+    "waiting": "Beklemede",
+    "accepted": "Kabul Edildi",
+    "event-requests": "Etkinlik Talepleri",
+    "denied": "Reddedildi",
+    "total-clubs": "Toplam Kulüp",
+    "request-date": "Talep Tarihi",
+    "weekly-calendar": {
+      "no-events-currently": "Şu anda etkinlik yok.",
+      "no-events-this-day": "Bu gün etkinlik yok.",
+      "title": "Haftalık Takvim",
+      "day": "Gün",
+      "mon": "Pazartesi",
+      "tues": "Salı",
+      "wed": "Çarşamba",
+      "thur": "Perşembe",
+      "fri": "Cuma",
+      "sat": "Cumartesi",
+      "sun": "Pazar"
+    },
+    "monthly-calendar": {
+      "select-a-day": "Bir gün seçin",
+      "no-events-this-day": "Bu gün etkinlik yok.",
+      "months": {
+        "0": "Ocak",
+        "1": "Şubat",
+        "2": "Mart",
+        "3": "Nisan",
+        "4": "Mayıs",
+        "5": "Haziran",
+        "6": "Temmuz",
+        "7": "Ağustos",
+        "8": "Eylül",
+        "9": "Ekim",
+        "10": "Kasım",
+        "11": "Aralık"
+      },
+      "week-days-short": {
+        "0": "Pzt",
+        "1": "Sal",
+        "2": "Çar",
+        "3": "Per",
+        "4": "Cum",
+        "5": "Cmt",
+        "6": "Paz"
+      }
+    }
+  },
+  "cm-dashboard": {
+    "recent-new-events": "Son Yeni Etkinlikler",
+    "club-page": "Kulüp Sayfası",
+    "my-next-event": "Bir Sonraki Etkinliğim",
+    "total-events": "Toplam Etkinlik",
+    "event": "Etkinlik",
+    "responded": "Yanıtlandı",
+    "responded-status": {
+      "event": "Etkinlik",
+      "post": "Gönderi",
+      "edit-event": "Etkinliği Düzenle",
+      "edit-post": "Gönderiyi Düzenle",
+      "edit-club": "Kulübü Düzenle"
+    },
+    "request-results": "Talep Sonuçları",
+    "pending": "Bekleyen",
+    "pending-requests": "Bekleyen Talepler",
+    "add-event-request": "Etkinlik Talebi Ekle",
+    "add-post-request": "Gönderi Talebi Ekle",
+    "delete-model": {
+      "question": "Silmek istediğinizden emin misiniz",
+      "cancel": "İptal",
+      "delete": "Sil"
+    },
+    "del-post-event": "gönderiniz/etkinliğiniz",
+    "del-request": "talebiniz",
+    "recent-carousel": "Şu anda yeni etkinlik yok."
+  },
+  "st-dashboard": {
+    "recent-new-events": "Son Yeni Etkinlikler"
+  },
+  "events-list": {
+    "no-results": "Aramanız için sonuç bulunamadı.",
+    "no-events": "Şu anda etkinlik yok.",
+    "show-details": "Etkinlik detaylarını göstermek için “Detaylar”a tıklayın.",
+    "send-event-req": "Etkinlik talebi gönderildi!",
+    "send-error-event-req": "Etkinlik talebi gönderilirken hata oluştu, lütfen tekrar deneyin",
+    "send-post-req": "Gönderi talebi gönderildi!",
+    "send-error-post-req": "Gönderi talebi gönderilirken hata oluştu, lütfen tekrar deneyin",
+    "delete-event-req": "Etkinlik başarıyla silindi!",
+    "delete-error-event-req": "Etkinlik silinirken hata oluştu, lütfen tekrar deneyin",
+    "enter-clubname-date-cate": "Aramaya başlamak için kulüp adı veya tarih girin ya da bir kategori seçin.",
+    "nav-events": {
+      "no-matching": "Eşleşen etkinlik bulunamadı",
+      "event-name": "Etkinlik Adı",
+      "date": "Tarih",
+      "search": "Ara",
+      "categories-input": {
+        "title": "Kategoriler",
+        "categories-list": {
+          "0": "Fen Bilimleri",
+          "1": "Beşeri Bilimler",
+          "2": "İşletme",
+          "3": "Matematik",
+          "4": "Görsel Sanatlar",
+          "5": "Sahne Sanatları",
+          "6": "Yazarlık",
+          "7": "Medya",
+          "8": "Oyunlar",
+          "9": "Kültür",
+          "10": "Yaşam Tarzı",
+          "11": "Hobiler",
+          "12": "Aktivizm",
+          "13": "Hizmet",
+          "14": "İnanç",
+          "15": "Bireysel",
+          "16": "Takım",
+          "17": "Fitness",
+          "18": "Açıkhava",
+          "19": "Teknoloji"
+        }
+      }
+    },
+    "event-item": {
+      "event": "Etkinlik",
+      "location": "Konum",
+      "date-time": "Tarih & Saat",
+      "details": "Detaylar",
+      "event-del-model": {
+        "question": "Silmek istediğinizden emin misiniz",
+        "cancel": "İptal",
+        "delete": "Sil"
+      }
+    },
+    "event-details": {
+      "club-page": "Kulüp Sayfası",
+      "title": "Etkinlik Başlığı:",
+      "speakers": "Konuşmacılar :",
+      "starting-time": "Başlangıç Zamanı:",
+      "ending-time": "Bitiş Zamanı:",
+      "date": "Tarih:",
+      "location": "Konum:",
+      "email": "E-posta:",
+      "contact": "İletişim:"
+    }
+  },
+  "club-page": {
+    "del-post": "Gönderi başarıyla silindi!",
+    "error-del-post": "Gönderi silinirken hata oluştu, lütfen tekrar deneyin",
+    "del-event": "Etkinlik başarıyla silindi!",
+    "error-del-event": "Etkinlik silinirken hata oluştu, lütfen tekrar deneyin",
+    "post-edit-req": "Gönderi düzenleme talebi gönderildi!",
+    "error-post-edit-req": "Gönderi düzenleme talebi gönderilirken hata oluştu, lütfen tekrar deneyin",
+    "event-edit-req": "Etkinlik düzenleme talebi gönderildi!",
+    "error-event-edit-req": "Etkinlik düzenleme talebi gönderilirken hata oluştu, lütfen tekrar deneyin",
+    "no-events": "Şu anda etkinlik yok!",
+    "no-posts": "Şu anda gönderi yok!",
+    "manager": "Yönetici :",
+    "created-date": "Oluşturulma Tarihi",
+    "posts": "Gönderiler",
+    "events": "Etkinlikler",
+    "desc": "Açıklama",
+    "contact": "İletişim",
+    "event-item": {
+      "day": "gün",
+      "hour": "saat",
+      "minute": "dakika",
+      "second": "saniye",
+      "invalid-time": "Geçersiz zaman formatı, lütfen geçerli bir format sağlayın örn: 1:20, 20, 1 20",
+      "change-info": "Talebi göndermeden önce etkinlik bilgilerini değiştirin!",
+      "del-event": "Etkinliği Sil",
+      "editing": "Düzenleniyor...",
+      "edit-event": "Etkinliği Düzenle",
+      "date": "Tarih:",
+      "time": "Saat:",
+      "location": "Konum:",
+      "speakers": "Konuşmacılar:",
+      "edit": "Düzenle",
+      "cancel": "İptal",
+      "apply": "Uygula"
+    },
+    "post-item": {
+      "day": "gün",
+      "hour": "saat",
+      "minute": "dakika",
+      "second": "saniye",
+      "change-info": "Talebi göndermeden önce gönderi bilgilerini değiştirin!",
+      "delete-post": "Gönderiyi Sil",
+      "editing": "Düzenleniyor...",
+      "edit-post": "Gönderiyi Düzenle",
+      "edit": "Düzenle",
+      "cancel": "İptal",
+      "apply": "Uygula"
+    }
+  },
+  "requests": {
+    "main-nav": {
+      "event-req": "Etkinlik Talebi",
+      "club-post-req": "Kulüp Gönderi Talebi",
+      "club-edit-req": "Kulüp Düzenleme Talebi",
+      "event-edit-req": "Etkinlik Düzenleme Talebi",
+      "post-edit-req": "Gönderi Düzenleme Talebi"
+    },
+    "event-req": {
+      "accept-event-req": "Etkinlik talebi kabul edildi",
+      "error-accept-event-req": "Etkinlik talebini kabul ederken hata oluştu, lütfen tekrar deneyin",
+      "reject-event-req": "Etkinlik talebi reddedildi",
+      "no-event": "Şu anda etkinlik talebi yok.",
+      "click-details": "Detayları göstermek için “Detaylar”a tıklayın.",
+      "event": "Etkinlik",
+      "event-item": {
+        "event": "Etkinlik Adı",
+        "location": "Konum",
+        "date-time": "Tarih & Saat",
+        "details": "Detaylar",
+        "contact": "İletişim Numarası",
+        "email": "E-posta",
+        "accept": "Kabul Et",
+        "reject": "Reddet"
+      }
+    },
+    "club-post-req": {
+      "accept-post-req": "Gönderi talebi kabul edildi",
+      "error-accept-post-req": "Gönderi talebini kabul ederken hata oluştu, lütfen tekrar deneyin",
+      "reject-post-req": "Gönderi talebi reddedildi",
+      "no-post": "Şu anda gönderi talebi yok.",
+      "post": "Gönderi",
+      "post-item": {
+        "post": "Gönderi Adı",
+        "details": "Detaylar",
+        "accept": "Kabul Et",
+        "reject": "Reddet"
+      },
+      "post-details": {
+        "title": "Gönderi Başlığı :"
+      }
+    },
+    "club-edit-req": {
+      "accept-edit-req": "Kulüp düzenleme talebi kabul edildi",
+      "error-accept-edit-req": "Kulüp düzenlenirken hata oluştu, lütfen tekrar deneyin",
+      "reject-edit-req": "Kulüp düzenleme talebi reddedildi",
+      "no-edit": "Şu anda kulüp düzenleme talebi yok.",
+      "approve": "Onayla",
+      "reject": "Reddet"
+    },
+    "event-edit-req": {
+      "accept-event-req": "Etkinlik düzenleme talebi kabul edildi",
+      "error-accept-event-req": "Etkinlik düzenleme talebini kabul ederken hata oluştu, lütfen tekrar deneyin",
+      "reject-event-req": "Etkinlik düzenleme talebi reddedildi",
+      "no-event": "Şu anda etkinlik düzenleme talebi yok.",
+      "event": "Etkinlik",
+      "req-details": {
+        "title-1": "Orijinal Talep",
+        "desc": "Açıklama",
+        "email": "E-posta:",
+        "contact": "İletişim:",
+        "location": "Konum:",
+        "date": "Tarih:",
+        "time": "Saat:",
+        "title-2": "Yeni Talep"
+      }
+    },
+    "post-edit-req": {
+      "accept-post-req": "Gönderi düzenleme talebi kabul edildi",
+      "error-accept-post-req": "Gönderi düzenleme talebini kabul ederken hata oluştu, lütfen tekrar deneyin",
+      "reject-post-req": "Gönderi düzenleme talebi reddedildi",
+      "no-post": "Şu anda gönderi düzenleme talebi yok.",
+      "post": "Gönderi",
+      "req-details": {
+        "title-1": "Orijinal Talep",
+        "desc": "Açıklama",
+        "title-2": "Yeni Talep"
+      }
+    }
+  },
+  "req-event": {
+    "error-uploading": "Etkinlik resmi yüklenirken hata oluştu, lütfen tekrar deneyin",
+    "fill-info": "Lütfen bilgileri gözden geçirin ve tüm alanların doldurulduğundan emin olun",
+    "drag": "Dosyalardan sürükleyin veya bilgisayardan göz atın, otomatik olarak sıralanır",
+    "name": "Etkinlik Adı",
+    "speakers": "Konuşmacılar",
+    "number": "İletişim Numarası",
+    "start-time": "Başlangıç Zamanı",
+    "end-time": "Bitiş Zamanı",
+    "location": "Konum",
+    "desc": "Talep açıklamanızı buraya girin...",
+    "event": "Etkinlik Talebi",
+    "cancel": "İptal",
+    "create": "Oluştur"
+  },
+  "req-post": {
+    "error-uploading": "Gönderi resmi yüklenirken hata oluştu, lütfen tekrar deneyin",
+    "fill-fields": "Lütfen bilgileri gözden geçirin ve tüm alanların doldurulduğundan emin olun",
+    "post": "Gönderi Talebi",
+    "drag": "Dosyalardan sürükleyin veya bilgisayardan göz atın, otomatik olarak sıralanır",
+    "title": "Gönderi Başlığı",
+    "desc": "Talep açıklamanızı buraya girin...",
+    "cancel": "İptal",
+    "create": "Oluştur"
+  },
+  "clubs-list": {
+    "created": "Kulüp oluşturuldu!",
+    "error-creating": "Kulüp oluşturulurken hata oluştu",
+    "edited": "Başarıyla düzenlendi!",
+    "error-editting": "Kulüp düzenlenirken hata oluştu",
+    "edit-req": "Kulüp düzenleme talebiniz gönderildi!",
+    "deleted": "Başarıyla silindi!",
+    "error-deleting": "Kulüp silinirken hata oluştu",
+    "no-result": "Aramanız için sonuç bulunamadı.",
+    "club-card": {
+      "discover": "Keşfet",
+      "del-model": {
+        "question": "Silmek istediğinizden emin misiniz",
+        "cancel": "İptal",
+        "delete": "Sil"
+      },
+      "edit-page": {
+        "title": "Kulüp Bilgilerini Düzenle",
+        "cancel": "İptal",
+        "apply": "Uygula"
+      },
+      "club-edit-req": {
+        "nav": {
+          "no-match": "Eşleşen kulüp bulunamadı",
+          "club-name": "Kulüp Adı",
+          "search": "Ara"
+        },
+        "fill-fields": "Tüm alanları doldurduğunuzdan emin olun.",
+        "edit-club": "Kulübü Düzenle",
+        "note": "*Arka plan resmi ve kulüp simgesine tıklayarak bunları değiştirebilirsiniz.",
+        "upload-back": "Kulüp Arka Planını Yüklemek İçin Tıklayın",
+        "click-upload": "Yüklemek İçin Tıklayın",
+        "club-icon": "Kulüp Simgesi",
+        "name": "Kulüp Adı",
+        "id": "Öğrenci Numarası",
+        "m-name": "Yönetici Adı",
+        "email": "E-posta Adresi",
+        "number": "İletişim Numarası",
+        "cate": "Kategoriler",
+        "desc": "Kulüp açıklamanızı buraya girin..."
+      }
+    }
+  },
+  "create-club": {
+    "missing-info": "Lütfen tüm alanları gözden geçirin ve eksik bilgileri doldurun.",
+    "error-club-manager": "Kulüp yöneticisi oluşturulurken hata oluştu",
+    "title": "Kulüp Oluştur",
+    "upload-back": "Kulüp Arka Planını Yüklemek İçin Tıklayın",
+    "click-upload": "Yüklemek İçin Tıklayın",
+    "club-icon": "Kulüp Simgesi",
+    "name": "Kulüp Adı",
+    "id": "Öğrenci Numarası",
+    "m-name": "Yönetici Adı",
+    "email": "E-posta Adresi",
+    "number": "İletişim Numarası",
+    "desc": "Kulüp açıklamanızı buraya girin...",
+    "cancel": "İptal",
+    "create": "Oluştur"
+  },
+  "cate-list-label": {
+    "0": "Fen Bilimleri",
+    "1": "Beşeri Bilimler",
+    "2": "İşletme",
+    "3": "Matematik",
+    "4": "Görsel Sanatlar",
+    "5": "Sahne Sanatları",
+    "6": "Yazarlık",
+    "7": "Medya",
+    "8": "Oyunlar",
+    "9": "Kültür",
+    "10": "Yaşam Tarzı",
+    "11": "Hobiler",
+    "12": "Aktivizm",
+    "13": "Hizmet",
+    "14": "İnanç",
+    "15": "Bireysel",
+    "16": "Takım",
+    "17": "Fitness",
+    "18": "Açıkhava",
+    "19": "Teknoloji"
+  },
+  "cate-list-value": {
+    "science": "Fen Bilimleri",
+    "humanities": "Beşeri Bilimler",
+    "business": "İşletme",
+    "math": "Matematik",
+    "visual-arts": "Görsel Sanatlar",
+    "performing-arts": "Sahne Sanatları",
+    "writing": "Yazarlık",
+    "media": "Medya",
+    "games": "Oyunlar",
+    "culture": "Kültür",
+    "lifestyle": "Yaşam Tarzı",
+    "hobbies": "Hobiler",
+    "activism": "Aktivizm",
+    "service": "Hizmet",
+    "faith": "İnanç",
+    "individual": "Bireysel",
+    "team": "Takım",
+    "fitness": "Fitness",
+    "outdoor": "Açıkhava",
+    "technology": "Teknoloji"
+  },
+  "months": {
+    "Jan": "Ocak",
+    "Feb": "Şubat",
+    "Mar": "Mart",
+    "Apr": "Nisan",
+    "May": "Mayıs",
+    "Jun": "Haziran",
+    "Jul": "Temmuz",
+    "Aug": "Ağustos",
+    "Sep": "Eylül",
+    "Oct": "Ekim",
+    "Nov": "Kasım",
+    "Dec": "Aralık"
+  },
+  "login": {
+    "invalid-input": "Geçersiz Giriş",
+    "check-input": "Girişinizi kontrol edin",
+    "invalid-cred": "Geçersiz Kimlik Bilgileri",
+    "double-check": "E-posta ve şifrenizi tekrar kontrol edin.",
+    "title": "Hesabınıza Giriş Yapın",
+    "email": "E-posta",
+    "password": "Şifre",
+    "enter": "Giriş",
+    "return-home": "Ana Sayfaya Dön",
+    "model": {
+      "cancel": "İptal",
+      "confirm": "Onayla",
+      "try-again": "Tekrar Deneyin",
+      "continue": "Devam Et"
+    },
+    "test-cases": {
+      "email": {
+        "invalid": "Geçerli bir e-posta adresi girin.",
+        "noAt": "E-posta @ sembolünü içermelidir.",
+        "noSpaces": "E-posta adresinde boşluk yoktur. Lütfen boşlukları kaldırın.",
+        "adminFormat": "Yönetici için geçerli e-posta formatı – ad.soyad@Ad.uskudar.com",
+        "clubManagerFormat": "Kulüp Yöneticisi için geçerli e-posta formatı – ad.soyad@Cl.uskudar.com",
+        "studentFormat": "Öğrenci için geçerli e-posta formatı – ad.soyad@St.uskudar.com"
+      },
+      "password": {
+        "notBlank": "Şifre alanı boş bırakılamaz.",
+        "minLength": "Şifre en az 8 karakter uzunluğunda olmalıdır.",
+        "noSpaces": "Şifrede boşluk yoktur. Lütfen boşlukları kaldırın."
+      }
+    }
+  }
+}

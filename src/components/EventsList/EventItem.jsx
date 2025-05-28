@@ -10,6 +10,7 @@ import delIcon from "../../assets/icons/ClubsList/delete.png";
 import EventDelModal from "./EventDelModal.jsx";
 
 import styles from "./EventItem.module.css";
+import { useTranslation } from "react-i18next";
 
 const EventItem = ({
   id,
@@ -32,16 +33,23 @@ const EventItem = ({
   type,
   EventDetails,
 }) => {
+  const { t } = useTranslation();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const userType = getAuthUserType();
 
-  const formattedDate = new Date(EventDate).toLocaleDateString("en-US", {
+  let formattedDate = new Date(EventDate).toLocaleDateString("en-US", {
     day: "2-digit",
     month: "short",
     year: "numeric",
   });
   const showDetails = useSelector((state) => state.events.showEventDetails);
+
+  const month = formattedDate.split(" ")[0];
+  formattedDate = formattedDate.replace(month, t(`months.${month}`));
+
+  console.log(formattedDate);
 
   const showDetailsHandler = () => {
     dispatch(
@@ -83,7 +91,7 @@ const EventItem = ({
                   clubCategories?.map((cateName) => (
                     <CateItem
                       key={cateName?.label}
-                      cateName={cateName?.label}
+                      cateName={t(`cate-list-value.${cateName?.value}`)}
                       className={styles["cate-item"]}
                     />
                   ))}
@@ -100,15 +108,23 @@ const EventItem = ({
         </section>
         <ul className={styles["event-info"]}>
           <li>
-            <p className={styles["event-tag"]}>Event</p>
+            <p className={styles["event-tag"]}>
+              {t("events-list.event-item.event")}
+            </p>
             <p className={styles["event-tag-content"]}>{EventName}</p>
           </li>
           <li>
-            <p className={styles["event-tag"]}>Location</p>
-            <p className={styles["event-tag-content"]}>{EventLocation?.label}</p>
+            <p className={styles["event-tag"]}>
+              {t("events-list.event-item.location")}
+            </p>
+            <p className={styles["event-tag-content"]}>
+              {EventLocation?.label}
+            </p>
           </li>
           <li>
-            <p className={styles["event-tag"]}>Date & Time</p>
+            <p className={styles["event-tag"]}>
+              {t("events-list.event-item.date-time")}
+            </p>
             <div className={styles.last}>
               <p
                 className={`${styles["event-tag-content"]} ${styles.eventDateTime}`}
@@ -127,7 +143,7 @@ const EventItem = ({
           }
           onClick={showDetailsHandler}
         >
-          Details
+          {t("events-list.event-item.details")}
         </ColoreButton>
       </li>
       {isModalOpen && (

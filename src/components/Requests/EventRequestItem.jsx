@@ -9,6 +9,7 @@ import { eventsActions } from "../../store/events-slice";
 import ColoredButton from "../UI/ColoredButton";
 
 import styles from "./EventRequestItem.module.css";
+import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
@@ -33,12 +34,17 @@ const EventRequestItem = ({
   type,
   requestEvent,
 }) => {
+  const { t } = useTranslation();
+
   const parsedDate = new Date(EventDate);
-  const formattedDate = new Date(parsedDate).toLocaleDateString("en-US", {
+  let formattedDate = new Date(parsedDate).toLocaleDateString("en-US", {
     day: "2-digit",
     month: "short",
     year: "numeric",
   });
+
+  const month = formattedDate.split(" ")[0];
+  formattedDate = formattedDate.replace(month, t(`months.${month}`));
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -262,17 +268,23 @@ const EventRequestItem = ({
         <ul className={styles["event-info"]}>
           <li className={styles.sec1}>
             <span>
-              <p className={styles["event-tag"]}>Event</p>
+              <p className={styles["event-tag"]}>
+                {t("requests.event-req.event-item.event")}
+              </p>
               <p className={styles["event-tag-content"]}>{EventName}</p>
             </span>
             <span>
-              <p className={styles["event-tag"]}>Location</p>
+              <p className={styles["event-tag"]}>
+                {t("requests.event-req.event-item.location")}
+              </p>
               <p className={styles["event-tag-content"]}>
                 {EventLocation?.label}
               </p>
             </span>
             <span>
-              <p className={styles["event-tag"]}>Date & Time</p>
+              <p className={styles["event-tag"]}>
+                {t("requests.event-req.event-item.date-time")}
+              </p>
               <p
                 className={styles["event-tag-content"]}
               >{`${formattedDate}, ${EventSTime?.label}-${EventETime?.label}`}</p>
@@ -280,11 +292,15 @@ const EventRequestItem = ({
           </li>
           <li className={styles.sec2}>
             <span>
-              <p className={styles["event-tag"]}>Email</p>
+              <p className={styles["event-tag"]}>
+                {t("requests.event-req.event-item.email")}
+              </p>
               <p className={styles["event-tag-content"]}>{CMEmail}</p>
             </span>
             <span>
-              <p className={styles["event-tag"]}>Content Number</p>
+              <p className={styles["event-tag"]}>
+                {t("requests.event-req.event-item.contact")}
+              </p>
               <p className={styles["event-tag-content"]}>{CMPhone}</p>
             </span>
           </li>
@@ -292,16 +308,18 @@ const EventRequestItem = ({
       )}
       <div className={styles.actions}>
         {type === "event-request" && (
-          <ColoredButton onClick={acceptEventReqHandler}>Accept</ColoredButton>
+          <ColoredButton onClick={acceptEventReqHandler}>
+            {t("requests.event-req.event-item.accept")}
+          </ColoredButton>
         )}
         {type === "event-request" && (
           <ColoredButton red={true} onClick={rejectEventReqHandler}>
-            Reject
+            {t("requests.event-req.event-item.reject")}
           </ColoredButton>
         )}
         {type === "club-edit-request" && (
           <ColoredButton onClick={acceptClubEditHandler} disabled={isFetching}>
-            Accept
+            {t("requests.event-req.event-item.accept")}
           </ColoredButton>
         )}
         {type === "club-edit-request" && (
@@ -310,12 +328,12 @@ const EventRequestItem = ({
             onClick={rejectClubEditHandler}
             disabled={isFetching}
           >
-            Reject
+            {t("requests.event-req.event-item.reject")}
           </ColoredButton>
         )}
         {type === "event-edit-request" && (
           <ColoredButton onClick={acceptEditEventHandler} disabled={isFetching}>
-            Accept
+            {t("requests.event-req.event-item.accept")}
           </ColoredButton>
         )}
         {type === "event-edit-request" && (
@@ -324,7 +342,7 @@ const EventRequestItem = ({
             onClick={rejectEditEditHandler}
             disabled={isFetching}
           >
-            Reject
+            {t("requests.event-req.event-item.reject")}
           </ColoredButton>
         )}
       </div>
@@ -338,12 +356,12 @@ const EventRequestItem = ({
       >
         {type === "event-request" && (
           <ColoredButton purble={true} onClick={showEventDetailsHandler}>
-            Details
+            {t("requests.event-req.event-item.details")}
           </ColoredButton>
         )}
         {type === "club-edit-request" && (
           <ColoredButton purble={true} onClick={showClubDetailsHandler}>
-            Details
+            {t("requests.event-req.event-item.details")}
           </ColoredButton>
         )}
       </div>
@@ -358,7 +376,7 @@ const EventRequestItem = ({
           }`}
         >
           <ColoredButton purble={true} onClick={showEditEventDetailsHandler}>
-            Details
+            {t("requests.event-req.event-item.details")}
           </ColoredButton>
         </div>
       )}

@@ -5,6 +5,7 @@ import { eventsActions } from "../../store/events-slice";
 import ColoreButton from "../UI/ColoredButton";
 
 import styles from "./EventDelModal.module.css";
+import { useTranslation } from "react-i18next";
 
 const EventDelModal = ({
   open,
@@ -15,6 +16,8 @@ const EventDelModal = ({
   EventName,
   EventId,
 }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   if (!open) {
@@ -31,13 +34,15 @@ const EventDelModal = ({
       <div className={styles.modal}>
         <img src={icon} alt="club logo" />
         <div className={styles.text}>
-          <h1>Are you sure you want to delete</h1>
-          <h2>{title}</h2>
+          <h1>{t("events-list.event-item.event-del-model.question")}</h1>
+          <h2>{`${title} ?`}</h2>
         </div>
         <div className={styles.btns}>
-          <ColoreButton onClick={onClose}>Cancel</ColoreButton>
+          <ColoreButton onClick={onClose}>
+            {t("events-list.event-item.event-del-model.cancel")}
+          </ColoreButton>
           <ColoreButton red={true} onClick={deleteClubHandler}>
-            Delete
+            {t("events-list.event-item.event-del-model.delete")}
           </ColoreButton>
         </div>
       </div>

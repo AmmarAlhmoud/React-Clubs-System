@@ -7,8 +7,11 @@ import styles from "./WeeklyCalender.module.css";
 import WeeklyCalenderItem from "./WeeklyCalenderItem";
 import BarLoader from "../UI/BarLoader";
 import { getAuthUserType } from "../../util/auth";
+import { useTranslation } from "react-i18next";
 
 const WeeklyCalender = () => {
+  const { t } = useTranslation();
+
   const [selectedDay, setSelectedDay] = useState("");
   const weeklyCalData = useSelector((state) => state.ui.weeklyCalData);
   const cMEventsList = useSelector((state) => state.ui.cMEventsList);
@@ -97,7 +100,7 @@ const WeeklyCalender = () => {
             : styles.noEvent
         }
       >
-        There is no events currently.
+        {t("dashboard.weekly-calendar.no-events-currently")}
       </p>
     );
   }
@@ -111,7 +114,7 @@ const WeeklyCalender = () => {
             : styles.noEvent
         }
       >
-        There is no events at this day.
+        {t("dashboard.weekly-calendar.no-events-this-day")}
       </p>
     );
   }
@@ -120,21 +123,29 @@ const WeeklyCalender = () => {
     <form>
       <div className={styles.main}>
         <div>
-          <h1>Weekly Calendar</h1>
+          <h1>{t("dashboard.weekly-calendar.title")}</h1>
           <select
             name="Day"
             id=""
             value={selectedDay}
             onChange={handleSelectChange}
           >
-            <option value="">Day</option>
-            <option value="Monday">Monday</option>
-            <option value="Tuesday">Tuesday</option>
-            <option value="Wednesday">Wednesday</option>
-            <option value="Thursday">Thursday</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-            <option value="Sunday">Sunday</option>
+            <option value="">{t("dashboard.weekly-calendar.day")}</option>
+            <option value="Monday">{t("dashboard.weekly-calendar.mon")}</option>
+            <option value="Tuesday">
+              {t("dashboard.weekly-calendar.tues")}
+            </option>
+            <option value="Wednesday">
+              {t("dashboard.weekly-calendar.wed")}
+            </option>
+            <option value="Thursday">
+              {t("dashboard.weekly-calendar.thur")}
+            </option>
+            <option value="Friday">{t("dashboard.weekly-calendar.fri")}</option>
+            <option value="Saturday">
+              {t("dashboard.weekly-calendar.sat")}
+            </option>
+            <option value="Sunday">{t("dashboard.weekly-calendar.sun")}</option>
           </select>
         </div>
         <section
