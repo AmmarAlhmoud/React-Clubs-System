@@ -169,6 +169,11 @@
       "cancel": "Cancel",
       "delete": "Delete"
     },
+    "join-model": {
+      "question": "Are you sure you want to join to",
+      "cancel": "Cancel",
+      "join": "Join"
+    },
     "del-post-event": "your post/event",
     "del-request": "your request",
     "recent-carousel": "There is no recent events at the moment."
@@ -254,6 +259,8 @@
     "no-posts": "There are no posts or announcements at the moment!",
     "manager": "Manager :",
     "created-date": "Created Date",
+    "members": "Members",
+    "join-club": "Join Club",
     "posts": "Posts",
     "events": "Events",
     "desc": "Description",

@@ -15,11 +15,13 @@ import mailIcon from "../../assets/icons/MyClub/email.png";
 import telIcon from "../../assets/icons/MyClub/phone.png";
 import CateList from "../EventsList/CateList";
 import CateItem from "../EventsList/CateItem";
+import Modal from "./DelModal";
 
 import styles from "./MyClub.module.css";
 
 import BarLoader from "../UI/BarLoader";
 import { useTranslation } from "react-i18next";
+import ColoredButton from "../UI/ColoredButton";
 
 // For showing - hiding editing buttons (editor mode)
 let showEditButtons = true;
@@ -48,6 +50,8 @@ const MyClub = () => {
 
   const deletedEvent = useSelector((state) => state.club.deletedEvent);
   const deletedPost = useSelector((state) => state.club.deletedPost);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (currentClubInfo) {
     clubData = currentClubInfo;
@@ -262,6 +266,7 @@ const MyClub = () => {
     deletedEvent,
     reqEditPost,
     reqEditEvent,
+    t,
   ]);
 
   let eventsList;
@@ -313,6 +318,15 @@ const MyClub = () => {
     }
   }
 
+  const openJoinClubModelHandler = () => {
+    setIsModalOpen(true);
+  };
+  const joinClubHandler = () => {
+    // TODO: handel join club logic.
+    console.log("hello");
+    setIsModalOpen(false);
+  };
+
   return (
     <section className={styles.container}>
       {isFetching && <BarLoader clubPage={true} />}
@@ -338,23 +352,37 @@ const MyClub = () => {
                   ))}
                 </CateList>
               </div>
-              <div>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>{t("club-page.created-date")}</th>
-                      <th>{t("club-page.posts")}</th>
-                      <th>{t("club-page.events")}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{formattedDate}</td>
-                      <td>{postsNumber}</td>
-                      <td>{eventsNumber}</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div className={styles.metaDataContainer}>
+                <div className={styles.metaData}>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>{t("club-page.created-date")}</th>
+                        <th>{t("club-page.members")}</th>
+                        <th>{t("club-page.posts")}</th>
+                        <th>{t("club-page.events")}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{formattedDate}</td>
+                        {/* TODO: Add the members to each club */}
+                        <td>{5}</td>
+                        <td>{postsNumber}</td>
+                        <td>{eventsNumber}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {userType === "St" && (
+                  <ColoredButton
+                    onClick={openJoinClubModelHandler}
+                    black={true}
+                    className={styles.joinClub}
+                  >
+                    + {t("club-page.join-club")}
+                  </ColoredButton>
+                )}
               </div>
             </div>
           </div>
@@ -379,6 +407,14 @@ const MyClub = () => {
               {eventsList}
             </div>
           </section>
+          <Modal
+            join={true}
+            open={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            icon={clubData?.clubIcon}
+            title={`${clubData?.clubName} ?`}
+            onConfirmDelete={joinClubHandler}
+          />
         </>
       )}
     </section>

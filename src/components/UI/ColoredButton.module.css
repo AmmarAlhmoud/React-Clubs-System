@@ -14,6 +14,10 @@
   background-color: #9052f2;
 }
 
+.black {
+  background-color: #212225;
+}
+
 button:disabled,
 button[disabled] {
   border: 1px solid #999999;

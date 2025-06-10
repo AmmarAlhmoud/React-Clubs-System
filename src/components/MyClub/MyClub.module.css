@@ -97,6 +97,25 @@
   border-right: none;
 }
 
+.metaDataContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1.4em;
+}
+
+.metaData {
+  height: 80px;
+  padding: 1rem 0;
+  border-radius: 0.5em;
+  background-color: #212225;
+}
+
+.joinClub {
+  font-size: 0.8rem !important;
+  padding: 0.5em !important;
+}
+
 /*Lower Details Section */
 .details {
   display: grid;
