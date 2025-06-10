@@ -112,9 +112,7 @@ const StDashboard = () => {
       <section className={styles.recent}>
         <h1>{t("st-dashboard.recent-new-events")}</h1>
         <div className={styles.renderedEvents}>
-          {sTEventsList === null && isFetching && (
-            <BarLoader noItemWeeklyST={true} />
-          )}
+          {isFetching && <BarLoader noItemWeeklyST={true} />}
 
           {Array.isArray(sTEventsList) && sTEventsList.length > 0 && (
             <div className={styles.renderedEvents}>

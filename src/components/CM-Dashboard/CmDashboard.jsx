@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { database } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import { getAuthUserId } from "../../util/auth";
+import { uiActions } from "../../store/ui-slice";
+import { useTranslation } from "react-i18next";
 
 import next_event from "../../assets/icons/CM-Dashboard/next_event.png";
 import total_events from "../../assets/icons/CM-Dashboard/total_events.png";
@@ -15,12 +17,10 @@ import question from "../../assets/icons/CM-Dashboard/question.png";
 
 import WeeklyCalender from "../Dashboard/WeeklyCalender";
 import DelModal from "../MyClub/DelModal";
+import BarLoader from "../UI/BarLoader";
+import RecentEventsCarousel from "./RecentEventsCarousel";
 
 import styles from "./CmDashboard.module.css";
-
-import { uiActions } from "../../store/ui-slice";
-import RecentEventsCarousel from "./RecentEventsCarousel";
-import { useTranslation } from "react-i18next";
 
 let initialLoad = true;
 
@@ -374,6 +374,7 @@ const CmDashboard = () => {
       <section className={styles.recent}>
         <h1>{t("cm-dashboard.recent-new-events")}</h1>
         <div className={styles.renderedEvents}>
+          {isFetching && <BarLoader noItemWeeklyST={true} />}
           {recentEventsData !== null && (
             <RecentEventsCarousel items={recentEventsData} />
           )}
