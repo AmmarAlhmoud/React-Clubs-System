@@ -61,7 +61,7 @@ export const displayAuthUserType = () => {
     return "club-manager";
   }
   if (userType === "St") {
-    return "studnet";
+    return "student";
   }
 };
 

@@ -5,28 +5,19 @@ import { database } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import { getAuthUserId } from "../../util/auth";
 
-// import members from "../../assets/icons/CM-Dashboard/members.png";
 import next_event from "../../assets/icons/CM-Dashboard/next_event.png";
 import total_events from "../../assets/icons/CM-Dashboard/total_events.png";
 import responded from "../../assets/icons/CM-Dashboard/responded.png";
 import pending from "../../assets/icons/CM-Dashboard/pending.png";
 import accepted from "../../assets/icons/CM-Dashboard/accepted.png";
 import rejected from "../../assets/icons/CM-Dashboard/rejected.png";
-// import del from "../../assets/icons/CM-Dashboard/delete.png";
-// import cancel from "../../assets/icons/CM-Dashboard/cancel.png";
 import question from "../../assets/icons/CM-Dashboard/question.png";
 
-// import RecentEventItem from "./RecentEventItem";
 import WeeklyCalender from "../Dashboard/WeeklyCalender";
 import DelModal from "../MyClub/DelModal";
 
 import styles from "./CmDashboard.module.css";
 
-// Recieved dynamic club information (including the club's events + posts)
-// import CLUB_INFO from "../MyClub/dummyClubInfo";
-// const events = CLUB_INFO.events;
-// Recieved dynamic dummy events
-// import DUMMY_EVENTS from "../Dashboard/dummyEvents";
 import { uiActions } from "../../store/ui-slice";
 import RecentEventsCarousel from "./RecentEventsCarousel";
 import { useTranslation } from "react-i18next";
@@ -70,22 +61,6 @@ const CmDashboard = () => {
 
   const clubsListForCM = useSelector((state) => state.ui.clubsListForCM);
   const recentEventsData = useSelector((state) => state.ui.recentEventsData);
-
-  // const allReqList = useSelector((state) => state.ui.allReqList);
-
-  const [allReqList, setAllReqList] = useState([]); // Use an empty array initially
-
-  const handleAddItem = (newItem) => {
-    const existingIds = new Set(
-      allReqList.map((item) => item.PostId || item.EventId)
-    ); // Create a Set of existing PostId or EventId
-
-    const isUnique = !existingIds.has(newItem.PostId || newItem.EventId); // Check for uniqueness based on either property
-
-    if (isUnique) {
-      setAllReqList((prevList) => [...prevList, newItem]); // Add new item if unique
-    }
-  };
 
   // For responded request status icon (accepted or rejected)
   let ResponseStatus = true;
@@ -163,32 +138,6 @@ const CmDashboard = () => {
         }
       });
     }
-
-    // if (initialLoad === false && currentEventReqStatusCM !== null) {
-    //   const eventReq = Object.values(currentEventReqStatusCM);
-    //   dispatch(uiActions.setAllReqList(eventReq));
-    // }
-
-    // if (initialLoad === false && currentPostReqStatusCM !== null) {
-    //   const postReq = Object.values(currentPostReqStatusCM);
-    //   dispatch(uiActions.setAllReqList(postReq));
-    // }
-
-    // if (initialLoad === false && currentPostEditReqStatusCM !== null) {
-    //   const postEditReq = Object.values(currentPostEditReqStatusCM);
-    //   dispatch(uiActions.setAllReqList(...postEditReq));
-    // }
-
-    // if (initialLoad === false && currentEventEditReqStatusCM !== null) {
-    //   const eventEditReq = Object.values(currentEventEditReqStatusCM);
-    //   dispatch(uiActions.setAllReqList(...eventEditReq));
-    // }
-
-    // if (initialLoad === false && currentClubEditReqStatusCM !== null) {
-    //   const clubEditReq = Object.values(currentClubEditReqStatusCM);
-
-    //   dispatch(uiActions.setAllReqList(...clubEditReq));
-    // }
   }, [
     dispatch,
     db,
@@ -212,8 +161,6 @@ const CmDashboard = () => {
   let pendingRequestsList = [];
   let acceptingList = [];
   let acceptingRequestsList = [];
-
-  // console.log("all req: ", allReqList);
 
   let reqList = [];
 
@@ -281,15 +228,8 @@ const CmDashboard = () => {
             <div key={index} className={styles.dataItem}>
               <div>
                 <span>{formattedDate}</span> <span>{reqType}</span>
-                {/* <h3>{event.location.label}</h3> */}
               </div>
-              <div className={styles.icons}>
-                {/* <img
-                  src={cancel}
-                  alt="cancel"
-                  onClick={() => setIsReqModalOpen(true)}
-                /> */}
-              </div>
+              <div className={styles.icons}></div>
             </div>
           );
         }
@@ -344,12 +284,6 @@ const CmDashboard = () => {
                 ) : (
                   <img src={rejected} alt="rejected" />
                 )}
-                {/* <img
-                  src={del}
-                  alt="delete"
-                  className={styles.delcon}
-                  onClick={() => setIsModalOpen(true)}
-                /> */}
               </div>
             </div>
           );
@@ -371,12 +305,6 @@ const CmDashboard = () => {
                 ) : (
                   <img src={rejected} alt="rejected" />
                 )}
-                {/* <img
-                  src={del}
-                  alt="delete"
-                  className={styles.delcon}
-                  onClick={() => setIsModalOpen(true)}
-                /> */}
               </div>
             </div>
           );

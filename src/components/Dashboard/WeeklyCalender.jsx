@@ -40,7 +40,11 @@ const WeeklyCalender = () => {
     currentEventsList = sTEventsList;
   }
 
-  if (selectedDay !== "" && currentEventsList !== null) {
+  if (
+    selectedDay !== "" &&
+    Array.isArray(currentEventsList) &&
+    currentEventsList.length > 0
+  ) {
     const filteredEvents = currentEventsList.filter((evItem) => {
       const eventDay = new Date(evItem.Date)
         .toLocaleDateString("en-US", { weekday: "long" })
@@ -63,8 +67,12 @@ const WeeklyCalender = () => {
     });
   }
 
-  if (selectedDay === "" && currentEventsList !== null) {
-    filteredEventsList = currentEventsList.map((eventItem, index) => {
+  if (
+    selectedDay === "" &&
+    Array.isArray(currentEventsList) &&
+    currentEventsList.length > 0
+  ) {
+    filteredEventsList = currentEventsList?.map((eventItem, index) => {
       return (
         <WeeklyCalenderItem
           key={index}
@@ -90,7 +98,9 @@ const WeeklyCalender = () => {
 
   if (
     (currentEventsList === null && isCmDashLoading === false) ||
-    (isStDashLoading === false && userType === "St")
+    (currentEventsList === null &&
+      isStDashLoading === false &&
+      userType === "St")
   ) {
     filteredEventsList = (
       <p

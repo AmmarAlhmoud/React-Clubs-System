@@ -28,7 +28,6 @@ const G_Layout = (props) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const displayedUserType = displayAuthUserType();
-  // TODO: translate user types
   const displayedUserName = displayAuthUserName();
 
   const logoutHandler = () => {

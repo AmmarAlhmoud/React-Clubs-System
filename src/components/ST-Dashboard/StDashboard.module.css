@@ -34,11 +34,9 @@
 
 .renderedEvents {
   position: relative;
-  display: flex;
-  /* Choose axis for overflown events: */
-  flex-direction: row;
-  gap: 1rem;
-  overflow: auto;
+  /* background-color: rgb(120, 45, 45); */
+  border: 1px solid #2c2a2a;
+  border-radius: 1rem;
 }
 
 .renderedEvents::-webkit-scrollbar {
@@ -57,12 +55,6 @@
   background-color: rgb(255, 255, 255, 0.2);
   border-radius: 1rem;
 }
-
-.renderedEvents > div {
-  border: 1px solid #2c2a2a;
-  border-radius: 1rem;
-}
-
 .calender {
   background-color: #1b1d21;
   border: 1px solid #2c2a2a;
