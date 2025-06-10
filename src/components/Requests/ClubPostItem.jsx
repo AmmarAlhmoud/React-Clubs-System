@@ -23,6 +23,7 @@ const ClubPostItem = ({
   description,
   PostStatus,
   requestPost,
+  choosenType,
   type,
 }) => {
   const { t } = useTranslation();
@@ -112,6 +113,7 @@ const ClubPostItem = ({
         PostName,
         CLogo,
         CMLogo,
+        type : choosenType,
         PostImage,
         description,
         PostStatus,
@@ -186,7 +188,10 @@ const ClubPostItem = ({
           <li className={styles.sec1}>
             <span>
               <p className={styles["post-tag"]}>
-                {t("requests.club-post-req.post-item.post")}
+                {choosenType?.value === "post" &&
+                  t("requests.club-post-req.post-item.post")}
+                {choosenType?.value === "announcement" &&
+                  t("requests.club-post-req.post-item.announcement")}
               </p>
               <p className={styles["post-tag-content"]}>{PostName}</p>
             </span>

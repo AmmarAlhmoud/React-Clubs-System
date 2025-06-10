@@ -64,7 +64,7 @@
 }
 
 .aside-nav-item {
-  width: 175px;
+  width: 180px;
   height: 40px;
   display: flex;
   justify-content: left;
@@ -72,7 +72,11 @@
   column-gap: 0.5em;
   color: #fff;
   border-radius: 1em;
-  padding: 0 0 0 0.5em;
+  padding: 0 0.1em 0 0.5em;
+}
+
+.aside-nav-item-ann {
+  padding: 1.2em 0 1.2em 0.5em;
 }
 
 .logout {
@@ -98,6 +102,12 @@
 
 .active .aside-nav-item {
   border: 2px solid #ab4d7d;
+  color: #ab4d7d;
+}
+
+.active .aside-nav-item.aside-nav-item-ann {
+  border: 2px solid #ab4d7d;
+  padding: 1.2em 0.5em 1.2em 0;
   color: #ab4d7d;
 }
 

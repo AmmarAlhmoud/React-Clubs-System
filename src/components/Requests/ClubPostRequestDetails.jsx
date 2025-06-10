@@ -18,8 +18,17 @@ const ClubPostRequestDetails = () => {
   const dispatch = useDispatch();
   const postDetails = useSelector((state) => state.events.currentPostDetails);
 
-  const { id, CName, CMName, PostName, CLogo, CMLogo, PostImage, description } =
-    postDetails;
+  const {
+    id,
+    CName,
+    CMName,
+    PostName,
+    CLogo,
+    CMLogo,
+    PostImage,
+    description,
+    type,
+  } = postDetails;
 
   const closeDetailsHandler = () => {
     // close the event details
@@ -37,7 +46,10 @@ const ClubPostRequestDetails = () => {
       </section>
       <section className={styles.sec2}>
         <h2 className={styles.h2}>
-          {t("requests.club-post-req.post-details.title")}
+          {type?.value === "post" &&
+            t("requests.club-post-req.post-details.post")}
+          {type?.value === "announcement" &&
+            t("requests.club-post-req.post-details.announcement")}
         </h2>
         <div>
           <h2 className={styles.h2}>{PostName}</h2>

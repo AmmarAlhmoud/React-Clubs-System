@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -19,6 +21,13 @@
   color: #6f7072;
 }
 
+.post-cate-type {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: left;
+  row-gap: 0.5em;
+}
+
 .header div:first-child {
   display: flex;
   align-items: center;
@@ -31,10 +40,18 @@
   margin-left: 1em;
 }
 
-.header div:last-child {
+.headerLast {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.headerLast > div {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 0.8em;
 }
 
 .header div:last-child button {
@@ -49,6 +66,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s;
+  margin-right: 0.4em;
 }
 
 .header div:last-child button:first-child {

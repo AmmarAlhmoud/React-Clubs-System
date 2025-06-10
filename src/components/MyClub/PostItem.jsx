@@ -3,13 +3,15 @@ import { useDispatch } from "react-redux";
 import { clubActions } from "../../store/club-slice.js";
 import { checkAuthClUserType } from "../../util/auth.js";
 import { toast } from "sonner";
+import CateList from "../EventsList/CateList.jsx";
+import CateItem from "../EventsList/CateItem.jsx";
 
 import DelModal from "./DelModal.jsx";
 
 import styles from "./PostItem.module.css";
 import { useTranslation } from "react-i18next";
 
-const PostItem = ({ name, icon, post, canEdit }) => {
+const PostItem = ({ name, icon, post, canEdit, type }) => {
   const { t } = useTranslation();
 
   // Post Deletion Modal
@@ -126,6 +128,7 @@ const PostItem = ({ name, icon, post, canEdit }) => {
             clubName: post.clubName,
             clubIcon: post.clubIcon,
             PostId: post.PostId,
+            type: post.type,
             id: post.PostId,
             reqType: "edit-post",
             status: "pending",
@@ -148,10 +151,13 @@ const PostItem = ({ name, icon, post, canEdit }) => {
           <img src={icon} alt="icon" />
           <div>
             <h1>{name}</h1>
-            <h2>{getTimePeriod(post.createdDate)}</h2>
+            <div className={styles["post-cate-type"]}>
+              <CateItem cateName={t(`req-post.type.${type?.value}`)} />
+              <h2>{getTimePeriod(post.createdDate)}</h2>
+            </div>
           </div>
         </div>
-        <div>
+        <div className={styles.headerLast}>
           {canEdit && checkAuthClUserType() && (
             <div>
               <button

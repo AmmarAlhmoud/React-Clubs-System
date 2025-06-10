@@ -146,6 +146,7 @@ const PostEditRequest = () => {
             PostStatus={reqEditPost.PostStatus}
             description={reqEditPost.description}
             requestPost={reqEditPost}
+            choosenType={reqEditPost.type}
             type="edit-post"
           />
         );

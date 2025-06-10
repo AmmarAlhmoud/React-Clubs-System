@@ -302,6 +302,7 @@ const MyClub = () => {
               key={postItem.PostId}
               name={postItem.clubName}
               icon={postItem.clubIcon}
+              type={postItem.type}
               post={postItem}
               canEdit={showEditButtons}
             />
@@ -330,7 +331,6 @@ const MyClub = () => {
                 </h2>
                 <CateList className={styles.cateList}>
                   {clubData?.categories?.map((cate) => (
-                    // TODO: make sure to translate it here also
                     <CateItem
                       key={cate.label}
                       cateName={t(`cate-list-value.${cate?.value}`)}

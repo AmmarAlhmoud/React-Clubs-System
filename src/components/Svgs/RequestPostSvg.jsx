@@ -1,8 +1,8 @@
 const RequestPostSvg = () => {
   return (
     <svg
-      width="26"
-      height="26"
+      width="55"
+      height="55"
       fill="#ffffff"
       viewBox="-3.2 -3.2 38.40 38.40"
       xmlns="http://www.w3.org/2000/svg"

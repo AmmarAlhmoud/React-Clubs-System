@@ -15,6 +15,7 @@ const initialState = {
   selectedStartingTime: null,
   selectedEndingTime: null,
   selectedLocation: null,
+  selectedType: null,
   reqEventsList: null,
   reqPostsList: null,
   reqPostStatus: null,
@@ -100,6 +101,9 @@ const eventsSlice = createSlice({
     },
     setSelectedLocation(state, action) {
       state.selectedLocation = action.payload;
+    },
+    setSelectedType(state, action) {
+      state.selectedType = action.payload;
     },
     setSelectedDate(state, action) {
       state.selectedDate = action.payload;

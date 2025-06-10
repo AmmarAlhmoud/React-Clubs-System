@@ -20,8 +20,14 @@ const Dropdown = ({
   const selectedLocation = useSelector(
     (state) => state.events.selectedLocation
   );
+  const selectedType = useSelector((state) => state.events.selectedType);
+
   if (identifier === "starting-time") {
     selectedItems = selectedSTime;
+  }
+
+  if (identifier === "choosen-type") {
+    selectedItems = selectedType;
   }
 
   if (identifier === "ending-time") {
@@ -105,7 +111,7 @@ const Dropdown = ({
       return {
         ...styles,
         backgroundColor: "#1B1D21",
-        height: "150px",
+        height: identifier === "choosen-type" ? "80px" : "150px",
         "&::-webkit-scrollbar": {
           backgroundColor: "rgb(255, 255, 255, 0.1)",
           width: "5px",
@@ -153,6 +159,9 @@ const Dropdown = ({
 
     if (identifier === "location") {
       dispatch(eventsActions.setSelectedLocation(selected));
+    }
+    if (identifier === "choosen-type") {
+      dispatch(eventsActions.setSelectedType(selected));
     }
   };
 

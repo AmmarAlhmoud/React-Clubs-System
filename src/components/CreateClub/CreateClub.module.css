@@ -144,6 +144,14 @@
   background-color: #1b1d21;
 }
 
+.input-container-post {
+  width: 55rem;
+  border-radius: 0.6em;
+  margin-right: 1rem;
+  border: 2px solid #b2b4b7;
+  background-color: #1b1d21;
+}
+
 .input-container-2 {
   width: 16rem;
   border-radius: 0.6em;

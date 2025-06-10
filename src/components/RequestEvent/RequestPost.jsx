@@ -1,7 +1,7 @@
 /// check line 106  i didn't implement the functionality /.....
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { eventsActions } from "../../store/events-slice";
 import { getAuthUserId } from "../../util/auth.js";
 import { generateUniqueIDFromStr } from "../../util/uniqueID.js";
@@ -11,6 +11,7 @@ import { toast } from "sonner";
 
 import Input from "../UI/Input";
 import ColoreButton from "../UI/ColoredButton";
+import Dropdown from "../EventsList/dropdown";
 
 import cloud from "../../assets/icons/CreateClub/cloud_upload.png";
 import styles from "../CreateClub/CreateClub.module.css";
@@ -26,9 +27,15 @@ const RequestPost = () => {
     clubIcon: "",
     PostId: "",
     PostTitle: "",
+    type: null,
     description: "",
     PostImage: "",
   };
+
+  const chooseOption = [
+    { label: t("req-post.type.post"), value: "post" },
+    { label: t("req-post.type.announcement"), value: "announcement" },
+  ];
 
   const [formData, setFormData] = useState(initialFormData);
 
@@ -67,6 +74,8 @@ const RequestPost = () => {
   const [managerName, setManagerName] = useState(null);
   const [clubIcon, setClubIcon] = useState(null);
 
+  const selectedType = useSelector((state) => state.events.selectedType);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = getAuthUserId();
@@ -103,20 +112,36 @@ const RequestPost = () => {
           setFormData((prevFormData) => ({
             ...prevFormData,
             PostImage: imagePreview,
-            clubName: clubName,
-            clubManager: managerName,
-            clubIcon: clubIcon,
-            clubId: userId,
-            PostId: generateUniqueIDFromStr(prevFormData.PostTitle),
           }));
         } catch (error) {
           toast.error(t("req-post.error-uploading"));
         }
       }
+
+      if (selectedType) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          clubName: clubName,
+          clubManager: managerName,
+          type: selectedType,
+          clubIcon: clubIcon,
+          clubId: userId,
+          PostId: generateUniqueIDFromStr(prevFormData.PostTitle),
+        }));
+      }
     };
 
     addingBgImageAndIcon();
-  }, [clubIcon, clubName, db, imagePreview, managerName, userId]);
+  }, [
+    clubIcon,
+    clubName,
+    db,
+    imagePreview,
+    managerName,
+    selectedType,
+    t,
+    userId,
+  ]);
 
   const isEmptyChecker = (data) => {
     return data.trim().length === 0;
@@ -129,8 +154,9 @@ const RequestPost = () => {
     const PostTitle = isEmptyChecker(formData.PostTitle);
     const description = isEmptyChecker(formData.description);
     const PostImage = isEmptyChecker(formData.PostImage);
+    const choosenType = formData.type === null;
 
-    if (PostTitle || description || PostImage) {
+    if (PostTitle || description || PostImage || choosenType) {
       setIsInfoEmpty(true);
       if (PostImage) {
         setIsEvImageEmpty(true);
@@ -148,6 +174,7 @@ const RequestPost = () => {
           clubName: formData.clubName,
           reqId: formData.PostId,
           PostId: formData.PostId,
+          type: formData.type,
           id: formData.PostId,
           reqType: "post-request",
           status: "pending",
@@ -197,7 +224,7 @@ const RequestPost = () => {
         <div className={styles["r-p-inputs"]}>
           <Input
             className={styles["input-field"]}
-            container={`${styles["input-container-1"]} ${
+            container={`${styles["input-container-post"]} ${
               isInfoEmpty && isEmptyChecker(formData.PostTitle)
                 ? styles["input-empty"]
                 : ""
@@ -212,6 +239,14 @@ const RequestPost = () => {
               onChange: handleInputChange,
               disabled: isSubmitting,
             }}
+          />
+          <Dropdown
+            identifier="choosen-type"
+            width={195}
+            isEmpty={isInfoEmpty}
+            disabled={isSubmitting}
+            list={chooseOption}
+            placeholder={t("req-post.type.title")}
           />
         </div>
         <div className={styles["r-p-inputs"]}>

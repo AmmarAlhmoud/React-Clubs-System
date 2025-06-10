@@ -120,7 +120,7 @@ const ClubPostRequest = () => {
       dispatch(eventsActions.setRejectPostStatus(null));
       toast.success(t("requests.club-post-req.reject-post-req"));
     }
-  }, [dispatch, db, reqPostData, reqPostsList, rejectPostStatus]);
+  }, [dispatch, db, reqPostData, reqPostsList, rejectPostStatus, t]);
 
   let postsList = null;
 
@@ -135,6 +135,7 @@ const ClubPostRequest = () => {
           <ClubPostItem
             key={reqPost.PostId}
             id={reqPost.PostId}
+            choosenType={reqPost.type}
             clubId={reqPost.clubId}
             CName={reqPost.clubName}
             CMName={reqPost.clubManager}

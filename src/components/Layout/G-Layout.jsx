@@ -20,7 +20,7 @@ import Club_M_Ic from "../../assets/icons/EventsList/club_manager_logo.png";
 
 import styles from "./G-Layout.module.css";
 import EventsListSvg from "../Svgs/EventsListSvg";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 
 const G_Layout = (props) => {
   const { t } = useTranslation();
@@ -160,9 +160,16 @@ const G_Layout = (props) => {
                   isActive ? styles.active : undefined
                 }
               >
-                <div className={styles["aside-nav-item"]}>
+                <div
+                  className={`${styles["aside-nav-item"]} ${styles["aside-nav-item-ann"]}`}
+                >
                   <RequestPostSvg />
-                  <p>{t("g-layout.request-post")}</p>
+                  <p>
+                    <Trans
+                      i18nKey="g-layout.request-post"
+                      components={[<br key="br" />]}
+                    />
+                  </p>
                 </div>
               </NavLink>
             </li>

@@ -89,7 +89,7 @@
     "events-list": "Events List",
     "requests": "Requests",
     "request-event": "Request Event",
-    "request-post": "Request Post",
+    "request-post": "Request Post<1/> /Announcement",
     "clubs-list": "Clubs List",
     "create-club": "Create Club",
     "edit-my-club": "Edit My Club",
@@ -251,7 +251,7 @@
     "event-edit-req": "event edit request has been send!",
     "error-event-edit-req": "Error sending the event edit request please try again",
     "no-events": "There is not events at the moment!",
-    "no-posts": "There is not posts at the moment!",
+    "no-posts": "There are no posts or announcements at the moment!",
     "manager": "Manager :",
     "created-date": "Created Date",
     "posts": "Posts",
@@ -293,10 +293,10 @@
   "requests": {
     "main-nav": {
       "event-req": "Event Request",
-      "club-post-req": "Club Post Request",
+      "club-post-req": "Club Post / Announcement Requests",
       "club-edit-req": "Club Edit Request",
       "event-edit-req": "Event Edit Request",
-      "post-edit-req": "Post Edit Request"
+      "post-edit-req": "Post / Announcement Edit Requests"
     },
     "event-req": {
       "accept-event-req": "event request has been accepted",
@@ -323,13 +323,15 @@
       "no-post": "There is no post requests at the moment.",
       "post": "post",
       "post-item": {
-        "post": "Post Name",
+        "post": "Post Title",
+        "announcement": "Announcement Title",
         "details": "Details",
         "accept": "Accept",
         "reject": "Reject"
       },
       "post-details": {
-        "title": "Post Title :"
+        "post": "Post Title:",
+        "announcement": "Announcement Title:"
       }
     },
     "club-edit-req": {
@@ -388,10 +390,15 @@
   "req-post": {
     "error-uploading": "Error uploading the post image please try again",
     "fill-fields": "Please review the information and ensure all fields are filled",
-    "post": "Request Post",
+    "post": "Request Post / Announcement",
+    "type": {
+      "title": "Type",
+      "post": "Post",
+      "announcement": "Announcement"
+    },
     "drag": "Drag or Browse From computer files sorted automatically",
-    "title": "Post Title",
-    "desc": "Enter your request description here...",
+    "title": "Post / Announcement Title",
+    "desc": "Enter your description here...",
     "cancel": "Cancel",
     "create": "Create"
   },

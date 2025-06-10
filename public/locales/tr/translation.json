@@ -92,7 +92,7 @@
     "events-list": "Etkinlik Listesi",
     "requests": "Talepler",
     "request-event": "Etkinlik Talebi",
-    "request-post": "Gönderi Talebi",
+    "request-post": "İstek Gönderisi<1/> /Duyuru",
     "clubs-list": "Kulüpler Listesi",
     "create-club": "Kulüp Oluştur",
     "edit-my-club": "Kulübümü Düzenle",
@@ -254,7 +254,7 @@
     "event-edit-req": "Etkinlik düzenleme talebi gönderildi!",
     "error-event-edit-req": "Etkinlik düzenleme talebi gönderilirken hata oluştu, lütfen tekrar deneyin",
     "no-events": "Şu anda etkinlik yok!",
-    "no-posts": "Şu anda gönderi yok!",
+    "no-posts": "Şu anda gönderi veya duyuru yok!",
     "manager": "Yönetici :",
     "created-date": "Oluşturulma Tarihi",
     "posts": "Gönderiler",
@@ -296,10 +296,10 @@
   "requests": {
     "main-nav": {
       "event-req": "Etkinlik Talebi",
-      "club-post-req": "Kulüp Gönderi Talebi",
+      "club-post-req": "Kulüp Gönderisi / Duyuru Talepleri",
       "club-edit-req": "Kulüp Düzenleme Talebi",
       "event-edit-req": "Etkinlik Düzenleme Talebi",
-      "post-edit-req": "Gönderi Düzenleme Talebi"
+      "post-edit-req": "Gönderi / Duyuru Düzenleme Talepleri"
     },
     "event-req": {
       "accept-event-req": "Etkinlik talebi kabul edildi",
@@ -326,13 +326,15 @@
       "no-post": "Şu anda gönderi talebi yok.",
       "post": "Gönderi",
       "post-item": {
-        "post": "Gönderi Adı",
+        "post": "Gönderi Başlığı",
+        "announcement": "Duyuru Başlığı",
         "details": "Detaylar",
         "accept": "Kabul Et",
         "reject": "Reddet"
       },
       "post-details": {
-        "title": "Gönderi Başlığı :"
+        "post": "Gönderi Başlığı:",
+        "announcement": "Duyuru Başlığı:"
       }
     },
     "club-edit-req": {
@@ -391,10 +393,15 @@
   "req-post": {
     "error-uploading": "Gönderi resmi yüklenirken hata oluştu, lütfen tekrar deneyin",
     "fill-fields": "Lütfen bilgileri gözden geçirin ve tüm alanların doldurulduğundan emin olun",
-    "post": "Gönderi Talebi",
+    "post": "İstek Gönderisi / Duyuru",
+    "type": {
+      "title": "Tür",
+      "post": "Gönderi",
+      "announcement": "Duyuru"
+    },
     "drag": "Dosyalardan sürükleyin veya bilgisayardan göz atın, otomatik olarak sıralanır",
     "title": "Gönderi Başlığı",
-    "desc": "Talep açıklamanızı buraya girin...",
+    "desc": "Açıklamanızı buraya girin...",
     "cancel": "İptal",
     "create": "Oluştur"
   },

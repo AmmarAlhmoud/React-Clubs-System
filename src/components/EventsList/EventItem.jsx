@@ -49,8 +49,6 @@ const EventItem = ({
   const month = formattedDate.split(" ")[0];
   formattedDate = formattedDate.replace(month, t(`months.${month}`));
 
-  console.log(formattedDate);
-
   const showDetailsHandler = () => {
     dispatch(
       eventsActions.setCurrentEventDetails({
