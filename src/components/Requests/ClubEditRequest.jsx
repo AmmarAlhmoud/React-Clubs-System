@@ -87,7 +87,6 @@ const ClubEditRequest = () => {
       reqClubEditList !== null
     ) {
       if (updatedClubInfo !== null) {
-        console.log("from if :: ", updatedClubInfo);
         editExistingClub(updatedClubInfo.info);
         editClubReqStatus(updatedClubInfo.status);
         removeEditingReq(updatedClubInfo.info);
@@ -105,7 +104,7 @@ const ClubEditRequest = () => {
       dispatch(clubActions.rejectClubEditingReq(null));
       toast.success(t("requests.club-edit-req.reject-edit-req"));
     }
-  }, [dispatch, db, updatedClubInfo, rejectClubEditingReq, reqClubEditList]);
+  }, [dispatch, db, updatedClubInfo, rejectClubEditingReq, reqClubEditList, t]);
 
   let editClubList = null;
 

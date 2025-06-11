@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { database } from "../../firebase";
-import { ref, onValue, remove, set } from "firebase/database";
+import { ref, onValue, remove, set, update } from "firebase/database";
 import { getAuthUserId } from "../../util/auth";
 import { clubActions } from "../../store/club-slice";
-import { getAuthUserType } from "../../util/auth";
+import { getAuthUserType, displayAuthUserName } from "../../util/auth";
 import { toast } from "sonner";
 
 import EventItem from "./EventItem";
@@ -41,12 +41,13 @@ const MyClub = () => {
     (state) => state.club.currentClubInfoEvent
   );
   const userType = getAuthUserType();
+  const userName = displayAuthUserName();
   const clubPageForCl =
     userType === "Cl" && window.location.pathname.startsWith("/my-club");
   const clubPageFromEvent =
     window.location.pathname.startsWith("/events-list/");
   const [isFetching, setIsFetching] = useState(false);
-  const { clubPageId } = useParams();
+  const { clubPageId, clubID } = useParams();
 
   const deletedEvent = useSelector((state) => state.club.deletedEvent);
   const deletedPost = useSelector((state) => state.club.deletedPost);
@@ -86,9 +87,11 @@ const MyClub = () => {
   const userId = getAuthUserId();
   const reqEditPost = useSelector((state) => state.club.reqEditPost);
   const reqEditEvent = useSelector((state) => state.club.reqEditEvent);
-  // const currentClubEventsNum = useSelector(
-  //   (state) => state.club.currentClubEventsNum
-  // );
+  const memberJoinData = useSelector((state) => state.club.memberJoinData);
+  const memberJoinReqData = useSelector(
+    (state) => state.club.memberJoinReqData
+  );
+  const joinClubStatus = useSelector((state) => state.club.joinClubStatus);
 
   useEffect(() => {
     const fetchCurrentUserClub = () => {
@@ -107,6 +110,13 @@ const MyClub = () => {
         const data = snapshot.val();
         dispatch(clubActions.setCurrentClubInfoEvnet(data));
         setIsFetching(false);
+      });
+    };
+    const fetchJoinClubStatus = () => {
+      const starCountRef = ref(db, `req-join-club-list/${clubID}/${userId}`);
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        dispatch(clubActions.setJoinClubStatus(data?.status));
       });
     };
     const deletePost = (deletedPost) => {
@@ -256,6 +266,26 @@ const MyClub = () => {
       addReqStatusForEvent(reqEditEvent.status, "event-edit-request/");
       dispatch(clubActions.setReqEditEvent(null));
     }
+
+    // - FEATCH JOIN STATUS
+    if (userType === "St" && joinClubStatus === null) {
+      fetchJoinClubStatus();
+    }
+
+    // — SEND JOIN REQUEST
+    if (memberJoinReqData !== null && userType === "St") {
+      const { info, status } = memberJoinReqData;
+      set(ref(db, `req-join-club-list/${info.clubId}/${info.userId}`), {
+        info,
+        status: {
+          ...status,
+          reqDate: new Date().toISOString(),
+        },
+      });
+      toast.success(t("club-page.join-club-req"));
+      dispatch(clubActions.setMemberJoinReqData(null));
+      dispatch(clubActions.setJoinClubStatus(null));
+    }
   }, [
     dispatch,
     db,
@@ -267,6 +297,10 @@ const MyClub = () => {
     reqEditPost,
     reqEditEvent,
     t,
+    memberJoinReqData,
+    userType,
+    clubID,
+    joinClubStatus,
   ]);
 
   let eventsList;
@@ -321,11 +355,128 @@ const MyClub = () => {
   const openJoinClubModelHandler = () => {
     setIsModalOpen(true);
   };
+
   const joinClubHandler = () => {
-    // TODO: handel join club logic.
-    console.log("hello");
+    // TODO: add a dynamic departments.
+    const departments = [
+      "Medical",
+      "Electrical",
+      "Software",
+      "Computer",
+      "Chemical",
+      "Biomedical",
+    ];
+
+    if (userType === "St") {
+      dispatch(
+        clubActions.setMemberJoinReqData({
+          info: {
+            clubId: clubID,
+            userId,
+            userName,
+            department:
+              departments[Math.floor(Math.random() * departments.length)],
+          },
+          status: {
+            clubId: clubID,
+            reqType: "join-club",
+            status: "pending",
+          },
+        })
+      );
+    }
     setIsModalOpen(false);
   };
+
+  // useEffect(() => {
+
+  //    const fetchCurrentUserClub = (from) => {
+  //     setIsFetching(true);
+  //     const starCountRef = ref(db, `${from}` + clubId + "/" + clubId);
+  //     onValue(starCountRef, (snapshot) => {
+  //       const data = snapshot.val();
+  //       if (from === "/req-edit-club-list/") {
+  //         dispatch(clubActions.setUpdatedClubInfo(data));
+  //       }
+  //       if (from === "/req-status-list/edit-club-req/") {
+  //         dispatch(clubActions.setReqClubStatus(data));
+  //       }
+  //     });
+  //     setIsFetching(false);
+  //   };
+
+  //   const removeEditingReq = (deletedClub) => {
+  //     const starCountRef = ref(
+  //       db,
+  //       "req-edit-club-list/" + deletedClub.clubId + "/" + deletedClub.clubId
+  //     );
+  //     remove(starCountRef);
+  //   };
+
+  //   const editClubReqStatus = (editedStatus) => {
+  //     const updates = {};
+  //     updates[
+  //       "req-status-list/edit-club-req/" +
+  //         editedStatus.clubId +
+  //         "/" +
+  //         editedStatus.clubId
+  //     ] = editedStatus;
+  //     update(ref(db), updates);
+  //   };
+
+  //   if (
+  //         initialLoad === false &&
+  //         updatedClubInfo?.info !== undefined &&
+  //         updatedClubInfo?.status !== undefined &&
+  //         reqClubEditList !== null
+  //       ) {
+  //         if (updatedClubInfo !== null) {
+  //           console.log("from if :: ", updatedClubInfo);
+  //           editExistingClub(updatedClubInfo.info);
+  //           editClubReqStatus(updatedClubInfo.status);
+  //           removeEditingReq(updatedClubInfo.info);
+  //           dispatch(clubActions.setUpdatedClubInfo(null));
+  //         }
+  //       }
+
+  // }, []);
+
+  //  const acceptClubEditHandler = () => {
+  //   if (updatedClubInfo !== null && reqClubStatus !== null) {
+  //     dispatch(
+  //       clubActions.setUpdatedClubInfo({
+  //         info: updatedClubInfo,
+  //         status: { ...reqClubStatus, status: "accepted" },
+  //       })
+  //     );
+  //   }
+  // };
+
+  // const rejectClubEditHandler = () => {
+  //   dispatch(
+  //     clubActions.rejectClubEditingReq({ ...reqClubStatus, status: "rejected" })
+  //   );
+  // };
+
+  useEffect(() => {
+    // — EDIT
+    // if (memberJoinData) {
+    //   const updates = {
+    //     [`/clubslist/${memberJoinData.clubId}/clubName`]:
+    //       memberJoinData.clubName,
+    //     [`/clubslist/${memberJoinData.clubId}/description`]:
+    //       memberJoinData.description,
+    //   };
+    //   update(ref(db), updates)
+    //     .then(() =>
+    //       toast.success(
+    //         `"${memberJoinData.clubName}" ${t("clubs-list.edited")}`
+    //       )
+    //     )
+    //     .catch(() => toast.error(t("clubs-list.error-editting")));
+    //   dispatch(clubActions.setMemberJoinData(null));
+    // }
+  }, [db, dispatch, memberJoinData, memberJoinReqData, t]);
 
   return (
     <section className={styles.container}>
@@ -374,14 +525,26 @@ const MyClub = () => {
                     </tbody>
                   </table>
                 </div>
-                {userType === "St" && (
-                  <ColoredButton
-                    onClick={openJoinClubModelHandler}
-                    black={true}
-                    className={styles.joinClub}
-                  >
-                    + {t("club-page.join-club")}
-                  </ColoredButton>
+                {userType === "St" &&
+                  joinClubStatus === undefined &&
+                  joinClubStatus?.status !== "accepted" && (
+                    <ColoredButton
+                      onClick={openJoinClubModelHandler}
+                      black={true}
+                      className={styles.joinClub}
+                    >
+                      + {t("club-page.join-club")}
+                    </ColoredButton>
+                  )}
+                {userType === "St" && joinClubStatus?.status === "pending" && (
+                  <div className={styles.joinStatus}>
+                    ⌚ {t("club-page.waiting-for-approval")}
+                  </div>
+                )}
+                {userType === "St" && joinClubStatus?.status === "accepted" && (
+                  <div className={styles.joinStatus}>
+                    ✔ {t("club-page.joined")}
+                  </div>
                 )}
               </div>
             </div>

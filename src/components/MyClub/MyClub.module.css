@@ -112,8 +112,17 @@
 }
 
 .joinClub {
-  font-size: 0.8rem !important;
+  font-size: 0.9rem !important;
   padding: 0.5em !important;
+}
+
+.joinStatus {
+  height: 50px;
+  padding: 1rem 0.9rem;
+  border-radius: 0.8em;
+  background-color: #212225;
+  font-size: 0.9rem !important;
+  color: #fff;
 }
 
 /*Lower Details Section */
