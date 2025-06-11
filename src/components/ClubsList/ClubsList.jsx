@@ -56,7 +56,7 @@ const ClubsList = () => {
         .catch(() => toast.error(t("clubs-list.error-creating")))
         .finally(() => dispatch(clubActions.addNewClub(null)));
     }
-  }, [newClubObj, db, dispatch]);
+  }, [newClubObj, db, dispatch, t]);
 
   // 3) Handle edits, delete, requests, and search
   useEffect(() => {

@@ -6,6 +6,7 @@ import { ref, onValue } from "firebase/database";
 import { getAuthUserId } from "../../util/auth";
 import { uiActions } from "../../store/ui-slice";
 import { useTranslation } from "react-i18next";
+import { clubActions } from "../../store/club-slice";
 
 import next_event from "../../assets/icons/CM-Dashboard/next_event.png";
 import total_events from "../../assets/icons/CM-Dashboard/total_events.png";
@@ -21,6 +22,7 @@ import BarLoader from "../UI/BarLoader";
 import RecentEventsCarousel from "./RecentEventsCarousel";
 
 import styles from "./CmDashboard.module.css";
+import JoinReqList from "./JoinReqList";
 
 let initialLoad = true;
 
@@ -61,6 +63,10 @@ const CmDashboard = () => {
 
   const clubsListForCM = useSelector((state) => state.ui.clubsListForCM);
   const recentEventsData = useSelector((state) => state.ui.recentEventsData);
+
+  const joinClubReqList = useSelector((state) => state.club.joinClubReqList);
+
+  console.log(joinClubReqList, " join club list");
 
   // For responded request status icon (accepted or rejected)
   let ResponseStatus = true;
@@ -107,6 +113,13 @@ const CmDashboard = () => {
         setIsFetching(false);
       });
     };
+    const fetchJoinClubReqList = () => {
+      const starCountRef = ref(db, `req-join-club-list/${userId}`);
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        dispatch(clubActions.setJoinClubReqList(data));
+      });
+    };
 
     // fetch the current user club at startup
     if (initialLoad) {
@@ -117,6 +130,7 @@ const CmDashboard = () => {
       fetchCurrentReqStatusClub("post-edit-request/");
       fetchCurrentReqStatusClub("event-edit-request/");
       fetchCurrentReqStatusClub("edit-club-req/");
+      fetchJoinClubReqList();
       // dispatch(uiActions.setAllReqList())
       initialLoad = false;
     }
@@ -404,8 +418,14 @@ const CmDashboard = () => {
         </div>
       </section>
       {/* Weekly Calender Section */}
-      <section className={styles.calender}>
-        <WeeklyCalender />
+      <section className={styles.downSection}>
+        <section className={styles.calender}>
+          <WeeklyCalender />
+        </section>
+        <section className={styles.joinContainer}>
+          <JoinReqList title={t("cm-dashboard.manage-members")} />
+          <JoinReqList title={t("cm-dashboard.requests-box")} type="request" />
+        </section>
       </section>
       {/* Lower Right Stats Section */}
       <section className={styles.statsBottom}>

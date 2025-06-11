@@ -155,6 +155,9 @@
     "total-events": "Toplam Etkinlik",
     "event": "Etkinlik",
     "responded": "Yanıtlandı",
+    "manage-members": "Üyeleri Yönet",
+    "requests-box": "İstek Kutusu",
+    "student-name": "Öğrenci Adı",
     "responded-status": {
       "event": "Etkinlik",
       "post": "Gönderi",
@@ -261,6 +264,9 @@
     "join-club": "Kulübe Katıl",
     "posts": "Gönderiler",
     "events": "Etkinlikler",
+    "join-club-req": "Katılma isteğiniz başarıyla gönderildi. Lütfen onay bekleyin.",
+    "joined": "Katıldınız",
+    "waiting-for-approval": "Onay Bekleniyor",
     "desc": "Açıklama",
     "contact": "İletişim",
     "event-item": {

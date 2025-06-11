@@ -152,6 +152,9 @@
     "total-events": "Total Events",
     "event": "Event",
     "responded": "Responded",
+    "manage-members": "Manage Members",
+    "requests-box": "Requests Box",
+    "student-name": "Studnet Name",
     "responded-status": {
       "event": "Event",
       "post": "Post",
@@ -264,6 +267,9 @@
     "posts": "Posts",
     "events": "Events",
     "desc": "Description",
+    "join-club-req": "Your join request has been sent successfully. Please wait for approval.",
+    "joined": "Joined",
+    "waiting-for-approval": "Waiting for Approval",
     "contact": "Contact",
     "event-item": {
       "day": "day",

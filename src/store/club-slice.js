@@ -38,6 +38,10 @@ const initialState = {
   reqEditEventStatus: null,
   currentEditedEventDetails: null,
   currentEvent: null,
+  memberJoinData: null,
+  memberJoinReqData: null,
+  joinClubStatus: null,
+  joinClubReqList: null,
 };
 
 const clubSlice = createSlice({
@@ -188,6 +192,18 @@ const clubSlice = createSlice({
     },
     setCurrentEvent(state, action) {
       state.currentEvent = action.payload;
+    },
+    setMemberJoinData(state, action) {
+      state.memberJoinData = action.payload;
+    },
+    setMemberJoinReqData(state, action) {
+      state.memberJoinReqData = action.payload;
+    },
+    setJoinClubStatus(state, action) {
+      state.joinClubStatus = action.payload;
+    },
+    setJoinClubReqList(state, action) {
+      state.joinClubReqList = action.payload;
     },
   },
 });

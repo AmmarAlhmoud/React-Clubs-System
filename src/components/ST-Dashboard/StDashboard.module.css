@@ -1,4 +1,5 @@
 .container {
+  font-family: "Poppins";
   display: grid;
   grid-template-columns: 611px;
   grid-template-rows: 1fr 1.5fr;
