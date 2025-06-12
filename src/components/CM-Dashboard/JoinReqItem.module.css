@@ -1,0 +1,24 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item span:first-child {
+  color: rgba(255, 255, 255, 50%);
+}
+
+.item span:last-child:hover {
+  cursor: pointer;
+}
+
+.item div:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.5em;
+}
+
+.item img:hover {
+  cursor: pointer;
+}

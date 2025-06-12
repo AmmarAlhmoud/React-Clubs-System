@@ -4,7 +4,6 @@ import { database } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import { uiActions } from "../../store/ui-slice";
 
-import RecentEventItem from "../CM-Dashboard/RecentEventItem";
 import WeeklyCalender from "../Dashboard/WeeklyCalender";
 import RecentEventsCarousel from "../CM-Dashboard/RecentEventsCarousel";
 

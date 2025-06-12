@@ -135,6 +135,7 @@ const ClubsList = () => {
     resetFilter,
     searchParams,
     dispatch,
+    t,
   ]);
 
   // Rendering

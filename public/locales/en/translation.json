@@ -154,7 +154,19 @@
     "responded": "Responded",
     "manage-members": "Manage Members",
     "requests-box": "Requests Box",
-    "student-name": "Studnet Name",
+    "accepted": "join request has been accepted successfully.",
+    "error-accepted": "An error occurred while accepting the join request.",
+    "rejected": "Join request has been rejected successfully.",
+    "error-rejected": "An error occurred while rejecting the join request.",
+    "deleted": "Student has been removed from the club successfully.",
+    "error-deleted": "An error occurred while removing the student from the club.",
+    "student-name": "Student Name or Student ID",
+    "req-accept-box": "Are you sure you want to accept this student's join request?",
+    "req-reject-box": "Are you sure you want to reject this student's join request?",
+    "req-delete-box": "Are you sure you want to kick this student from the club?",
+    "no-pending-req": "No pending requests.",
+    "no-members-found": "No members found.",
+    "no-result": "No results found for",
     "responded-status": {
       "event": "Event",
       "post": "Post",
@@ -170,12 +182,16 @@
     "delete-model": {
       "question": "Are you sure you want to delete",
       "cancel": "Cancel",
-      "delete": "Delete"
+      "delete": "Delete",
+      "kick": "Kick"
     },
     "join-model": {
       "question": "Are you sure you want to join to",
       "cancel": "Cancel",
-      "join": "Join"
+      "join": "Join",
+      "close": "Close",
+      "accept": "Accept",
+      "reject": "Reject"
     },
     "del-post-event": "your post/event",
     "del-request": "your request",
@@ -260,6 +276,8 @@
     "error-event-edit-req": "Error sending the event edit request please try again",
     "no-events": "There is not events at the moment!",
     "no-posts": "There are no posts or announcements at the moment!",
+    "rejected": "Rejected",
+    "deleted": "Kicked",
     "manager": "Manager :",
     "created-date": "Created Date",
     "members": "Members",
@@ -424,6 +442,7 @@
     "deleted": "deleted successfully!",
     "error-deleting": "Error deleting the club",
     "no-result": "No results found for your search.",
+    "member": "Member",
     "club-card": {
       "discover": "Discover",
       "del-model": {

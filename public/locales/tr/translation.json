@@ -157,7 +157,19 @@
     "responded": "Yanıtlandı",
     "manage-members": "Üyeleri Yönet",
     "requests-box": "İstek Kutusu",
-    "student-name": "Öğrenci Adı",
+    "student-name": "Öğrenci Adı veya Öğrenci Numarası",
+    "accepted": "katılma isteği başarıyla kabul edildi.",
+    "error-accepted": "Katılma isteğini kabul ederken bir hata oluştu.",
+    "rejected": "Katılma isteği başarıyla reddedildi.",
+    "error-rejected": "Katılma isteğini reddederken bir hata oluştu.",
+    "deleted": "Öğrenci kulüpten başarıyla çıkarıldı.",
+    "error-deleted": "Öğrenciyi kulüpten çıkarırken bir hata oluştu.",
+    "req-accept-box": "Bu öğrencinin katılma isteğini kabul etmek istediğinize emin misiniz?",
+    "req-reject-box": "Bu öğrencinin katılma isteğini reddetmek istediğinize emin misiniz?",
+    "req-delete-box": "Bu öğrenciyi kulüpten atmak istediğinize emin misiniz?",
+    "no-pending-req": "Bekleyen istek yok.",
+    "no-members-found": "Üye bulunamadı.",
+    "no-result": "Arama için sonuç bulunamadı",
     "responded-status": {
       "event": "Etkinlik",
       "post": "Gönderi",
@@ -173,7 +185,16 @@
     "delete-model": {
       "question": "Silmek istediğinizden emin misiniz",
       "cancel": "İptal",
-      "delete": "Sil"
+      "delete": "Sil",
+      "kick": "At"
+    },
+    "join-model": {
+      "question": "Şu kulübe katılmak istediğinizden emin misiniz:",
+      "cancel": "İptal",
+      "join": "Katıl",
+      "close": "Kapat",
+      "accept": "Kabul Et",
+      "reject": "Reddet"
     },
     "del-post-event": "gönderiniz/etkinliğiniz",
     "del-request": "talebiniz",
@@ -258,6 +279,8 @@
     "error-event-edit-req": "Etkinlik düzenleme talebi gönderilirken hata oluştu, lütfen tekrar deneyin",
     "no-events": "Şu anda etkinlik yok!",
     "no-posts": "Şu anda gönderi veya duyuru yok!",
+    "rejected": "Reddedildi",
+    "deleted": "Atıldı",
     "manager": "Yönetici :",
     "created-date": "Oluşturulma Tarihi",
     "members": "Üyeler",
@@ -422,6 +445,7 @@
     "deleted": "Başarıyla silindi!",
     "error-deleting": "Kulüp silinirken hata oluştu",
     "no-result": "Aramanız için sonuç bulunamadı.",
+    "member": "Üye",
     "club-card": {
       "discover": "Keşfet",
       "del-model": {

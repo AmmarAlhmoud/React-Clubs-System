@@ -27,6 +27,8 @@ const initialState = {
   clubsListForSt: null,
   isCmDashLoading: false,
   isStDashLoading: false,
+  reqBoxStatusData: null,
+  statusModal: null,
 };
 
 const uiSlice = createSlice({
@@ -118,6 +120,12 @@ const uiSlice = createSlice({
     },
     setIsStDashLoading(state, action) {
       state.sTEventsList = action.payload;
+    },
+    setReqBoxStatusData(state, action) {
+      state.reqBoxStatusData = action.payload;
+    },
+    setStatusModal(state, action) {
+      state.statusModal = action.payload;
     },
   },
 });
