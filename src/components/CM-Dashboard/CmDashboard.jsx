@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { database } from "../../firebase";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, remove, update } from "firebase/database";
 import { getAuthUserId } from "../../util/auth";
 import { uiActions } from "../../store/ui-slice";
 import { useTranslation } from "react-i18next";
 import { clubActions } from "../../store/club-slice";
+import { toast } from "sonner";
 
 import next_event from "../../assets/icons/CM-Dashboard/next_event.png";
 import total_events from "../../assets/icons/CM-Dashboard/total_events.png";
@@ -17,12 +18,12 @@ import rejected from "../../assets/icons/CM-Dashboard/rejected.png";
 import question from "../../assets/icons/CM-Dashboard/question.png";
 
 import WeeklyCalender from "../Dashboard/WeeklyCalender";
-import DelModal from "../MyClub/DelModal";
+import Modal from "../MyClub/DelModal";
 import BarLoader from "../UI/BarLoader";
 import RecentEventsCarousel from "./RecentEventsCarousel";
+import JoinReqList from "./JoinReqList";
 
 import styles from "./CmDashboard.module.css";
-import JoinReqList from "./JoinReqList";
 
 let initialLoad = true;
 
@@ -30,10 +31,11 @@ const CmDashboard = () => {
   const { t } = useTranslation();
 
   // For Event or Post Deletion Modal
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   // For Request Deletion Modal
-  const [isReqModalOpen, setIsReqModalOpen] = useState(false);
+  // const [isReqModalOpen, setIsReqModalOpen] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+  const [preformAction, setPreformAction] = useState(false);
   const dispatch = useDispatch();
   const db = database;
   const userId = getAuthUserId();
@@ -64,9 +66,8 @@ const CmDashboard = () => {
   const clubsListForCM = useSelector((state) => state.ui.clubsListForCM);
   const recentEventsData = useSelector((state) => state.ui.recentEventsData);
 
-  const joinClubReqList = useSelector((state) => state.club.joinClubReqList);
-
-  console.log(joinClubReqList, " join club list");
+  const statusModal = useSelector((state) => state.ui.statusModal);
+  const reqBoxStatusData = useSelector((state) => state.ui.reqBoxStatusData);
 
   // For responded request status icon (accepted or rejected)
   let ResponseStatus = true;
@@ -125,13 +126,12 @@ const CmDashboard = () => {
     if (initialLoad) {
       fetchCurrentUserClub();
       fetchCurrentAllClub();
+      fetchJoinClubReqList();
       fetchCurrentReqStatusClub("event-request/");
       fetchCurrentReqStatusClub("post-request/");
       fetchCurrentReqStatusClub("post-edit-request/");
       fetchCurrentReqStatusClub("event-edit-request/");
       fetchCurrentReqStatusClub("edit-club-req/");
-      fetchJoinClubReqList();
-      // dispatch(uiActions.setAllReqList())
       initialLoad = false;
     }
 
@@ -163,7 +163,89 @@ const CmDashboard = () => {
     currentEventEditReqStatusCM,
     currentClubEditReqStatusCM,
     clubsListForCM,
+    reqBoxStatusData,
   ]);
+
+  useEffect(() => {
+    const deleteMemberFromClub = (deletedClub) => {
+      const starCountRef = ref(
+        db,
+        `/clubslist/${deletedClub.info.clubId}/members/${deletedClub.info.userId}`
+      );
+      remove(starCountRef);
+    };
+
+    const editClubAfterJoin = (editedData) => {
+      const updates = {
+        [`/clubslist/${editedData.info.clubId}/members/${editedData.info.userId}`]:
+          editedData.info,
+      };
+      update(ref(db), updates)
+        .then(() =>
+          toast.success(
+            `"${editedData.info.userName}" ${t(
+              `cm-dashboard.${editedData.status.status}`
+            )}`
+          )
+        )
+        .catch(() =>
+          toast.error(t(`cm-dashboard.error-${editedData.status.status}`))
+        );
+    };
+
+    const editJoiningReqStatus = (editedStatus) => {
+      const updates = {};
+      updates[
+        "req-join-club-list/" +
+          editedStatus.info.clubId +
+          "/" +
+          editedStatus.info.userId
+      ] = editedStatus;
+      update(ref(db), updates)
+        .then(() => {
+          if (editedStatus.status.status === "rejected") {
+            toast.success(
+              `"${editedStatus.info.userName}" ${t(
+                `cm-dashboard.${editedStatus.status.status}`
+              )}`
+            );
+          }
+        })
+        .catch(() => {
+          if (editedStatus.status.status === "rejected") {
+            toast.error(t(`cm-dashboard.error-${editedStatus.status.status}`));
+          }
+        });
+    };
+
+    if (
+      initialLoad === false &&
+      reqBoxStatusData?.info !== undefined &&
+      reqBoxStatusData?.status !== undefined &&
+      preformAction
+    ) {
+      if (reqBoxStatusData !== null) {
+        const { status } = reqBoxStatusData;
+        if (status.status === "accepted") {
+          editClubAfterJoin(reqBoxStatusData);
+          editJoiningReqStatus(reqBoxStatusData);
+        }
+        if (status.status === "rejected") {
+          editJoiningReqStatus(reqBoxStatusData);
+        }
+
+        if (status.status === "deleted") {
+          deleteMemberFromClub(reqBoxStatusData);
+          editJoiningReqStatus(reqBoxStatusData);
+        }
+
+        dispatch(uiActions.setReqBoxStatusData(null));
+        dispatch(uiActions.setStatusModal(null));
+        setPreformAction(false);
+      }
+    }
+  }, [db, dispatch, preformAction, reqBoxStatusData, t]);
+
 
   let totalEvents = 0;
 
@@ -423,7 +505,7 @@ const CmDashboard = () => {
           <WeeklyCalender />
         </section>
         <section className={styles.joinContainer}>
-          <JoinReqList title={t("cm-dashboard.manage-members")} />
+          <JoinReqList title={t("cm-dashboard.manage-members")} type="members"/>
           <JoinReqList title={t("cm-dashboard.requests-box")} type="request" />
         </section>
       </section>
@@ -473,22 +555,47 @@ const CmDashboard = () => {
           </div>
         </div>
       </section>
-      {/* Post/Event Deletion Modal */}
-      <DelModal
+      {/* TODO: Delete/Accept/Reject members Modal */}
+      <Modal
+        open={statusModal === "deleted"}
+        onClose={() => dispatch(uiActions.setStatusModal(null))}
+        icon={question}
+        title={t("cm-dashboard.req-delete-box")}
+        deleteMemberReq={statusModal === "deleted"}
+        onConfirmDelete={() => setPreformAction(true)}
+      />
+      <Modal
+        open={statusModal === "accepted"}
+        onClose={() => dispatch(uiActions.setStatusModal(null))}
+        icon={question}
+        title={t("cm-dashboard.req-accept-box")}
+        joinClubReq={statusModal === "accepted"}
+        onConfirmDelete={() => setPreformAction(true)}
+      />
+      <Modal
+        open={statusModal === "rejected"}
+        onClose={() => dispatch(uiActions.setStatusModal(null))}
+        icon={question}
+        title={t("cm-dashboard.req-reject-box")}
+        rejectMemberReq={statusModal === "rejected"}
+        onConfirmDelete={() => setPreformAction(true)}
+      />
+      {/* TODO: Post/Event Deletion Modal */}
+      {/* <Modal
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         icon={question}
         title={t("cm-dashboard.del-post-event")}
         onConfirmDelete={""}
-      />
-      {/* Request Cancel Modal */}
-      <DelModal
+      /> */}
+      {/* TODO: Request Cancel Modal */}
+      {/* <Modal
         open={isReqModalOpen}
         onClose={() => setIsReqModalOpen(false)}
         icon={question}
         title={t("cm-dashboard.del-request")}
         onConfirmDelete={""}
-      />
+      /> */}
     </main>
   );
 };

@@ -103,13 +103,7 @@ const WeeklyCalender = () => {
       userType === "St")
   ) {
     filteredEventsList = (
-      <p
-        className={
-          userType === "Cl" || userType === "St"
-            ? styles.noEventCl
-            : styles.noEvent
-        }
-      >
+      <p className={userType === "St" ? styles.noEventCl : styles.noEvent}>
         {t("dashboard.weekly-calendar.no-events-currently")}
       </p>
     );
@@ -117,13 +111,7 @@ const WeeklyCalender = () => {
 
   if (selectedDay !== "" && filteredEventsList.length === 0) {
     filteredEventsList = (
-      <p
-        className={
-          userType === "Cl" || userType === "St"
-            ? styles.noEventCl
-            : styles.noEvent
-        }
-      >
+      <p className={userType === "St" ? styles.noEventCl : styles.noEvent}>
         {t("dashboard.weekly-calendar.no-events-this-day")}
       </p>
     );

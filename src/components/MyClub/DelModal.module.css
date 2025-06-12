@@ -40,13 +40,13 @@
 }
 
 .text h1 {
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.8px;
 }
 
 .text h2 {
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.8px;
 }
@@ -57,7 +57,7 @@
 }
 
 .modal button {
-  width: 43%;
+  width: 35%;
   height: 50px;
   color: #fff;
   font-size: 0.85rem;

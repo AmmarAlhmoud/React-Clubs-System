@@ -307,6 +307,7 @@ const MyClub = () => {
   let eventsNumber = 0;
   let postsList;
   let postsNumber = 0;
+  let numberOfMembers = 0;
 
   if (Object.keys(clubData).length !== 0) {
     const fetchedEventsList = clubData?.events;
@@ -352,20 +353,28 @@ const MyClub = () => {
     }
   }
 
+  if (Object.keys(clubData).length !== 0) {
+    const members = clubData?.members;
+    if (members) {
+      numberOfMembers = Object.values(members).length;
+    }
+  }
+
   const openJoinClubModelHandler = () => {
     setIsModalOpen(true);
   };
 
   const joinClubHandler = () => {
-    // TODO: add a dynamic departments.
-    const departments = [
-      "Medical",
-      "Electrical",
-      "Software",
-      "Computer",
-      "Chemical",
-      "Biomedical",
-    ];
+    // TODO: add a dynamic student id.
+    const generateRandomID = (count = 1) => {
+      let id;
+      for (let i = 0; i < count; i++) {
+        id = Math.floor(100000000 + Math.random() * 900000000).toString();
+      }
+      return id;
+    };
+
+    const randomStudentId = generateRandomID();
 
     if (userType === "St") {
       dispatch(
@@ -374,8 +383,7 @@ const MyClub = () => {
             clubId: clubID,
             userId,
             userName,
-            department:
-              departments[Math.floor(Math.random() * departments.length)],
+            studentId: randomStudentId,
           },
           status: {
             clubId: clubID,
@@ -387,96 +395,6 @@ const MyClub = () => {
     }
     setIsModalOpen(false);
   };
-
-  // useEffect(() => {
-
-  //    const fetchCurrentUserClub = (from) => {
-  //     setIsFetching(true);
-  //     const starCountRef = ref(db, `${from}` + clubId + "/" + clubId);
-  //     onValue(starCountRef, (snapshot) => {
-  //       const data = snapshot.val();
-  //       if (from === "/req-edit-club-list/") {
-  //         dispatch(clubActions.setUpdatedClubInfo(data));
-  //       }
-  //       if (from === "/req-status-list/edit-club-req/") {
-  //         dispatch(clubActions.setReqClubStatus(data));
-  //       }
-  //     });
-  //     setIsFetching(false);
-  //   };
-
-  //   const removeEditingReq = (deletedClub) => {
-  //     const starCountRef = ref(
-  //       db,
-  //       "req-edit-club-list/" + deletedClub.clubId + "/" + deletedClub.clubId
-  //     );
-  //     remove(starCountRef);
-  //   };
-
-  //   const editClubReqStatus = (editedStatus) => {
-  //     const updates = {};
-  //     updates[
-  //       "req-status-list/edit-club-req/" +
-  //         editedStatus.clubId +
-  //         "/" +
-  //         editedStatus.clubId
-  //     ] = editedStatus;
-  //     update(ref(db), updates);
-  //   };
-
-  //   if (
-  //         initialLoad === false &&
-  //         updatedClubInfo?.info !== undefined &&
-  //         updatedClubInfo?.status !== undefined &&
-  //         reqClubEditList !== null
-  //       ) {
-  //         if (updatedClubInfo !== null) {
-  //           console.log("from if :: ", updatedClubInfo);
-  //           editExistingClub(updatedClubInfo.info);
-  //           editClubReqStatus(updatedClubInfo.status);
-  //           removeEditingReq(updatedClubInfo.info);
-  //           dispatch(clubActions.setUpdatedClubInfo(null));
-  //         }
-  //       }
-
-  // }, []);
-
-  //  const acceptClubEditHandler = () => {
-  //   if (updatedClubInfo !== null && reqClubStatus !== null) {
-  //     dispatch(
-  //       clubActions.setUpdatedClubInfo({
-  //         info: updatedClubInfo,
-  //         status: { ...reqClubStatus, status: "accepted" },
-  //       })
-  //     );
-  //   }
-  // };
-
-  // const rejectClubEditHandler = () => {
-  //   dispatch(
-  //     clubActions.rejectClubEditingReq({ ...reqClubStatus, status: "rejected" })
-  //   );
-  // };
-
-  useEffect(() => {
-    // — EDIT
-    // if (memberJoinData) {
-    //   const updates = {
-    //     [`/clubslist/${memberJoinData.clubId}/clubName`]:
-    //       memberJoinData.clubName,
-    //     [`/clubslist/${memberJoinData.clubId}/description`]:
-    //       memberJoinData.description,
-    //   };
-    //   update(ref(db), updates)
-    //     .then(() =>
-    //       toast.success(
-    //         `"${memberJoinData.clubName}" ${t("clubs-list.edited")}`
-    //       )
-    //     )
-    //     .catch(() => toast.error(t("clubs-list.error-editting")));
-    //   dispatch(clubActions.setMemberJoinData(null));
-    // }
-  }, [db, dispatch, memberJoinData, memberJoinReqData, t]);
 
   return (
     <section className={styles.container}>
@@ -517,8 +435,7 @@ const MyClub = () => {
                     <tbody>
                       <tr>
                         <td>{formattedDate}</td>
-                        {/* TODO: Add the members to each club */}
-                        <td>{5}</td>
+                        <td>{numberOfMembers}</td>
                         <td>{postsNumber}</td>
                         <td>{eventsNumber}</td>
                       </tr>
@@ -544,6 +461,16 @@ const MyClub = () => {
                 {userType === "St" && joinClubStatus?.status === "accepted" && (
                   <div className={styles.joinStatus}>
                     ✔ {t("club-page.joined")}
+                  </div>
+                )}
+                {userType === "St" && joinClubStatus?.status === "rejected" && (
+                  <div className={styles.joinStatus}>
+                    X {t("club-page.rejected")}
+                  </div>
+                )}
+                {userType === "St" && joinClubStatus?.status === "deleted" && (
+                  <div className={styles.joinStatus}>
+                    ! {t("club-page.deleted")}
                   </div>
                 )}
               </div>

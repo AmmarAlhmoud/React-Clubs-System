@@ -1,35 +1,76 @@
-import accepted from "../../assets/icons/CM-Dashboard/accepted.png";
-import rejected from "../../assets/icons/CM-Dashboard/rejected.png";
-
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 import styles from "./JoinReqList.module.css";
+import JoinReqItem from "./JoinReqItem";
 
 const JoinReqList = ({ title, type }) => {
   const { t } = useTranslation();
+  const joinClubReqList = useSelector((state) => state.club.joinClubReqList);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const trimText = (text) => {
-    if (text.length > 14) {
-      return text.slice(0, 14) + "...";
-    }
-    return text;
+  const filterBySearch = (data) => {
+    const member = data.info;
+    const term = searchTerm.toLowerCase();
+    return (
+      member.userName.toLowerCase().includes(term) ||
+      member.studentId.toLowerCase().includes(term)
+    );
   };
+
+  let filteredData = [];
+  let fullData = [];
+
+  if (joinClubReqList) {
+    if (type === "request") {
+      fullData = Object.values(joinClubReqList).filter(
+        (data) => data.status.status === "pending"
+      );
+      filteredData = fullData.filter(filterBySearch);
+    } else if (type === "members") {
+      fullData = Object.values(joinClubReqList).filter(
+        (data) => data.status.status === "accepted"
+      );
+      filteredData = fullData.filter(filterBySearch);
+    }
+  }
+
+  // Disable search if no full data
+  const isSearchDisabled = fullData.length === 0;
 
   return (
     <div className={styles.container}>
       <h4>{title}</h4>
       <div className={styles.itemContainer}>
-        <div className={styles.item}>
-          <div>
-            <span>department | </span>
-            <span title="ammar alhmoud">{trimText("ammar alhmoud")}</span>
-          </div>
-          <div>
-            {type === "request" && <img src={accepted} alt="accept" />}
-            <img src={rejected} alt="reject" />
-          </div>
-        </div>
+        {fullData.length === 0 ? (
+          type === "request" ? (
+            <p>{t("cm-dashboard.no-pending-req")}</p>
+          ) : (
+            <p>{t("cm-dashboard.no-members-found")}</p>
+          )
+        ) : filteredData.length === 0 ? (
+          <p>
+            {t("cm-dashboard.no-result")} "{searchTerm}".
+          </p>
+        ) : (
+          filteredData.map((data) => {
+            const member = data.info;
+            return (
+              <JoinReqItem
+                key={member.userId}
+                type={type}
+                studentId={member.studentId}
+                clubId={member.clubId}
+                userId={member.userId}
+                userName={member.userName}
+                data={data}
+              />
+            );
+          })
+        )}
       </div>
+
       <div className={styles.searchContainer}>
         <svg
           className={styles.icon}
@@ -48,6 +89,9 @@ const JoinReqList = ({ title, type }) => {
           type="text"
           placeholder={t("cm-dashboard.student-name")}
           className={styles.input}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          disabled={isSearchDisabled} // disables search input when no items
         />
       </div>
     </div>

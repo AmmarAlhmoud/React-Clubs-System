@@ -19,6 +19,11 @@
   overflow: auto;
 }
 
+.itemContainer > p {
+  margin-top: 2.4rem;
+  text-align: center;
+}
+
 .itemContainer::-webkit-scrollbar {
   width: 4px;
 }
@@ -31,27 +36,6 @@
 .itemContainer::-webkit-scrollbar-track {
   background-color: rgb(255, 255, 255, 0.2);
   border-radius: 1rem;
-}
-
-.item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.item span:first-child {
-  color: rgba(255, 255, 255, 50%);
-}
-
-.item span:last-child:hover {
-  cursor: pointer;
-}
-
-.item div:nth-child(2) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 0.5em;
 }
 
 .searchContainer {
