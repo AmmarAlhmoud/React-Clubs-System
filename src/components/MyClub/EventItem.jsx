@@ -276,6 +276,8 @@ const EventItem = ({ name, icon, event, canEdit }) => {
             clubName: event.clubName,
             clubIcon: event.clubIcon,
             EventId: event.EventId,
+            eventName: event.EventName,
+            location: event.location.value,
             id: event.EventId,
             reqType: "edit-event",
             status: "pending",

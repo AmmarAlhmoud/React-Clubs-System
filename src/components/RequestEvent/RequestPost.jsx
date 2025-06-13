@@ -176,6 +176,7 @@ const RequestPost = () => {
           PostId: formData.PostId,
           type: formData.type,
           id: formData.PostId,
+          postName: formData.PostTitle,
           reqType: "post-request",
           status: "pending",
         },

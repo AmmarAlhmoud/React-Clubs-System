@@ -246,7 +246,6 @@ const CmDashboard = () => {
     }
   }, [db, dispatch, preformAction, reqBoxStatusData, t]);
 
-
   let totalEvents = 0;
 
   if (cMEventsList !== null) {
@@ -285,6 +284,13 @@ const CmDashboard = () => {
     reqList.push(...clubEditReq);
   }
 
+  const trimText = (text) => {
+    if (text.length > 14) {
+      return text.slice(0, 14) + "...";
+    }
+    return text;
+  };
+
   if (reqList.length > 0) {
     {
       let reqType;
@@ -302,28 +308,37 @@ const CmDashboard = () => {
         formattedDate = formattedDate.replace(month, t(`months.${month}`));
 
         let type = event.reqType;
+        let eventName = "";
+
         if (event.status === "pending") {
           if (type === "event-request") {
             reqType = t("cm-dashboard.responded-status.event");
+            eventName = event.eventName;
           }
           if (type === "post-request") {
             reqType = t("cm-dashboard.responded-status.post");
+            eventName = event.postName;
           }
           if (type === "edit-event") {
             reqType = t("cm-dashboard.responded-status.edit-event");
+            eventName = event.eventName;
           }
           if (type === "edit-post") {
             reqType = t("cm-dashboard.responded-status.edit-post");
+            eventName = event.postName;
           }
           if (type === "edit-club") {
             reqType = t("cm-dashboard.responded-status.edit-club");
+            eventName = event.clubName;
           }
 
           pendingRequestsList.push(1);
           return (
             <div key={index} className={styles.dataItem}>
-              <div>
-                <span>{formattedDate}</span> <span>{reqType}</span>
+              <div className={styles.dateTypeContainer}>
+                <span>{formattedDate}</span> <span>{reqType} |</span>{" "}
+                <span title={eventName}>{trimText(eventName)}</span>
+                <div className={styles.dateTypeLocation}>{event.location}</div>
               </div>
               <div className={styles.icons}></div>
             </div>
@@ -348,30 +363,39 @@ const CmDashboard = () => {
         formattedDate = formattedDate.replace(month, t(`months.${month}`));
 
         let type = event.reqType;
+        let eventName = "";
 
         if (type === "event-request") {
           reqType = t("cm-dashboard.responded-status.event");
+          eventName = event.eventName;
         }
         if (type === "post-request") {
           reqType = t("cm-dashboard.responded-status.post");
+          eventName = event.postName;
         }
         if (type === "edit-event") {
           reqType = t("cm-dashboard.responded-status.edit-event");
+          eventName = event.eventName;
         }
         if (type === "edit-post") {
           reqType = t("cm-dashboard.responded-status.edit-post");
+          eventName = event.postName;
         }
         if (type === "edit-club") {
           reqType = t("cm-dashboard.responded-status.edit-club");
+          eventName = event.clubName;
         }
+
         if (event.status === "accepted") {
           ResponseStatus = true;
           acceptingRequestsList.push(1);
+
           return (
             <div key={index} className={styles.dataItem}>
-              <div>
-                <span>{formattedDate}</span> <span>{reqType}</span>
-                <h3>{event.location?.label}</h3>
+              <div className={styles.dateTypeContainer}>
+                <span>{formattedDate}</span> <span>{reqType} |</span>{" "}
+                <span title={eventName}>{trimText(eventName)}</span>
+                <div className={styles.dateTypeLocation}>{event.location}</div>
               </div>
               <div className={styles.icons}>
                 {/* Check response status and render appropriate icon */}
@@ -386,13 +410,13 @@ const CmDashboard = () => {
         }
         if (event.status === "rejected") {
           ResponseStatus = false;
-
           acceptingRequestsList.push(1);
+
           return (
             <div key={index} className={styles.dataItem}>
-              <div>
-                <span>{formattedDate}</span> <span>{reqType}</span>
-                <h3>{event.location?.label}</h3>
+              <div className={styles.dateTypeContainer}>
+                <span>{formattedDate}</span> <span>{reqType} |</span>{" "}
+                <span title={eventName}>{trimText(eventName)}</span>
               </div>
               <div className={styles.icons}>
                 {/* Check response status and render appropriate icon */}
@@ -464,6 +488,30 @@ const CmDashboard = () => {
     formattedDate = formattedDate.replace(month, t(`months.${month}`));
   }
 
+  // To check if there is no pending/accepted requests.
+  let showPendingList = null;
+  let showAcceptingList = null;
+
+  const checkForUndefinedPending =
+    pendingList?.filter((req) => req === undefined) || [];
+  const checkForUndefinedAccepting =
+    showAcceptingList?.filter((req) => req === undefined) || [];
+
+  if (checkForUndefinedPending.length === pendingList?.length) {
+    showPendingList = (
+      <div className={styles.noRequestsPenOrAcc}>
+        {t("cm-dashboard.no-pending-req")}
+      </div>
+    );
+  }
+  if (checkForUndefinedAccepting.length === acceptingList?.length) {
+    showAcceptingList = (
+      <div className={styles.noRequestsPenOrAcc}>
+        {t("cm-dashboard.no-response")}
+      </div>
+    );
+  }
+
   return (
     <main className={styles.container}>
       {/* Recent Events Section */}
@@ -505,7 +553,10 @@ const CmDashboard = () => {
           <WeeklyCalender />
         </section>
         <section className={styles.joinContainer}>
-          <JoinReqList title={t("cm-dashboard.manage-members")} type="members"/>
+          <JoinReqList
+            title={t("cm-dashboard.manage-members")}
+            type="members"
+          />
           <JoinReqList title={t("cm-dashboard.requests-box")} type="request" />
         </section>
       </section>
@@ -523,7 +574,10 @@ const CmDashboard = () => {
           <div className={styles.respondedData}>
             {/* Rendering Responded Events*/}
             <h2>{t("cm-dashboard.request-results")}</h2>
-            <div className={styles.renderedResponses}>{acceptingList}</div>
+            {showAcceptingList === null && (
+              <div className={styles.renderedResponses}>{acceptingList}</div>
+            )}
+            {showAcceptingList !== null && showAcceptingList}
           </div>
           <div className={styles.filler}></div>
         </div>
@@ -539,7 +593,10 @@ const CmDashboard = () => {
           <div className={styles.pendingData}>
             {/* Rendering Requested Events*/}
             <h2>{t("cm-dashboard.pending-requests")}</h2>
-            <div className={styles.renderedResponses}>{pendingList}</div>
+            {showPendingList === null && (
+              <div className={styles.renderedResponses}>{pendingList}</div>
+            )}
+            {showPendingList !== null && showPendingList}
           </div>
           <div className={styles.filler}>
             <Link to="/request-event">

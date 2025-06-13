@@ -130,6 +130,7 @@ const PostItem = ({ name, icon, post, canEdit, type }) => {
             PostId: post.PostId,
             type: post.type,
             id: post.PostId,
+            postName: post.PostTitle,
             reqType: "edit-post",
             status: "pending",
           },

@@ -103,7 +103,7 @@ const EventRequest = () => {
       addNewEventToClub(reqEventData.info);
       editEventReqStatus(reqEventData.status);
       removeEventReq(reqEventData.info);
-      dispatch(eventsActions.setShowEventDetails(false));
+      dispatch(eventsActions.setShowEventReqDetails(false));
       dispatch(eventsActions.setReqEventData(null));
     }
 
@@ -115,11 +115,11 @@ const EventRequest = () => {
     ) {
       editEventReqStatus(rejectEventStatus);
       removeEventReq(rejectEventStatus);
-      dispatch(eventsActions.setShowEventDetails(false));
+      dispatch(eventsActions.setShowEventReqDetails(false));
       dispatch(eventsActions.setRejectEventStatus(null));
       toast.success(t("requests.event-req.reject-event-req"));
     }
-  }, [dispatch, db, reqEventData, reqEventsList, rejectEventStatus]);
+  }, [dispatch, db, reqEventData, reqEventsList, rejectEventStatus, t]);
 
   let eventsList = null;
 

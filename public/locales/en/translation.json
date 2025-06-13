@@ -165,6 +165,7 @@
     "req-reject-box": "Are you sure you want to reject this student's join request?",
     "req-delete-box": "Are you sure you want to kick this student from the club?",
     "no-pending-req": "No pending requests.",
+    "no-response": "No responses yet.",
     "no-members-found": "No members found.",
     "no-result": "No results found for",
     "responded-status": {

@@ -292,6 +292,8 @@ const RequestEvent = () => {
           reqId: formData.EventId,
           EventId: formData.EventId,
           id: formData.EventId,
+          eventName: formData.EventName,
+          location: formData.location.value,
           reqType: "event-request",
           status: "pending",
         },

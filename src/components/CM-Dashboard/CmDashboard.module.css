@@ -260,9 +260,26 @@
   font-size: 0.8rem;
 }
 
-.respondedData span:last-of-type,
-.pendingData span:last-of-type {
+.respondedData span:nth-child(2),
+.pendingData span:nth-child(2) {
   font-size: 0.8rem;
+}
+
+.respondedData span:nth-of-type(3),
+.pendingData span:nth-of-type(3) {
+  font-size: 0.85rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.dateTypeLocation,
+.dateTypeLocation {
+  font-size: 0.8rem;
+  color: #2bb3ff;
+}
+
+.dateTypeContainer {
+  color: rgba(255, 255, 255, 50%);
 }
 
 .respondedData h3,
@@ -339,4 +356,10 @@
   font-weight: bold;
   border-radius: 1rem;
   cursor: pointer;
+}
+
+.noRequestsPenOrAcc {
+  margin-top: 3rem;
+  margin-left: 4.5rem;
+  font-size: 0.8rem;
 }

@@ -168,6 +168,7 @@
     "req-reject-box": "Bu öğrencinin katılma isteğini reddetmek istediğinize emin misiniz?",
     "req-delete-box": "Bu öğrenciyi kulüpten atmak istediğinize emin misiniz?",
     "no-pending-req": "Bekleyen istek yok.",
+    "no-response": "Henüz cevap gelmedi.",
     "no-members-found": "Üye bulunamadı.",
     "no-result": "Arama için sonuç bulunamadı",
     "responded-status": {
