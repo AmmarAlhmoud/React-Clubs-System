@@ -192,10 +192,14 @@
       "join": "Join",
       "close": "Close",
       "accept": "Accept",
-      "reject": "Reject"
+      "reject": "Reject",
+      "dismiss": "Dismiss"
     },
     "del-post-event": "your post/event",
-    "del-request": "your request",
+    "del-request": "Are you sure you want to delete your request?",
+    "dismiss-req": "Do you want to dismiss this request?",
+    "deleted-req-msg": "Your request has been successfully deleted.",
+    "deleted-req-msg-error": "There was an error deleting your request.",
     "recent-carousel": "There is no recent events at the moment."
   },
   "st-dashboard": {

@@ -195,10 +195,14 @@
       "join": "Katıl",
       "close": "Kapat",
       "accept": "Kabul Et",
-      "reject": "Reddet"
+      "reject": "Reddet",
+      "dismiss": "Reddet"
     },
+    "dismiss-req": "Bu isteği reddetmek istiyor musun?",
     "del-post-event": "gönderiniz/etkinliğiniz",
-    "del-request": "talebiniz",
+    "del-request": "İsteğinizi silmek istediğinize emin misiniz?",
+    "deleted-req-msg": "İsteğiniz başarıyla silindi.",
+    "deleted-req-msg-error": "İsteğinizi silerken bir hata oluştu.",
     "recent-carousel": "Şu anda yeni etkinlik yok."
   },
   "st-dashboard": {

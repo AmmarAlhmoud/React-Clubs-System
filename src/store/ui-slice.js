@@ -29,6 +29,8 @@ const initialState = {
   isStDashLoading: false,
   reqBoxStatusData: null,
   statusModal: null,
+  dismissRequestData: null,
+  deleteRequestData: null,
 };
 
 const uiSlice = createSlice({
@@ -126,6 +128,12 @@ const uiSlice = createSlice({
     },
     setStatusModal(state, action) {
       state.statusModal = action.payload;
+    },
+    setDismissRequestData(state, action) {
+      state.dismissRequestData = action.payload;
+    },
+    setDeleteRequestData(state, action) {
+      state.deleteRequestData = action.payload;
     },
   },
 });

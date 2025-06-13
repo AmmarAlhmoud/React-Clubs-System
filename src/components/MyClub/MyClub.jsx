@@ -87,7 +87,6 @@ const MyClub = () => {
   const userId = getAuthUserId();
   const reqEditPost = useSelector((state) => state.club.reqEditPost);
   const reqEditEvent = useSelector((state) => state.club.reqEditEvent);
-  const memberJoinData = useSelector((state) => state.club.memberJoinData);
   const memberJoinReqData = useSelector(
     (state) => state.club.memberJoinReqData
   );
@@ -465,12 +464,12 @@ const MyClub = () => {
                 )}
                 {userType === "St" && joinClubStatus?.status === "rejected" && (
                   <div className={styles.joinStatus}>
-                    X {t("club-page.rejected")}
+                    ✖ {t("club-page.rejected")}
                   </div>
                 )}
                 {userType === "St" && joinClubStatus?.status === "deleted" && (
                   <div className={styles.joinStatus}>
-                    ! {t("club-page.deleted")}
+                    ❕ {t("club-page.deleted")}
                   </div>
                 )}
               </div>

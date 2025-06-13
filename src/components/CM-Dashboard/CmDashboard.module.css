@@ -223,6 +223,11 @@
   gap: 0.5rem;
   overflow: auto;
 }
+
+.renderedResponses {
+  padding-bottom: 1rem;
+}
+
 .renderedRequests::-webkit-scrollbar,
 .renderedResponses::-webkit-scrollbar,
 .respondedData::-webkit-scrollbar,
@@ -257,7 +262,7 @@
 .pendingData span:first-of-type {
   color: #8d8e90;
   margin-right: 5px;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .respondedData span:nth-child(2),
@@ -312,17 +317,25 @@
 }
 
 .icons {
-  display: inline-block;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  column-gap: 0.4em;
   user-select: none;
   -webkit-user-drag: none;
 }
 
 .icons img {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+.deleteIcon {
   cursor: pointer;
+  width: 21px !important;
+  height: 21px !important;
 }
 
 .delcon {
@@ -358,8 +371,13 @@
   cursor: pointer;
 }
 
-.noRequestsPenOrAcc {
+.noPendingRequests {
   margin-top: 3rem;
   margin-left: 4.5rem;
   font-size: 0.8rem;
+}
+.noRespondingRequests {
+  margin-top: 3rem;
+  margin-left: 5rem;
+  font-size: 0.85rem;
 }

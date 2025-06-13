@@ -16,6 +16,7 @@ import pending from "../../assets/icons/CM-Dashboard/pending.png";
 import accepted from "../../assets/icons/CM-Dashboard/accepted.png";
 import rejected from "../../assets/icons/CM-Dashboard/rejected.png";
 import question from "../../assets/icons/CM-Dashboard/question.png";
+import deleteIcon from "../../assets/icons/CM-Dashboard/delete.png";
 
 import WeeklyCalender from "../Dashboard/WeeklyCalender";
 import Modal from "../MyClub/DelModal";
@@ -31,11 +32,14 @@ const CmDashboard = () => {
   const { t } = useTranslation();
 
   // For Event or Post Deletion Modal
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   // For Request Deletion Modal
   // const [isReqModalOpen, setIsReqModalOpen] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [preformAction, setPreformAction] = useState(false);
+  const [startDissmissing, setStartDissmissing] = useState(false);
+  const [startDeleting, setStartDeleting] = useState(false);
   const dispatch = useDispatch();
   const db = database;
   const userId = getAuthUserId();
@@ -68,6 +72,11 @@ const CmDashboard = () => {
 
   const statusModal = useSelector((state) => state.ui.statusModal);
   const reqBoxStatusData = useSelector((state) => state.ui.reqBoxStatusData);
+
+  const dismissRequestData = useSelector(
+    (state) => state.ui.dismissRequestData
+  );
+  const deleteRequestData = useSelector((state) => state.ui.deleteRequestData);
 
   // For responded request status icon (accepted or rejected)
   let ResponseStatus = true;
@@ -218,6 +227,28 @@ const CmDashboard = () => {
         });
     };
 
+    const dismissRequest = (dismissedReq) => {
+      const starCountRef = ref(
+        db,
+        `/req-status-list/${dismissedReq.reqType}/${dismissedReq.clubId}/${dismissedReq.reqId}`
+      );
+      remove(starCountRef);
+    };
+    const deleteRequest = (deletedReq) => {
+      const starCountRef = ref(
+        db,
+        `/${deletedReq.reqNodeType}/${deletedReq.clubId}/${deletedReq.reqId}`
+      );
+      const starDeleteRef = ref(
+        db,
+        `/req-status-list/${deletedReq.reqType}/${deletedReq.clubId}/${deletedReq.reqId}`
+      );
+      remove(starCountRef);
+      remove(starDeleteRef)
+        .then(() => toast.success(t("cm-dashboard.deleted-req-msg")))
+        .catch(() => toast.error(t("cm-dashboard.deleted-req-msg-error")));
+    };
+
     if (
       initialLoad === false &&
       reqBoxStatusData?.info !== undefined &&
@@ -244,7 +275,38 @@ const CmDashboard = () => {
         setPreformAction(false);
       }
     }
-  }, [db, dispatch, preformAction, reqBoxStatusData, t]);
+
+    if (
+      initialLoad === false &&
+      startDissmissing === true &&
+      dismissRequestData !== null
+    ) {
+      dismissRequest(dismissRequestData);
+      dispatch(uiActions.setDismissRequestData(null));
+      setIsModalOpen(false);
+      setStartDissmissing(false);
+    }
+    if (
+      initialLoad === false &&
+      startDeleting === true &&
+      deleteRequestData !== null
+    ) {
+      deleteRequest(deleteRequestData);
+      dispatch(uiActions.setDeleteRequestData(null));
+      setIsDeleteModalOpen(false);
+      setStartDeleting(false);
+    }
+  }, [
+    db,
+    deleteRequestData,
+    dismissRequestData,
+    dispatch,
+    preformAction,
+    reqBoxStatusData,
+    startDeleting,
+    startDissmissing,
+    t,
+  ]);
 
   let totalEvents = 0;
 
@@ -285,8 +347,8 @@ const CmDashboard = () => {
   }
 
   const trimText = (text) => {
-    if (text.length > 14) {
-      return text.slice(0, 14) + "...";
+    if (text.length > 9) {
+      return text.slice(0, 9) + "...";
     }
     return text;
   };
@@ -309,27 +371,37 @@ const CmDashboard = () => {
 
         let type = event.reqType;
         let eventName = "";
+        let reqNodeType = event.reqType;
+        let reqNodeListType;
 
         if (event.status === "pending") {
           if (type === "event-request") {
             reqType = t("cm-dashboard.responded-status.event");
             eventName = event.eventName;
+            reqNodeListType = "req-events-list";
           }
           if (type === "post-request") {
             reqType = t("cm-dashboard.responded-status.post");
             eventName = event.postName;
+            reqNodeListType = "req-posts-list";
           }
           if (type === "edit-event") {
             reqType = t("cm-dashboard.responded-status.edit-event");
             eventName = event.eventName;
+            reqNodeType = "event-edit-request";
+            reqNodeListType = "req-edit-events-list";
           }
           if (type === "edit-post") {
             reqType = t("cm-dashboard.responded-status.edit-post");
             eventName = event.postName;
+            reqNodeType = "post-edit-request";
+            reqNodeListType = "req-edit-posts-list";
           }
           if (type === "edit-club") {
             reqType = t("cm-dashboard.responded-status.edit-club");
             eventName = event.clubName;
+            reqNodeType = "edit-club-req";
+            reqNodeListType = "req-edit-club-list";
           }
 
           pendingRequestsList.push(1);
@@ -340,7 +412,25 @@ const CmDashboard = () => {
                 <span title={eventName}>{trimText(eventName)}</span>
                 <div className={styles.dateTypeLocation}>{event.location}</div>
               </div>
-              <div className={styles.icons}></div>
+              <div className={styles.icons}>
+                <img
+                  onClick={() => {
+                    setIsDeleteModalOpen(true);
+                    dispatch(
+                      uiActions.setDeleteRequestData({
+                        reqId: event.id,
+                        clubId: event.clubId,
+                        reqType: reqNodeType,
+                        reqNodeType: reqNodeListType,
+                      })
+                    );
+                  }}
+                  className={styles.deleteIcon}
+                  title="Delete Request"
+                  src={deleteIcon}
+                  alt="delete"
+                />
+              </div>
             </div>
           );
         }
@@ -364,6 +454,7 @@ const CmDashboard = () => {
 
         let type = event.reqType;
         let eventName = "";
+        let reqNodeType = event.reqType;
 
         if (type === "event-request") {
           reqType = t("cm-dashboard.responded-status.event");
@@ -376,14 +467,17 @@ const CmDashboard = () => {
         if (type === "edit-event") {
           reqType = t("cm-dashboard.responded-status.edit-event");
           eventName = event.eventName;
+          reqNodeType = "event-edit-request";
         }
         if (type === "edit-post") {
           reqType = t("cm-dashboard.responded-status.edit-post");
           eventName = event.postName;
+          reqNodeType = "post-edit-request";
         }
         if (type === "edit-club") {
           reqType = t("cm-dashboard.responded-status.edit-club");
           eventName = event.clubName;
+          reqNodeType = "edit-club-req";
         }
 
         if (event.status === "accepted") {
@@ -400,10 +494,26 @@ const CmDashboard = () => {
               <div className={styles.icons}>
                 {/* Check response status and render appropriate icon */}
                 {ResponseStatus ? (
-                  <img src={accepted} alt="accepted" />
+                  <img title="Accepted Request" src={accepted} alt="accepted" />
                 ) : (
-                  <img src={rejected} alt="rejected" />
+                  <img title="Rejected Request" src={rejected} alt="rejected" />
                 )}
+                <img
+                  onClick={() => {
+                    setIsModalOpen(true);
+                    dispatch(
+                      uiActions.setDismissRequestData({
+                        reqId: event.id,
+                        clubId: event.clubId,
+                        reqType: reqNodeType,
+                      })
+                    );
+                  }}
+                  className={styles.deleteIcon}
+                  title="Dismiss Request"
+                  src={deleteIcon}
+                  alt="delete"
+                />
               </div>
             </div>
           );
@@ -421,10 +531,26 @@ const CmDashboard = () => {
               <div className={styles.icons}>
                 {/* Check response status and render appropriate icon */}
                 {ResponseStatus ? (
-                  <img src={accepted} alt="accepted" />
+                  <img title="Accepted Request" src={accepted} alt="accepted" />
                 ) : (
-                  <img src={rejected} alt="rejected" />
+                  <img title="Rejected Request" src={rejected} alt="rejected" />
                 )}
+                <img
+                  onClick={() => {
+                    setIsModalOpen(true);
+                    dispatch(
+                      uiActions.setDismissRequestData({
+                        reqId: event.id,
+                        clubId: event.clubId,
+                        reqType: reqNodeType,
+                      })
+                    );
+                  }}
+                  className={styles.deleteIcon}
+                  title="Dismiss Request"
+                  src={deleteIcon}
+                  alt="delete"
+                />
               </div>
             </div>
           );
@@ -495,18 +621,18 @@ const CmDashboard = () => {
   const checkForUndefinedPending =
     pendingList?.filter((req) => req === undefined) || [];
   const checkForUndefinedAccepting =
-    showAcceptingList?.filter((req) => req === undefined) || [];
+    acceptingList?.filter((req) => req === undefined) || [];
 
   if (checkForUndefinedPending.length === pendingList?.length) {
     showPendingList = (
-      <div className={styles.noRequestsPenOrAcc}>
+      <div className={styles.noPendingRequests}>
         {t("cm-dashboard.no-pending-req")}
       </div>
     );
   }
   if (checkForUndefinedAccepting.length === acceptingList?.length) {
     showAcceptingList = (
-      <div className={styles.noRequestsPenOrAcc}>
+      <div className={styles.noRespondingRequests}>
         {t("cm-dashboard.no-response")}
       </div>
     );
@@ -612,7 +738,7 @@ const CmDashboard = () => {
           </div>
         </div>
       </section>
-      {/* TODO: Delete/Accept/Reject members Modal */}
+      {/* Delete/Accept/Reject members Modal */}
       <Modal
         open={statusModal === "deleted"}
         onClose={() => dispatch(uiActions.setStatusModal(null))}
@@ -637,22 +763,30 @@ const CmDashboard = () => {
         rejectMemberReq={statusModal === "rejected"}
         onConfirmDelete={() => setPreformAction(true)}
       />
-      {/* TODO: Post/Event Deletion Modal */}
-      {/* <Modal
+      {/* Post/Event Deletion Modal */}
+      <Modal
         open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          dispatch(uiActions.setDismissRequestData(null));
+        }}
         icon={question}
-        title={t("cm-dashboard.del-post-event")}
-        onConfirmDelete={""}
-      /> */}
-      {/* TODO: Request Cancel Modal */}
-      {/* <Modal
-        open={isReqModalOpen}
-        onClose={() => setIsReqModalOpen(false)}
+        title={t("cm-dashboard.dismiss-req")}
+        dismiss={true}
+        onConfirmDelete={() => setStartDissmissing(true)}
+      />
+      {/*  Request Cancel Modal */}
+      <Modal
+        open={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          dispatch(uiActions.setDeleteRequestData(null));
+        }}
         icon={question}
+        deleteReq={true}
         title={t("cm-dashboard.del-request")}
-        onConfirmDelete={""}
-      /> */}
+        onConfirmDelete={() => setStartDeleting(true)}
+      />
     </main>
   );
 };
