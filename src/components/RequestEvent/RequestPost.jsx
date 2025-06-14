@@ -270,7 +270,7 @@ const RequestPost = () => {
         <div className={styles.pActions}>
           <ColoreButton red={true}>{t("req-post.cancel")}</ColoreButton>
           <ColoreButton type="submit" disabled={isSubmitting}>
-            {t("req-post.create")}
+            {t("req-post.request")}
           </ColoreButton>
         </div>
       </form>

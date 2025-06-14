@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { eventsActions } from "../../store/events-slice.js";
 import { generateUniqueIDFromStr } from "../../util/uniqueID.js";
@@ -7,15 +7,17 @@ import { getAuthUserId } from "../../util/auth.js";
 import { database } from "../../firebase.js";
 import { ref, onValue } from "firebase/database";
 import { toast } from "sonner";
-import DateInput from "./DateInput.jsx";
+import { useTranslation } from "react-i18next";
 
+import DateInput from "./DateInput.jsx";
 import Input from "../UI/Input.jsx";
 import ColoreButton from "../UI/ColoredButton.jsx";
+import EventDetailsPreview from "./EventDetailsPreview.jsx";
+import Dropdown from "../EventsList/dropdown";
 
 import cloud from "../../assets/icons/CreateClub/cloud_upload.png";
-import styles from "../CreateClub/CreateClub.module.css";
-import Dropdown from "../EventsList/dropdown";
-import { useTranslation } from "react-i18next";
+
+import styles from "./RequestEvent.module.css";
 
 const RequestEvent = () => {
   const { t } = useTranslation();
@@ -239,6 +241,7 @@ const RequestEvent = () => {
     categories,
     clubIcon,
     managerEmail,
+    t,
   ]);
 
   const isEmptyChecker = (data) => {
@@ -308,149 +311,158 @@ const RequestEvent = () => {
   return (
     <main className={styles.container}>
       <h1>{t("req-event.event")}</h1>
-      <form onSubmit={formSubmittingHandler} className={styles["form"]}>
-        <section
-          className={`${styles["images-sec"]} ${
-            !selectedFile && isEvImageEmpty ? styles["input-empty"] : ""
-          }`}
+      <section className={styles.insideContainer}>
+        {/* <EventDetails from="req-event" data={formData} /> */}
+        <form
+          onSubmit={formSubmittingHandler}
+          className={`${styles["form"]} ${styles.reqEventForm}`}
         >
-          <div className={styles.upBg}>
-            {/* upload event file */}
-            <input
-              type="file"
-              id="clubBg"
-              name="club-bg"
-              className={styles.bgUploadInp}
-              onChange={handleFileUpload}
+          <section
+            className={`${styles["images-sec"]} ${
+              !selectedFile && isEvImageEmpty ? styles["input-empty"] : ""
+            }`}
+          >
+            <div className={styles.upBg}>
+              {/* upload event file */}
+              <input
+                type="file"
+                id="clubBg"
+                name="club-bg"
+                className={styles.bgUploadInp}
+                onChange={handleFileUpload}
+                disabled={isSubmitting}
+              />
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className={styles.bgPreview}
+                />
+              )}
+              {!selectedFile && (
+                <div className={styles.upBg}>
+                  <img src={cloud} alt="upload" />
+                  <h1>{t("req-event.drag")}</h1>
+                </div>
+              )}
+            </div>
+          </section>
+          <div className={styles["inputs"]}>
+            <Input
+              className={styles["input-field"]}
+              container={`${styles["input-container-1"]} ${
+                isInfoEmpty && isEmptyChecker(formData.EventName)
+                  ? styles["input-empty"]
+                  : ""
+              }`}
+              scaleY={1.05}
+              input={{
+                id: "event-name",
+                name: "EventName",
+                type: "text",
+                placeholder: t("req-event.name"),
+                value: formData.EventName,
+                onChange: handleInputChange,
+                disabled: isSubmitting,
+              }}
+            />
+            <Input
+              className={styles["input-field"]}
+              container={`${styles["input-container-2"]} ${
+                isInfoEmpty && isEmptyChecker(formData.Speakers)
+                  ? styles["input-empty"]
+                  : ""
+              }`}
+              scaleY={1.05}
+              input={{
+                id: "speakers-id",
+                name: "Speakers",
+                type: "text",
+                placeholder: t("req-event.speakers"),
+                value: formData.Speakers,
+                onChange: handleInputChange,
+                disabled: isSubmitting,
+              }}
+            />
+            <Input
+              className={styles["input-field"]}
+              container={`${styles["input-container-1"]} ${
+                isInfoEmpty && isEmptyChecker(formData.ContactNumber)
+                  ? styles["input-empty"]
+                  : ""
+              }`}
+              scaleY={1.05}
+              input={{
+                id: "contact-number",
+                name: "ContactNumber",
+                type: "text",
+                placeholder: t("req-event.number"),
+                value: formData.ContactNumber,
+                onChange: handleInputChange,
+                disabled: isSubmitting,
+              }}
+              s
+            />
+          </div>
+
+          <div className={styles["inputs2"]}>
+            <DateInput
+              disabled={isSubmitting}
+              isEmpty={isDateEmpty}
+              startTyping={isInfoEmpty}
+            />
+            <Dropdown
+              identifier="starting-time"
+              width={135}
+              isEmpty={isInfoEmpty}
+              disabled={isSubmitting}
+              list={TimeList}
+              placeholder={t("req-event.start-time")}
+            />
+            <Dropdown
+              identifier="ending-time"
+              width={135}
+              isEmpty={isInfoEmpty}
+              disabled={isSubmitting}
+              list={TimeList}
+              placeholder={t("req-event.end-time")}
+            />
+            <Dropdown
+              identifier="location"
+              width={145}
+              isEmpty={isInfoEmpty}
+              disabled={isSubmitting}
+              list={LocationList}
+              placeholder={t("req-event.location")}
+            />
+          </div>
+          <div className={styles["inputs"]}>
+            <textarea
+              className={
+                isInfoEmpty && isEmptyChecker(formData.description)
+                  ? styles["input-empty"]
+                  : ""
+              }
+              id="club-description"
+              name="description"
+              rows="8"
+              cols="79"
+              placeholder={t("req-event.desc")}
+              value={formData.description}
+              onChange={handleInputChange}
               disabled={isSubmitting}
             />
-            {imagePreview && (
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className={styles.bgPreview}
-              />
-            )}
-            {!selectedFile && (
-              <div className={styles.upBg}>
-                <img src={cloud} alt="upload" />
-                <h1>{t("req-event.drag")}</h1>
-              </div>
-            )}
           </div>
-        </section>
-        <div className={styles["inputs"]}>
-          <Input
-            className={styles["input-field"]}
-            container={`${styles["input-container-1"]} ${
-              isInfoEmpty && isEmptyChecker(formData.EventName)
-                ? styles["input-empty"]
-                : ""
-            }`}
-            scaleY={1.05}
-            input={{
-              id: "event-name",
-              name: "EventName",
-              type: "text",
-              placeholder: t("req-event.name"),
-              value: formData.EventName,
-              onChange: handleInputChange,
-              disabled: isSubmitting,
-            }}
-          />
-          <Input
-            className={styles["input-field"]}
-            container={`${styles["input-container-2"]} ${
-              isInfoEmpty && isEmptyChecker(formData.Speakers)
-                ? styles["input-empty"]
-                : ""
-            }`}
-            scaleY={1.05}
-            input={{
-              id: "speakers-id",
-              name: "Speakers",
-              type: "text",
-              placeholder: t("req-event.speakers"),
-              value: formData.Speakers,
-              onChange: handleInputChange,
-              disabled: isSubmitting,
-            }}
-          />
-          <Input
-            className={styles["input-field"]}
-            container={`${styles["input-container-1"]} ${
-              isInfoEmpty && isEmptyChecker(formData.ContactNumber)
-                ? styles["input-empty"]
-                : ""
-            }`}
-            scaleY={1.05}
-            input={{
-              id: "contact-number",
-              name: "ContactNumber",
-              type: "text",
-              placeholder: t("req-event.number"),
-              value: formData.ContactNumber,
-              onChange: handleInputChange,
-              disabled: isSubmitting,
-            }}
-            s
-          />
-        </div>
-        <div className={styles["inputs2"]}>
-          <DateInput
-            disabled={isSubmitting}
-            isEmpty={isDateEmpty}
-            startTyping={isInfoEmpty}
-          />
-          <Dropdown
-            identifier="starting-time"
-            width={195}
-            isEmpty={isInfoEmpty}
-            disabled={isSubmitting}
-            list={TimeList}
-            placeholder={t("req-event.start-time")}
-          />
-          <Dropdown
-            identifier="ending-time"
-            width={195}
-            isEmpty={isInfoEmpty}
-            disabled={isSubmitting}
-            list={TimeList}
-            placeholder={t("req-event.end-time")}
-          />
-          <Dropdown
-            identifier="location"
-            width={250}
-            isEmpty={isInfoEmpty}
-            disabled={isSubmitting}
-            list={LocationList}
-            placeholder={t("req-event.location")}
-          />
-        </div>
-        <div className={styles["inputs"]}>
-          <textarea
-            className={
-              isInfoEmpty && isEmptyChecker(formData.description)
-                ? styles["input-empty"]
-                : ""
-            }
-            id="club-description"
-            name="description"
-            rows="6"
-            cols="146"
-            placeholder={t("req-event.desc")}
-            value={formData.description}
-            onChange={handleInputChange}
-            disabled={isSubmitting}
-          />
-        </div>
-        <div className={styles.actions}>
-          <ColoreButton red={true}>{t("req-event.cancel")}</ColoreButton>
-          <ColoreButton type="submit" disabled={isSubmitting}>
-            {t("req-event.create")}
-          </ColoreButton>
-        </div>
-      </form>
+          <div className={styles.actions}>
+            <ColoreButton red={true}>{t("req-event.cancel")}</ColoreButton>
+            <ColoreButton type="submit" disabled={isSubmitting}>
+              {t("req-event.request")}
+            </ColoreButton>
+          </div>
+        </form>
+        <div className={styles.spacer} />
+        <EventDetailsPreview data={formData} />
+      </section>
     </main>
   );
 };

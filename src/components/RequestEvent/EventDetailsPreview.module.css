@@ -1,12 +1,8 @@
 /* Event Details */
 
 .event-details {
-  position: absolute;
-  top: -142px;
-  right: 10px;
-  height: 720px;
-  max-width: 550px;
-  width: 100%;
+  height: 560px;
+  width: 40%;
   padding: 1.5em;
   display: flex;
   flex-flow: column nowrap;
@@ -59,7 +55,6 @@
 }
 
 .event-image {
-  margin-top: 2.8rem;
   max-height: 205px;
 }
 
@@ -155,4 +150,3 @@
 .event-span {
   color: #d8d8d8;
 }
-

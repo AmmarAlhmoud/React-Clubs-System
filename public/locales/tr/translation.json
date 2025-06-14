@@ -424,7 +424,7 @@
     "desc": "Talep açıklamanızı buraya girin...",
     "event": "Etkinlik Talebi",
     "cancel": "İptal",
-    "create": "Oluştur"
+    "request": "Talep"
   },
   "req-post": {
     "error-uploading": "Gönderi resmi yüklenirken hata oluştu, lütfen tekrar deneyin",
@@ -439,7 +439,7 @@
     "title": "Gönderi Başlığı",
     "desc": "Açıklamanızı buraya girin...",
     "cancel": "İptal",
-    "create": "Oluştur"
+    "request": "Talep"
   },
   "clubs-list": {
     "created": "Kulüp oluşturuldu!",

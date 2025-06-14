@@ -421,7 +421,7 @@
     "desc": "Enter your request description here...",
     "event": "Request Event",
     "cancel": "Cancel",
-    "create": "Create"
+    "request": "Request"
   },
   "req-post": {
     "error-uploading": "Error uploading the post image please try again",
@@ -436,7 +436,7 @@
     "title": "Post / Announcement Title",
     "desc": "Enter your description here...",
     "cancel": "Cancel",
-    "create": "Create"
+    "request": "Request"
   },
   "clubs-list": {
     "created": "club has been created!",

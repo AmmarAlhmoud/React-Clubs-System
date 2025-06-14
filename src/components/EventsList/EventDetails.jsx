@@ -51,7 +51,7 @@ const EventDetails = ({ from, orientation }) => {
     type,
   } = currentEventDetails;
 
-  const parsedDate = new Date(EventDate);
+  const parsedDate = new Date(EventDate || "mm/dd/yyyy");
   let formattedDate = new Date(parsedDate).toLocaleDateString("en-US", {
     day: "2-digit",
     month: "short",
@@ -59,7 +59,7 @@ const EventDetails = ({ from, orientation }) => {
   });
 
   const month = formattedDate.split(" ")[0];
-  formattedDate = formattedDate.replace(month, t(`months.${month}`));
+  formattedDate = formattedDate.replace(month, t(`months.${month}`) || "mm");
 
   if (eventDetails?.type === "event-details") {
     dispatch(eventsActions.setCurrentEventDetails({}));
@@ -101,13 +101,12 @@ const EventDetails = ({ from, orientation }) => {
           orientation ? styles.eventImage : ""
         }`}
       >
-        <Image src={EventImage} alt="Event image" />
+        <Image src={EventImage || ""} alt="Event image" />
       </div>
       <div className={styles["event-title"]}>
         <h3>{t("events-list.event-details.title")}</h3>
         <div>
-          <h4>{EventName}</h4>
-          {/* TODO: check if this work as expected */}
+          <h4>{EventName || ""}</h4>
           {type !== "event-request" && (
             <CateList>
               {clubCategories &&
@@ -121,56 +120,66 @@ const EventDetails = ({ from, orientation }) => {
           )}
         </div>
       </div>
-      <p className={styles["event-desc"]}>{description}</p>
+      <p className={styles["event-desc"]}>{description || ""}</p>
       <div className={styles["event-desc-container"]}>
         <span>
-          {t("events-list.event-details.speakers")} <span>{Speakers}</span>
+          {t("events-list.event-details.speakers")}{" "}
+          <span>{Speakers || ""}</span>
         </span>
         <div className={styles["event-desc-container-in"]}>
           <div className={styles.left}>
             <div className={styles["logo-with-name"]}>
               <img
                 className={styles["club-img"]}
-                src={CLogo}
-                alt={{ CName } + " Logo"}
+                src={CLogo || ""}
+                alt={CName || "" + " Logo"}
               />
               <p>{CName}</p>
             </div>
             <div className={styles["logo-with-name"]}>
               <img
                 className={styles["club-img"]}
-                src={CMLogo}
-                alt={{ CMName } + " Logo"}
+                src={CMLogo || ""}
+                alt={CMName || "" + " Logo"}
               />
-              <p>{CMName}</p>
+              <p>{CMName || ""}</p>
             </div>
           </div>
           <div className={styles.right}>
             <div>
               {t("events-list.event-details.starting-time")}
-              <span className={styles["event-span"]}> {EventSTime.label}</span>
+              <span className={styles["event-span"]}>
+                {" "}
+                {EventSTime?.label || ""}
+              </span>
             </div>
             <div>
               {t("events-list.event-details.ending-time")}
-              <span className={styles["event-span"]}> {EventETime.label}</span>
+              <span className={styles["event-span"]}>
+                {" "}
+                {EventETime?.label || ""}
+              </span>
             </div>
             <div>
               {t("events-list.event-details.date")}
-              <span className={styles["event-span"]}> {formattedDate}</span>
+              <span className={styles["event-span"]}>
+                {" "}
+                {formattedDate || ""}
+              </span>
             </div>
             <div>
               {t("events-list.event-details.location")}
               <span className={styles["event-span"]}>
-                {EventLocation.label}
+                {EventLocation?.label || ""}
               </span>
             </div>
             <div>
               {t("events-list.event-details.email")}
-              <span className={styles["event-span"]}> {CMEmail}</span>
+              <span className={styles["event-span"]}> {CMEmail || ""}</span>
             </div>
             <div>
               {t("events-list.event-details.contact")}
-              <span className={styles["event-span"]}> {CMPhone}</span>
+              <span className={styles["event-span"]}> {CMPhone || ""}</span>
             </div>
           </div>
         </div>
