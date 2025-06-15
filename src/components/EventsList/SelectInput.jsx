@@ -7,7 +7,7 @@ const SelectInput = ({ isEmpty, selectedCate, isNew, type, disabled }) => {
   const { t } = useTranslation();
 
   const selectedItems = useSelector((state) => state.club.selectedCategories);
-  const lightModetheme = useSelector((state) => state.theme.lightMode);
+  const mode = useSelector((state) => state.theme.mode);
 
   const options = [
     {
@@ -95,16 +95,17 @@ const SelectInput = ({ isEmpty, selectedCate, isNew, type, disabled }) => {
   const whiteColor = (styles) => {
     return {
       ...styles,
-      color: lightModetheme ? "black" : "#fff",
+      color: mode === "light" ? "black" : "#fff",
     };
   };
 
   const whiteColorWithHover = (styles) => {
     return {
       ...styles,
-      color: lightModetheme ? "black" : "#fff",
+      color: mode === "light" ? "black" : "#fff",
       ":hover": {
-        color: lightModetheme ? "rgba(0, 0, 0,50%)" : "rgba(255, 255, 255,80%)",
+        color:
+          mode === "light" ? "rgba(0, 0, 0,50%)" : "rgba(255, 255, 255,80%)",
       },
     };
   };
@@ -123,7 +124,7 @@ const SelectInput = ({ isEmpty, selectedCate, isNew, type, disabled }) => {
   const colorStyles = {
     control: (styles) => ({
       ...styles,
-      backgroundColor: lightModetheme ? "#fff" : "#1B1D21",
+      backgroundColor: mode === "light" ? "#fff" : "#1B1D21",
       border: borderColor,
       borderRadius: "0.5em",
       height: "auto",
@@ -136,12 +137,11 @@ const SelectInput = ({ isEmpty, selectedCate, isNew, type, disabled }) => {
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
       return {
         ...styles,
-        backgroundColor: lightModetheme ? "#fff" : "#1B1D21",
-        color: lightModetheme ? "black" : "#fff",
+        backgroundColor: mode === "light" ? "#fff" : "#1B1D21",
+        color: mode === "light" ? "black" : "#fff",
         ":hover": {
-          backgroundColor: lightModetheme
-            ? "rgba(0, 0, 0,50%)"
-            : "rgba(255, 255, 255,0.2)",
+          backgroundColor:
+            mode === "light" ? "rgba(0, 0, 0,50%)" : "rgba(255, 255, 255,0.2)",
         },
         ":focus": {
           border: "none",
@@ -171,7 +171,7 @@ const SelectInput = ({ isEmpty, selectedCate, isNew, type, disabled }) => {
     menuList: (styles) => {
       return {
         ...styles,
-        backgroundColor: lightModetheme ? "#fff" : "#1B1D21",
+        backgroundColor: mode === "light" ? "#fff" : "#1B1D21",
         height: "150px",
         "&::-webkit-scrollbar": {
           backgroundColor: "rgb(255, 255, 255, 0.1)",
@@ -187,7 +187,7 @@ const SelectInput = ({ isEmpty, selectedCate, isNew, type, disabled }) => {
     singleValue: (styles) => {
       return {
         ...styles,
-        color: lightModetheme ? "black" : "#fff",
+        color: mode === "light" ? "black" : "#fff",
         fontSize: "0.9rem",
       };
     },

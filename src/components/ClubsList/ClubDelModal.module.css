@@ -1,3 +1,17 @@
+/* LiGHT THEME STYLES */
+
+:global(body[data-theme="light"]) .modal {
+  background-color: #fff;
+  border-color: black;
+  color: black;
+}
+
+:global(body[data-theme="light"]) .text {
+  color: black;
+}
+
+/* DARK THEME STYLES */
+
 .modal {
   position: fixed;
   top: 50%;

@@ -17,6 +17,7 @@ import accepted from "../../assets/icons/CM-Dashboard/accepted.png";
 import rejected from "../../assets/icons/CM-Dashboard/rejected.png";
 import question from "../../assets/icons/CM-Dashboard/question.png";
 import deleteIcon from "../../assets/icons/CM-Dashboard/delete.png";
+import membersIcon from "../../assets/icons/CM-Dashboard/members.png";
 
 import WeeklyCalender from "../Dashboard/WeeklyCalender";
 import Modal from "../MyClub/DelModal";
@@ -187,7 +188,7 @@ const CmDashboard = () => {
     const editClubAfterJoin = (editedData) => {
       const updates = {
         [`/clubslist/${editedData.info.clubId}/members/${editedData.info.userId}`]:
-          editedData.info,
+          { ...editedData.info, joinDate: new Date().toISOString() },
       };
       update(ref(db), updates)
         .then(() =>
@@ -314,10 +315,41 @@ const CmDashboard = () => {
     totalEvents = cMEventsList.length;
   }
 
+  const countRecentMembers = (members) => {
+    const now = new Date();
+    const oneWeekAgo = new Date(now);
+    oneWeekAgo.setDate(now.getDate() - 3);
+
+    let count = 0;
+
+    Object.keys(members).forEach((id) => {
+      const joinDate = new Date(members[id].joinDate);
+      if (joinDate >= oneWeekAgo && joinDate <= now) {
+        count++;
+      }
+    });
+
+    return count;
+  };
+
   let pendingList = [];
   let pendingRequestsList = [];
   let acceptingList = [];
   let acceptingRequestsList = [];
+  let numberOfMembers = 0;
+  let numberOfRecentMembers = 0;
+
+  if (
+    currentClubMGDashData &&
+    typeof currentClubMGDashData === "object" &&
+    Object.keys(currentClubMGDashData).length !== 0
+  ) {
+    const members = currentClubMGDashData?.members;
+    if (members) {
+      numberOfMembers = Object.values(members).length;
+      numberOfRecentMembers = countRecentMembers(members);
+    }
+  }
 
   let reqList = [];
 
@@ -652,6 +684,19 @@ const CmDashboard = () => {
       </section>
       {/* Upper Right Stats Section */}
       <section className={styles.statsTop}>
+        <div>
+          <img src={membersIcon} alt="members count" />
+          <div className={styles.inner}>
+            <h1>
+              {t("cm-dashboard.members") + " "}
+              <span className={styles.membersNum}>{numberOfMembers}</span>
+            </h1>
+            <h3 className={styles.recentMembersNum}>
+              +{numberOfRecentMembers}{" "}
+              <span> {t("cm-dashboard.new-members")}</span>
+            </h3>
+          </div>
+        </div>
         <div>
           <img src={next_event} alt="" />
           <div className={styles.inner}>

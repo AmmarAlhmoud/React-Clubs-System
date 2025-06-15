@@ -1,6 +1,6 @@
 /* LiGHT THEME STYLES */
 
-:global(.light) .error-modal {
+:global(body[data-theme="light"]) {
   background-color: #fff;
 }
 

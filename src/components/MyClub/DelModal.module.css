@@ -1,9 +1,13 @@
 /* LiGHT THEME STYLES */
 
-/* TODO: DOES NOT WORK BECAUSE IS BEEN PORTALED TO A HIGHER ELEMNET IN THE TREE */
-:global(.light) .modal {
+:global(body[data-theme="light"]) .modal {
   background-color: #fff;
-  border-color: white;
+  border-color: black;
+  color: black;
+}
+
+:global(body[data-theme="light"]) .text {
+  color: black;
 }
 
 /* DARK THEME STYLES */

@@ -346,7 +346,6 @@ const EventRequestItem = ({
           </ColoredButton>
         )}
       </div>
-      {/* TODO: handler the details button state */}
       <div
         className={`${styles["action-details"]} ${
           showDetails.show && id === showDetails.id && type === "event-request"

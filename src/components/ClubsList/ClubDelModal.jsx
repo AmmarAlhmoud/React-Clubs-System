@@ -27,7 +27,7 @@ const ClubDelModal = ({ open, onClose, icon, title, clubId, clubName }) => {
         <img src={icon} alt="club logo" />
         <div className={styles.text}>
           <h1>{t("clubs-list.club-card.del-model.question")}</h1>
-          <h2>{title}</h2>
+          <h2>{title + "?"}</h2>
         </div>
         <div className={styles.btns}>
           <ColoreButton onClick={onClose}>

@@ -6,6 +6,7 @@
 
 :global(.light) .aside {
   background-color: #fff;
+  border: 1px solid black;
 }
 :global(.light) .user-name,
 :global(.light) .aside-nav-item,
@@ -33,7 +34,12 @@
   filter: invert() brightness(0);
 }
 
-:global(.light) {
+:global(.light) .modeIcon {
+  filter: brightness(115%);
+}
+
+:global(.light) .langIcon {
+  filter: brightness(200%);
 }
 
 /* DARK THEME STYLES */
@@ -63,6 +69,24 @@
   border: none;
   border-radius: 1em;
   background-color: #1b1d21;
+  position: relative;
+}
+
+.modeIcon {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 10px;
+  right: 6px;
+}
+
+.langIcon {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  top: 48px;
+  right: 9px;
+  filter: invert() brightness(115%);
 }
 
 .asideSt {

@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 const CustomSelectInput = ({ navEvents, disabled }) => {
   const { t } = useTranslation();
-  const lightModetheme = useSelector((state) => state.theme.lightMode);
+  const mode = useSelector((state) => state.theme.mode);
 
   const searchedCategories = useSelector(
     (state) => state.ui.searchedCategories
@@ -101,16 +101,17 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
   const whiteColor = (styles) => {
     return {
       ...styles,
-      color: lightModetheme ? "black" : "#fff",
+      color: mode === "light" ? "black" : "#fff",
     };
   };
 
   const whiteColorWithHover = (styles) => {
     return {
       ...styles,
-      color: lightModetheme ? "black" : "#fff",
+      color: mode === "light" ? "black" : "#fff",
       ":hover": {
-        color: lightModetheme ? "rgba(0, 0, 0,50%)" : "rgba(255, 255, 255,80%)",
+        color:
+          mode === "light" ? "rgba(0, 0, 0,50%)" : "rgba(255, 255, 255,80%)",
       },
     };
   };
@@ -132,7 +133,7 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
     control: (styles) => ({
       ...styles,
       position: "relative",
-      backgroundColor: lightModetheme ? "#fff" : "#1B1D21",
+      backgroundColor: mode === "light" ? "#fff" : "#1B1D21",
       width: navEvents ? 330 : 480,
       maxWidth: navEvents ? 330 : 480,
       overFlowX: "scroll",
@@ -188,12 +189,13 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
     menuList: (styles) => {
       return {
         ...styles,
+        border: mode === "light" ? "2px solid black" : "1px solid white",
         display: "flex",
         flexDirection: "column",
         flexWrap: "wrap",
         columnGap: "0.8em",
         rowGap: "1em",
-        backgroundColor: lightModetheme ? "#fff" : "#1B1D21",
+        backgroundColor: mode === "light" ? "#fff" : "#1B1D21",
         borderRadius: "1em",
         position: "absolute",
         top: navEvents ? "50px" : "25px",
@@ -215,7 +217,7 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
     input: (styles) => {
       return {
         ...styles,
-        color: lightModetheme ? "black" : "#fff",
+        color: mode === "light" ? "black" : "#fff",
         fontWeight: "bold",
         maxHeight: "20px",
       };

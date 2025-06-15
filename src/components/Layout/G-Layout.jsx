@@ -7,6 +7,11 @@ import {
   displayAuthUserType,
   displayAuthUserName,
 } from "../../util/auth.js";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation, Trans } from "react-i18next";
+import { changeLanguage } from "i18next";
+import { motion } from "framer-motion";
+import { toggleTheme, toggleLang } from "../../store/theme-slice.js";
 
 import User_Ic from "../../assets/icons/Layout/user.png";
 import HomeSvg from "../Svgs/HomeSvg";
@@ -17,22 +22,37 @@ import CreateClubSvg from "../Svgs/CreateClubSvg";
 import LogoutSvg from "../Svgs/LogoutSvg";
 import RequestPostSvg from "../Svgs/RequestPostSvg";
 import Club_M_Ic from "../../assets/icons/EventsList/club_manager_logo.png";
+import TR_LANG_ICON from "../../assets/icons/Layout/tr_lang_icon.png";
+import EN_LANG_ICON from "../../assets/icons/Layout/en_lang_icon.png";
+import LIGHT_MODE_ICON from "../../assets/icons/Layout/light_mode_icon.png";
+import DARK_MODE_ICON from "../../assets/icons/Layout/dark_mode_icon.png";
 
 import styles from "./G-Layout.module.css";
 import EventsListSvg from "../Svgs/EventsListSvg";
-import { useTranslation, Trans } from "react-i18next";
 
 const G_Layout = (props) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const { logout } = useAuth();
   const navigate = useNavigate();
   const displayedUserType = displayAuthUserType();
   const displayedUserName = displayAuthUserName();
+  const mode = useSelector((state) => state.theme.mode);
+  const lang = useSelector((state) => state.theme.lang);
 
   const logoutHandler = () => {
     logout();
     navigate("/login");
+  };
+
+  const changeThemeHandler = () => {
+    // switches between dark and light
+    dispatch(toggleTheme());
+  };
+  const changeLangHandler = () => {
+    // switches between dark and light
+    dispatch(toggleLang());
   };
 
   return (
@@ -42,6 +62,26 @@ const G_Layout = (props) => {
           checkAuthStUserType() ? styles.asideSt : ""
         }`}
       >
+        <motion.img
+          title={`${"change theme to " + (mode === "dark" ? "light" : "dark")}`}
+          whileHover={{ scale: props.scale || 1.1, cursor: "pointer" }}
+          transition={{ type: "spring", stiffness: props.stiffness || 200 }}
+          className={styles.modeIcon}
+          src={mode === "dark" ? LIGHT_MODE_ICON : DARK_MODE_ICON}
+          alt="dark mode icon switcher"
+          onClick={changeThemeHandler}
+        />
+        <motion.img
+          title={`${
+            "change language to " + (lang === "en" ? "turkish" : "english")
+          }`}
+          whileHover={{ scale: props.scale || 1.1, cursor: "pointer" }}
+          transition={{ type: "spring", stiffness: props.stiffness || 200 }}
+          className={styles.langIcon}
+          src={lang === "en" ? TR_LANG_ICON : EN_LANG_ICON}
+          alt="language icon switcher"
+          onClick={changeLangHandler}
+        />
         <div className={styles["user-profile"]}>
           {!checkAuthClUserType() && (
             <img

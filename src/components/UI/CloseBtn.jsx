@@ -6,7 +6,6 @@ import styles from "./CloseBtn.module.css";
 
 const CloseBtn = ({ onClick }) => {
   return (
-    // TODO: make animation for this div
     <div onClick={onClick} className={styles.close}>
       <Icon src={Close_Ic} alt="Close" />
     </div>

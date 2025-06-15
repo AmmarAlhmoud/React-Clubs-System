@@ -101,7 +101,6 @@ const ClubPostRequest = () => {
       addNewPostToClub(reqPostData.info);
       editPostReqStatus(reqPostData.status);
       removePostReq(reqPostData.info);
-      // TODO: CHECK IF THIS WORKS
       dispatch(eventsActions.setShowPostDetails(false));
       dispatch(eventsActions.setReqPostData(null));
     }
@@ -115,7 +114,6 @@ const ClubPostRequest = () => {
     ) {
       editPostReqStatus(rejectPostStatus);
       removePostReq(rejectPostStatus);
-      // TODO: CHECK IF THIS WORKS
       dispatch(eventsActions.setShowPostDetails(false));
       dispatch(eventsActions.setRejectPostStatus(null));
       toast.success(t("requests.club-post-req.reject-post-req"));

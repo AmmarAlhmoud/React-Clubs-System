@@ -152,6 +152,8 @@
     "total-events": "Total Events",
     "event": "Event",
     "responded": "Responded",
+    "members": "Members",
+    "new-members": "New members",
     "manage-members": "Manage Members",
     "requests-box": "Requests Box",
     "accepted": "join request has been accepted successfully.",

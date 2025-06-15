@@ -4,6 +4,8 @@ import {
   checkAuthClUserType,
   checkAuthStUserType,
 } from "./util/auth.js";
+import { setTheme, setLang } from "./store/theme-slice.js";
+import { useTranslation } from "react-i18next";
 
 import LoginPage from "./pages/Login.jsx";
 import DashboardPage from "./pages/Dashboard.jsx";
@@ -27,6 +29,7 @@ import RequestPostPage from "./pages/RequestPost.jsx";
 import StDashboardPage from "./pages/StDashboard.jsx";
 import HomePage from "./pages/Home.jsx";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
@@ -147,13 +150,38 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const darkMode = useSelector((state) => state.theme.darkMode);
   const dispatch = useDispatch();
+  const { i18n } = useTranslation();
 
-  // darkMode ? "dark" : "light"
+  // 1. On first load, check if a theme is already in localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    const savedLang = localStorage.getItem("i18nextLng");
+
+    if (savedTheme) {
+      dispatch(setTheme(savedTheme)); // apply saved theme
+    }
+    if (savedLang) {
+      dispatch(setLang(savedLang)); // apply saved lang
+    }
+  }, [dispatch]);
+
+  // 2. Whenever the theme in state changes, persist it to localStorage
+  const mode = useSelector((state) => state.theme.mode);
+  const lang = useSelector((state) => state.theme.lang);
+  useEffect(() => {
+    localStorage.setItem("theme", mode);
+    // will set a cutome data- to the body for styling ex: :global(body[data-theme='light'])
+    document.body.dataset.theme = mode;
+  }, [mode]);
+
+  useEffect(() => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("i18nextLng", lang);
+  }, [lang, i18n]);
 
   return (
-    <div className={"light"}>
+    <div className={mode}>
       <RouterProvider router={router} />
     </div>
   );
