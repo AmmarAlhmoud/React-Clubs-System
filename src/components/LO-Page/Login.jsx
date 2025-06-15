@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "../../store/ui-slice.js";
 import { useTranslation } from "react-i18next";
+import {
+  setTheme,
+  setLang,
+  toggleTheme,
+  toggleLang,
+} from "../../store/theme-slice.js";
+import { motion } from "framer-motion";
 
 import styles from "./Login.module.css";
 import Input from "../UI/Input";
@@ -18,6 +25,10 @@ import BarLoader from "../UI/BarLoader";
 import Icon from "../UI/Icon.jsx";
 import User_icon from "../../assets/icons/LO/user.png";
 import Lock_icon from "../../assets/icons/LO/lock.png";
+import TR_LANG_ICON from "../../assets/icons/Layout/tr_lang_icon.png";
+import EN_LANG_ICON from "../../assets/icons/Layout/en_lang_icon.png";
+import LIGHT_MODE_ICON from "../../assets/icons/Layout/light_mode_icon.png";
+import DARK_MODE_ICON from "../../assets/icons/Layout/dark_mode_icon.png";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -79,7 +90,6 @@ const Login = () => {
       dispatch(uiActions.toggleModal(true));
     }
   };
-
   // Map Firebase errors to UI
   if (error.name === "FirebaseError") {
     setError({
@@ -88,9 +98,67 @@ const Login = () => {
     });
   }
 
+  const { i18n } = useTranslation();
+
+  // 1. On first load, check if a theme is already in localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    const savedLang = localStorage.getItem("i18nextLng");
+
+    if (savedTheme) {
+      dispatch(setTheme(savedTheme)); // apply saved theme
+    }
+    if (savedLang) {
+      dispatch(setLang(savedLang)); // apply saved lang
+    }
+  }, [dispatch]);
+
+  // 2. Whenever the theme in state changes, persist it to localStorage
+  const mode = useSelector((state) => state.theme.mode);
+  const lang = useSelector((state) => state.theme.lang);
+  useEffect(() => {
+    localStorage.setItem("theme", mode);
+    // will set a cutome data- to the body for styling ex: :global(body[data-theme='light'])
+    document.body.dataset.theme = mode;
+  }, [mode]);
+
+  useEffect(() => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("i18nextLng", lang);
+  }, [lang, i18n]);
+
+  const changeThemeHandler = () => {
+    // switches between dark and light
+    dispatch(toggleTheme());
+  };
+  const changeLangHandler = () => {
+    // switches between dark and light
+    dispatch(toggleLang());
+  };
+
   return (
     <main className={styles.main}>
       <h2>{t("login.title")}</h2>
+      <motion.img
+        title={`${"change theme to " + (mode === "dark" ? "light" : "dark")}`}
+        whileHover={{ scale: 1.1, cursor: "pointer" }}
+        transition={{ type: "spring", stiffness: 200 }}
+        className={styles.modeIcon}
+        src={mode === "dark" ? LIGHT_MODE_ICON : DARK_MODE_ICON}
+        alt="dark mode icon switcher"
+        onClick={changeThemeHandler}
+      />
+      <motion.img
+        title={`${
+          "change language to " + (lang === "en" ? "turkish" : "english")
+        }`}
+        whileHover={{ scale: 1.1, cursor: "pointer" }}
+        transition={{ type: "spring", stiffness: 200 }}
+        className={styles.langIcon}
+        src={lang === "en" ? TR_LANG_ICON : EN_LANG_ICON}
+        alt="language icon switcher"
+        onClick={changeLangHandler}
+      />
       {error && isToggled && (
         <Modal
           err={{
