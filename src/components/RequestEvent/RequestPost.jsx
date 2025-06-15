@@ -215,7 +215,7 @@ const RequestPost = () => {
               />
             )}
             {!selectedFile && (
-              <div className={styles.upBg}>
+              <div className={styles.upBgIcon}>
                 <img src={cloud} alt="upload" />
                 <h1>{t("req-post.drag")}</h1>
               </div>

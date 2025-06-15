@@ -1,3 +1,13 @@
+/* LiGHT THEME STYLES */
+
+/* TODO: DOES NOT WORK BECAUSE IS BEEN PORTALED TO A HIGHER ELEMNET IN THE TREE */
+:global(.light) .modal {
+  background-color: #fff;
+  border-color: white;
+}
+
+/* DARK THEME STYLES */
+
 .modal {
   position: fixed;
   top: 50%;

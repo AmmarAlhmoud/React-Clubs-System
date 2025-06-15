@@ -1,12 +1,13 @@
-import "./ClubContainer.css"; // Import CSS file for styling
+import React from "react";
+import styles from "./ClubContainer.module.css";
 
 const ClubContainer = ({ image, title, description }) => {
   return (
-    <div className="boxes">
-      <img src={image} alt="Box Image" className="box-images" />
-      <div className="box-content">
-        <h2 className="box-titles">{title}</h2>
-        <p className="box-descriptions">{description}</p>
+    <div className={styles.boxes}>
+      <img src={image} alt="Box Image" className={styles.boxImages} />
+      <div className={styles.boxContent}>
+        <h2 className={styles.boxTitles}>{title}</h2>
+        <p className={styles.boxDescriptions}>{description}</p>
       </div>
     </div>
   );

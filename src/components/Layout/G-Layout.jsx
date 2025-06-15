@@ -43,11 +43,16 @@ const G_Layout = (props) => {
         }`}
       >
         <div className={styles["user-profile"]}>
-          <img
-            src={checkAuthClUserType() ? Club_M_Ic : User_Ic}
-            alt="User Image"
-            className={styles.img}
-          />
+          {!checkAuthClUserType() && (
+            <img
+              src={checkAuthClUserType() ? Club_M_Ic : User_Ic}
+              alt="User Image"
+              className={styles.img}
+            />
+          )}
+          {checkAuthClUserType() && (
+            <img src={Club_M_Ic} alt="User Image" className={styles.imgMG} />
+          )}
           <p className={styles["user-name"]}>{displayedUserName}</p>
           <p className={styles.role}>{t(`g-layout.${displayedUserType}`)}</p>
         </div>

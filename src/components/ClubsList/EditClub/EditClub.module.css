@@ -1,3 +1,11 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .container {
+  background-color: #fff;
+  color: black;
+}
+
+/* DARK THEME STYLES */
 .container {
   max-height: 100vh !important;
   min-height: none !important;

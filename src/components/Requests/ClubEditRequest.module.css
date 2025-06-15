@@ -1,4 +1,14 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .no-req-edit-club-item,
+:global(.light) .hint {
+  color: black;
+}
+
+/* DARK THEME STYLES */
+
 .event-req {
+  font-family: "Poppins";
   position: relative;
   display: grid;
   grid-template-columns: 1fr;

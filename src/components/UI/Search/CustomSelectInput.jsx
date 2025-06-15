@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 
 const CustomSelectInput = ({ navEvents, disabled }) => {
   const { t } = useTranslation();
+  const lightModetheme = useSelector((state) => state.theme.lightMode);
 
   const searchedCategories = useSelector(
     (state) => state.ui.searchedCategories
@@ -100,16 +101,16 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
   const whiteColor = (styles) => {
     return {
       ...styles,
-      color: "#fff",
+      color: lightModetheme ? "black" : "#fff",
     };
   };
 
   const whiteColorWithHover = (styles) => {
     return {
       ...styles,
-      color: "#fff",
+      color: lightModetheme ? "black" : "#fff",
       ":hover": {
-        color: "rgba(255, 255, 255,80%)",
+        color: lightModetheme ? "rgba(0, 0, 0,50%)" : "rgba(255, 255, 255,80%)",
       },
     };
   };
@@ -131,7 +132,7 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
     control: (styles) => ({
       ...styles,
       position: "relative",
-      backgroundColor: "#1B1D21",
+      backgroundColor: lightModetheme ? "#fff" : "#1B1D21",
       width: navEvents ? 330 : 480,
       maxWidth: navEvents ? 330 : 480,
       overFlowX: "scroll",
@@ -171,6 +172,7 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
         maxHeight: "50px",
         maxWidth: 448,
         overFlow: "auto",
+        fontSize: "0.85rem",
       };
     },
     multiValueRemove: (styles) => {
@@ -191,7 +193,7 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
         flexWrap: "wrap",
         columnGap: "0.8em",
         rowGap: "1em",
-        backgroundColor: "#1B1D21",
+        backgroundColor: lightModetheme ? "#fff" : "#1B1D21",
         borderRadius: "1em",
         position: "absolute",
         top: navEvents ? "50px" : "25px",
@@ -213,7 +215,7 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
     input: (styles) => {
       return {
         ...styles,
-        color: "#fff",
+        color: lightModetheme ? "black" : "#fff",
         fontWeight: "bold",
         maxHeight: "20px",
       };
@@ -228,7 +230,9 @@ const CustomSelectInput = ({ navEvents, disabled }) => {
       return {
         ...styles,
         color: "#b2b4b7",
-        marginTop: "0.4em",
+        marginTop: "0.2em",
+        fontSize: "1rem",
+        fontWeight: "bold",
       };
     },
   };

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Bottombar.css"; // Import CSS file for styling
+import styles from "./Bottombar.module.css";
 import Bottombar1 from "../../assets/bottombar1.png";
 import Bottombar2 from "../../assets/bottombar2.png";
 import Bottombar3 from "../../assets/bottombar3.png";
@@ -9,27 +9,27 @@ const Bottombar = () => {
   const { t } = useTranslation();
 
   return (
-    <nav className="Bottombars">
-      <div className="BottomBar-item">
+    <nav className={styles.Bottombars}>
+      <div className={styles.BottomBarItem}>
         <img
           src={Bottombar1}
           alt="Uskudar University Logo"
-          className="Bottombarimg"
+          className={styles.Bottombarimg}
         />
-        <div className="bottomtext">
+        <div className={styles.bottomtext}>
           <h2>{t("home.bottom-bar.diverse")}</h2>
           <p>
             <a href="#">{t("home.bottom-bar.learn")}</a>
           </p>
         </div>
       </div>
-      <div className="BottomBar-item">
+      <div className={styles.BottomBarItem}>
         <img
           src={Bottombar2}
           alt="Uskudar University Logo"
-          className="Bottombarimg"
+          className={styles.Bottombarimg}
         />
-        <div className="bottomtext">
+        <div className={styles.bottomtext}>
           <h2>{t("home.bottom-bar.fun")}</h2>
           <p>
             <a href="#">{t("home.bottom-bar.learn")}</a>
@@ -37,13 +37,13 @@ const Bottombar = () => {
         </div>
       </div>
 
-      <div className="BottomBar-item">
+      <div className={styles.BottomBarItem}>
         <img
           src={Bottombar3}
           alt="Uskudar University Logo"
-          className="Bottombarimg"
+          className={styles.Bottombarimg}
         />
-        <div className="bottomtext">
+        <div className={styles.bottomtext}>
           <h2>{t("home.bottom-bar.craft")}</h2>
           <p>
             <a href="#">{t("home.bottom-bar.learn")}</a>

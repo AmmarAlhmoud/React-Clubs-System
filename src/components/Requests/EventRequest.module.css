@@ -1,3 +1,22 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .event-req ul::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+:global(.light) .event-req ul::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+:global(.light) .hint {
+  color: #666;
+}
+
+:global(.light) .no-req-event-item {
+  color: #000;
+}
+/* DARK THEME STYLES */
+
 .event-req {
   position: relative;
   display: grid;

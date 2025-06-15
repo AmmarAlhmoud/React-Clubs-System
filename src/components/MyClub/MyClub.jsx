@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { database } from "../../firebase";
-import { ref, onValue, remove, set, update } from "firebase/database";
+import { ref, onValue, remove, set } from "firebase/database";
 import { getAuthUserId } from "../../util/auth";
 import { clubActions } from "../../store/club-slice";
 import { getAuthUserType, displayAuthUserName } from "../../util/auth";

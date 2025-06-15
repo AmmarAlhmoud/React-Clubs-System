@@ -1,3 +1,11 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .error-modal {
+  background-color: #fff;
+}
+
+/* DARK THEME STYLES */
+
 .backdrop {
   position: fixed;
   top: 0;

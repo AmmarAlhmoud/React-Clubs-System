@@ -22,6 +22,8 @@ const Dropdown = ({
   );
   const selectedType = useSelector((state) => state.events.selectedType);
 
+  const lightModetheme = useSelector((state) => state.theme.lightMode);
+
   if (identifier === "starting-time") {
     selectedItems = selectedSTime;
   }
@@ -42,16 +44,16 @@ const Dropdown = ({
   const whiteColor = (styles) => {
     return {
       ...styles,
-      color: "#fff",
+      color: lightModetheme ? "black" : "#fff",
     };
   };
 
   const whiteColorWithHover = (styles) => {
     return {
       ...styles,
-      color: "#fff",
+      color: lightModetheme ? "black" : "#fff",
       ":hover": {
-        color: "rgba(255, 255, 255,80%)",
+        color: lightModetheme ? "rgba(0, 0, 0,50%)" : "rgba(255, 255, 255,80%)",
       },
     };
   };
@@ -59,7 +61,7 @@ const Dropdown = ({
   const colorStyles = {
     control: (styles) => ({
       ...styles,
-      backgroundColor: "#1B1D21",
+      backgroundColor: lightModetheme ? "#fff" : "#1B1D21",
 
       border: `${
         isEmpty && selectedItems === null
@@ -77,10 +79,12 @@ const Dropdown = ({
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
       return {
         ...styles,
-        backgroundColor: "#1B1D21",
-        color: "#fff",
+        backgroundColor: lightModetheme ? "#fff" : "#1B1D21",
+        color: lightModetheme ? "black" : "#fff",
         ":hover": {
-          backgroundColor: "rgba(255, 255, 255,0.2)",
+          backgroundColor: lightModetheme
+            ? "rgba(0, 0, 0,50%)"
+            : "rgba(255, 255, 255,0.2)",
         },
         ":focus": {
           border: "none",
@@ -110,7 +114,7 @@ const Dropdown = ({
     menuList: (styles) => {
       return {
         ...styles,
-        backgroundColor: "#1B1D21",
+        backgroundColor: lightModetheme ? "#fff" : "#1B1D21",
         height: identifier === "choosen-type" ? "80px" : "150px",
         "&::-webkit-scrollbar": {
           backgroundColor: "rgb(255, 255, 255, 0.1)",
@@ -126,13 +130,14 @@ const Dropdown = ({
     input: (styles) => {
       return {
         ...styles,
-        color: "#fff",
+        color: lightModetheme ? "black" : "#fff",
       };
     },
     singleValue: (styles) => {
       return {
         ...styles,
-        color: "#fff",
+        color: lightModetheme ? "black" : "#fff",
+        fontSize: "0.9rem",
       };
     },
     multiValueLabel: whiteColor,
@@ -142,7 +147,7 @@ const Dropdown = ({
     clearIndicator: whiteColorWithHover,
     noOptionsMessage: whiteColor,
     placeholder: (styles) => {
-      return { ...styles, color: "#b2b4b7" };
+      return { ...styles, color: "#b2b4b7", fontSize: "0.9rem" };
     },
   };
 

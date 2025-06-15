@@ -1,4 +1,4 @@
-import "./Navbar.css"; // Import CSS file for styling
+import styles from "./Navbar.module.css";
 import Uni_logo from "../../assets/uni_logo.png";
 import { Link } from "react-router-dom";
 import { getAuthUserId } from "../../util/auth";
@@ -16,16 +16,18 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-content">
-        <div className="navbar-left">
+    <nav className={styles.navbar}>
+      <div className={styles.navbarContent}>
+        <div className={styles.navbarLeft}>
           <img
             src={Uni_logo}
             alt="Uskudar University Logo"
-            className="navbar-logo"
+            className={styles.navbarLogo}
           />
-          <span className="green navbar-text">{t("home.nav.uni")}</span>
-          <ul className="navbar-links">
+          <span className={`${styles.green} ${styles.navbarText}`}>
+            {t("home.nav.uni")}
+          </span>
+          <ul className={styles.navbarLinks}>
             {user && (
               <>
                 <li>
@@ -39,6 +41,7 @@ const Navbar = () => {
                 </li>
               </>
             )}
+
             {!user && (
               <>
                 <li>
@@ -49,6 +52,7 @@ const Navbar = () => {
                 </li>
               </>
             )}
+
             <li>
               <a href="#contact-us">{t("home.nav.about")}</a>
             </li>
@@ -57,18 +61,25 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-right">
-          {/* <input type="text" placeholder="Search" className="search-input" /> */}
+
+        <div className={styles.navbarRight}>
+          {/* <input
+            type="text"
+            placeholder="Search"
+            className={styles.searchInput}
+          /> */}
           <LanguageSelector />
-          {/* Login Button */}
           {user === null && (
             <Link to="/login">
-              <button className="navbar-button">{t("home.nav.login")}</button>
+              <button className={styles.navbarButton}>
+                {t("home.nav.login")}
+              </button>
             </Link>
           )}
+
           {user !== null && (
             <p>
-              <button onClick={logoutHandler} className="navbar-button">
+              <button onClick={logoutHandler} className={styles.navbarButton}>
                 {t("home.nav.logout")}
               </button>
             </p>

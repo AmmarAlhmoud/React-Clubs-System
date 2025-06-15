@@ -1,0 +1,67 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .title {
+  color: #222;
+}
+
+:global(.light) .description {
+  color: #606060;
+}
+
+:global(.light) .searchArea input {
+  background-color: #eee;
+  color: #222;
+  border: 1px solid #ccc;
+}
+
+/* DARK THEME STYLES */
+
+.titleDescription {
+  display: flex;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.textContent {
+  margin-right: 20px; /* Adjust spacing between text content and search area */
+  padding-left: 150px;
+}
+
+.searchArea {
+  margin-left: auto; /* Push search area to the right */
+  padding-right: 150px;
+  display: flex;
+  align-items: center;
+}
+
+.searchArea input {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #1b1d21;
+  color: white;
+  height: 45px;
+}
+
+.title {
+  color: white;
+  margin: 0; /* Remove default margin */
+  font-family: "Kavoon";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 107.7%;
+  padding: 10px;
+}
+
+.description {
+  color: #808080; /* Grey color */
+  margin: 0; /* Remove default margin */
+}
+
+.searchbaricon1 {
+  height: 45px;
+  padding-left: 10px;
+  /* position: absolute;
+     right: 20px; */
+}

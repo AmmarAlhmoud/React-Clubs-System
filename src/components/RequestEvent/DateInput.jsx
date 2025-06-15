@@ -5,7 +5,7 @@ import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 
-import "./DateInput.css";
+import styles from "./DateInput.module.css";
 
 const DateInput = ({ disabled, isEmpty, startTyping }) => {
   const [selectedDate, setSelectedDate] = useState();
@@ -28,8 +28,10 @@ const DateInput = ({ disabled, isEmpty, startTyping }) => {
 
   return (
     <DatePicker
-      className={`container ${
-        isEmpty && afterSelection.length === 0 && startTyping ? "isEmpty" : ""
+      className={`${styles.container} ${
+        isEmpty && afterSelection.length === 0 && startTyping
+          ? styles.isEmpty
+          : ""
       }`}
       onChange={setSelectedDate}
       value={selectedDate}

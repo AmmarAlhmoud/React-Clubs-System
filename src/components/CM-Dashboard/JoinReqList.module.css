@@ -1,3 +1,20 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .container,
+:global(.light) .itemContainer > p {
+  background-color: #fff;
+  color: black;
+}
+
+:global(.light) .input {
+  color: black;
+  ::placeholder {
+    color: black;
+  }
+}
+
+/* DARK THEME STYLES */
+
 .container {
   display: grid;
   grid-template-rows: 15% 1fr 15%;

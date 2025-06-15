@@ -1,6 +1,44 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .club-post {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid black;
+}
+
+:global(.light) .details > p {
+  color: #444;
+}
+
+:global(.light) .sec2 > .h2 {
+  color: #000;
+}
+
+:global(.light) .post-desc {
+  color: black;
+  padding: 0.5em;
+  border-radius: 0.3em;
+}
+
+:global(.light) .post-desc::-webkit-scrollbar-thumb {
+  background-color: #333;
+}
+
+:global(.light) .logo-name-conatiner {
+  color: #444;
+}
+
+:global(.light) .logo-name-conatiner > img {
+  border: 2px solid #ccc;
+  border-radius: 50%;
+}
+
+/* DARK THEME STYLES */
+
 /* Club Post Details */
 
 .club-post {
+  font-family: "Poppins";
   position: absolute;
   top: -142px;
   right: 10px;

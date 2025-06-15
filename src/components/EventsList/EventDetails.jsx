@@ -170,6 +170,7 @@ const EventDetails = ({ from, orientation }) => {
             <div>
               {t("events-list.event-details.location")}
               <span className={styles["event-span"]}>
+                {" "}
                 {EventLocation?.label || ""}
               </span>
             </div>

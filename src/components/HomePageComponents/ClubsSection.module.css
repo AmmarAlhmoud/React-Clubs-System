@@ -1,0 +1,43 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .clubsSection {
+  background-color: #f5f5f5;
+}
+
+:global(.light) .sectionTitle {
+  color: #222;
+}
+
+:global(.light) .sectionDescription {
+  color: #555;
+}
+
+/* DARK THEME STYLES */
+
+.clubsSection {
+  background-color: #212225;
+  padding: 20px;
+  width: 100%;
+  position: absolute;
+  top: 1600px;
+}
+
+.sectionTitle {
+  color: white;
+  margin-top: 0;
+}
+
+.sectionDescription {
+  color: #808080; /* Grey color */
+}
+
+.clubsContainer {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  scrollbar-width: none; /* Hide scrollbar for browsers supporting scrollbar-width */
+  -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+}
+
+.clubsContainer::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
+}

@@ -1,3 +1,53 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .container {
+  background-color: #fff;
+  color: black;
+}
+
+:global(.light) .upBg {
+  color: black;
+}
+
+:global(.light) .upBgIcon,
+:global(.light) .upBgPlaceholder,
+:global(.light) .iconPlaceholder {
+  filter: invert() brightness(0);
+}
+
+:global(.light) .p-form,
+:global(.light) .r-p-inputs .input-container-1,
+:global(.light) .input-container-post input,
+:global(.light) .input-container-1 input,
+:global(.light) .input-container-2 input,
+:global(.light) .r-p-inputs > textarea,
+:global(.light) .input-field {
+  background-color: #fff;
+  color: black;
+  ::placeholder {
+    color: rgba(0, 0, 0, 80%);
+  }
+}
+
+:global(.light) .form,
+:global(.light) .inputs > textarea {
+  background-color: #fff;
+  color: black;
+}
+
+:global(.light) .images-sec,
+:global(.light) .clubImg {
+  border-color: black;
+  background-color: #fff;
+}
+
+:global(.light) .disabled-input > input {
+  background-color: #fff !important;
+  opacity: 85%;
+}
+
+/* DARK THEME STYLES */
+
 .container {
   position: relative;
   height: 100%;

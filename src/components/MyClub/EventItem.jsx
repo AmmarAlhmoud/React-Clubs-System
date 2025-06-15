@@ -3,12 +3,11 @@ import { useDispatch } from "react-redux";
 import { clubActions } from "../../store/club-slice.js";
 import { checkAuthClUserType } from "../../util/auth.js";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 import DelModal from "./DelModal.jsx";
 
 import styles from "./EventItem.module.css";
-import Button from "../UI/Button.jsx";
-import { useTranslation } from "react-i18next";
 
 const EventItem = ({ name, icon, event, canEdit }) => {
   const { t } = useTranslation();
@@ -437,10 +436,10 @@ const EventItem = ({ name, icon, event, canEdit }) => {
         )}
         {isEditMode && (
           <div className={styles.editBtns}>
-            <Button onClick={toggleEditMode}>
+            <button onClick={toggleEditMode}>
               {t("club-page.event-item.cancel")}
-            </Button>
-            <Button type="submit">{t("club-page.event-item.apply")}</Button>
+            </button>
+            <button type="submit">{t("club-page.event-item.apply")}</button>
           </div>
         )}
       </form>

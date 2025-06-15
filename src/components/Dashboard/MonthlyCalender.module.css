@@ -1,4 +1,76 @@
-/* MonthlyCalender.module.css */
+/* LiGHT THEME STYLES */
+
+/* WHITE THEME STYLES */
+:global(.light) .main {
+  background: #ffffff;
+  color: #000;
+  border: 1px solid black;
+}
+
+:global(.light) .calenders > div {
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+}
+
+:global(.light) .header div {
+  color: #000;
+  background: #eeeeee;
+}
+
+:global(.light) .dayCell {
+  border: 1px solid #000;
+  color: #000;
+  background: #ffffff;
+}
+
+:global(.light) .weekendDay {
+  background-color: #ffcccb;
+  color: #000;
+  border: none;
+}
+
+:global(.light) .eventDay {
+  background-color: #ff7e5f;
+  color: #ffffff;
+  border: none;
+}
+
+:global(.light) .eventsTime {
+  color: #000;
+}
+
+:global(.light) .timeConatiner {
+  color: #666;
+}
+
+:global(.light) .eventContainer {
+  background: #ffcccb;
+  color: #000;
+}
+
+:global(.light) .even {
+  background: #ffcccb;
+}
+
+:global(.light) .odd {
+  background: #ff7e5f;
+  color: #ffffff;
+}
+
+:global(.light) .location {
+  color: #666;
+}
+
+:global(.light) .weekendDay.eventDay {
+  background: #ff7e5f;
+  color: #ffffff;
+}
+
+:global(.light) .noItem {
+  color: #000;
+}
+
+/* DARK THEME STYLES */
 
 .main {
   padding: 1rem;

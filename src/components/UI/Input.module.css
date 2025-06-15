@@ -1,3 +1,9 @@
+.show-password-icon,
+.show-password-btn {
+  padding-right: 0.2rem;
+  background-color: transparent;
+}
+
 .input {
   position: relative;
   height: 3.3rem;
@@ -34,6 +40,10 @@
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   background: rgba(7, 46, 51, 10%);
+}
+
+.inputPass img {
+  margin-left: 0.8rem;
 }
 
 .input input::placeholder {

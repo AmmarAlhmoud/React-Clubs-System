@@ -1,19 +1,20 @@
-import React from "react";
-import "./TitleDescription.css"; // Import CSS file for styling
-import Bbar from "../../assets/SearchBar.png";
+import styles from "./TitleDescription.module.css";
+// import Bbar from "../../assets/SearchBar.png"; // Uncomment if you use the search area
 
 const TitleDescription = ({ title, description }) => {
   return (
-    <div className="title-description">
-      <div className="text-content">
-        <h2 className="title">{title}</h2>
-        <p className="description">{description}</p>
+    <div className={styles.titleDescription}>
+      <div className={styles.textContent}>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.description}>{description}</p>
       </div>
-      {/* <div className="search-area">
+      {/* Uncomment if you want to add search area
+      <div className={styles.searchArea}>
         <input type="text" placeholder="Search anything ...." />
         <i className="fas fa-search"></i>
-        <img src={Bbar} alt="search" className="searchbaricon1" />
-      </div> */}
+        <img src={Bbar} alt="search" className={styles.searchbaricon1} />
+      </div>
+      */}
     </div>
   );
 };

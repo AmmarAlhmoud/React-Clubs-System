@@ -1,4 +1,23 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .event-hidden,
+:global(.light) .hint {
+  background-color: #fff;
+  color: black;
+}
+
+:global(.light) .event-hidden {
+  border: 1px solid black;
+}
+:global(.light) .no-event-item,
+:global(.light) .event-list-hidden {
+  color: black;
+}
+
+/* DARK THEME STYLES */
+
 .container {
+  font-family: "Poppins";
   height: 100%;
   width: 100%;
   display: grid;

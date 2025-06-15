@@ -1,3 +1,22 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .bar {
+  background-color: black !important;
+}
+
+:global(.light) .dashboard .bar,
+:global(.light) .requests .bar,
+:global(.light) .events .bar,
+:global(.light) .clubPage .bar,
+:global(.light) .form .bar,
+:global(.light) .noReq .bar,
+:global(.light) .noItemWeekly .bar,
+:global(.light) .noItemWeeklyCl .bar,
+:global(.light) .noItemWeeklyST .bar {
+  background-color: black !important;
+}
+/* DARK THEME STYLES */
+
 .container {
   display: flex;
   gap: 1em;

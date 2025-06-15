@@ -1,6 +1,6 @@
 import React from "react";
 import BoxComponent from "./BoxComponent"; // Import the BoxComponent
-import "./ClubsSection.css"; // Import CSS file for styling
+import styles from "./ClubsSection.module.css"; // Import CSS Module
 import P1 from "../../assets/pic1.png";
 import P2 from "../../assets/pic2.png";
 import P3 from "../../assets/pic3.png";
@@ -47,12 +47,14 @@ const ClubsSection = () => {
   ];
 
   return (
-    <div className="clubs-section">
+    <div className={styles.clubsSection}>
       <TitleDescription
         title={t("home.club-sec.clubs")}
         description={t("home.club-sec.desc")}
+        classNameTitle={styles.sectionTitle} // If TitleDescription supports className props
+        classNameDescription={styles.sectionDescription} // Adjust accordingly
       />
-      <div className="clubs-container">
+      <div className={styles.clubsContainer}>
         {clubsData.map((club, index) => (
           <BoxComponent
             key={index}

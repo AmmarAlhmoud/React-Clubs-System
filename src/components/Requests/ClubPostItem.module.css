@@ -1,4 +1,31 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .container {
+  background-color: #ffffff;
+  color: #000;
+}
+
+:global(.light) .logo-name-conatiner {
+  color: #000;
+}
+
+:global(.light) .post-tag {
+  color: #666;
+}
+
+:global(.light) .post-tag-content {
+  color: #000;
+}
+
+:global(.light) .action-details.active > button {
+  border: 2px solid #ab4d7d !important;
+  background-color: #f4f4f4 !important;
+  color: black;
+}
+/* DARK THEME STYLES */
+
 .container {
+  font-family: "Poppins";
   position: relative;
   height: 270px;
   width: 98%;

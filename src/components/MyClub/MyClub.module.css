@@ -1,3 +1,43 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .container,
+:global(.light) .metaData,
+:global(.light) .joinStatus {
+  background-color: #f4f4f4;
+  color: black;
+}
+
+:global(.light) .clubInfo,
+:global(.light) .clubDesc,
+:global(.light) .clubDesc p,
+:global(.light) .clubContact,
+:global(.light) .events > div,
+:global(.light) .noItem {
+  color: black;
+  background-color: #fff;
+}
+
+:global(.light) .clubTitle h2 span,
+:global(.light) .clubContact h2 span {
+  color: black;
+}
+:global(.light) .clubTitle table th,
+:global(.light) .clubTitle table td {
+  color: black;
+  border-color: black;
+}
+
+:global(.light) .clubContact h2 img {
+  filter: invert(1) brightness(0.8);
+}
+
+:global(.light) .clubImages img:first-of-type,
+:global(.light) .clubImages img:nth-of-type(2) {
+  border-color: white;
+}
+
+/* DARK THEME STYLES */
+
 .container {
   position: relative;
   width: 100%;

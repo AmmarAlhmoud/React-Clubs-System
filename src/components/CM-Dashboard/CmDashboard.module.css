@@ -1,3 +1,35 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .recent,
+:global(.light) .responded,
+:global(.light) .pending,
+:global(.light) .respondedData,
+:global(.light) .pendingData,
+:global(.light) .renderedResponses,
+:global(.light) .dataItem,
+:global(.light) .filler,
+:global(.light) .dateTypeContainer,
+:global(.light) .dateTypeContainer span:nth-child(3),
+:global(.light) .statsTop > div {
+  background-color: #fff;
+  color: black;
+}
+
+:global(.light) .statsTop h2 {
+  color: black;
+}
+
+:global(.light) .icons {
+  filter: invert(1) brightness(0.8);
+}
+
+:global(.light) .calender {
+  background-color: #fff;
+  border-color: #fff;
+}
+
+/* DARK THEME STYLES */
+
 .container {
   font-family: "Poppins";
   display: grid;

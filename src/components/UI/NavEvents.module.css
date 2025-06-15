@@ -1,3 +1,19 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .nav,
+:global(.light) .suggestion-menu {
+  background-color: #fff;
+  border: 1px solid black;
+  color: black;
+}
+
+:global(.light) input[type="date"],
+:global(.light) .no-results {
+  color: black;
+}
+
+/* DARK THEME STYLES */
+
 .nav {
   background-color: #1b1d21;
   display: grid;

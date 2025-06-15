@@ -1,5 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
 
+/* LiGHT THEME STYLES */
+
+:root {
+  --blink-color: #fff;
+}
+
+:global(.light) {
+  --blink-color: #000;
+}
+
+:global(.light) .header h2,
+:global(.light) .moreEventDetails {
+  color: black;
+}
+
+:global(.light) .main input[type="text"],
+:global(.light) .main textarea {
+  color: black;
+  background-color: white;
+  border-color: black;
+}
+
+:global(.light) .editModeBtn {
+  color: black;
+  background-color: white !important;
+}
+
+/* DARK THEME STYLES */
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -173,7 +202,7 @@
     border-color: transparent;
   }
   50% {
-    border-color: #fff;
+    border-color: var(--blink-color);
   }
   100% {
     border-color: transparent;

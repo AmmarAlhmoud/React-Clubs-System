@@ -1,3 +1,15 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .dotIndicator {
+  background-color: black;
+}
+:global(.light) .current {
+  background-color: black;
+  border: 1px solid #fff;
+}
+
+/* DARK THEME STYLES */
+
 .wrapper {
   /* position: relative; */
   overflow: hidden;

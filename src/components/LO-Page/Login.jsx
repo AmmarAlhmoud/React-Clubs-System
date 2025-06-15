@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "../../store/ui-slice.js";
+import { useTranslation } from "react-i18next";
 
 import styles from "./Login.module.css";
 import Input from "../UI/Input";
@@ -17,7 +18,6 @@ import BarLoader from "../UI/BarLoader";
 import Icon from "../UI/Icon.jsx";
 import User_icon from "../../assets/icons/LO/user.png";
 import Lock_icon from "../../assets/icons/LO/lock.png";
-import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const { t } = useTranslation();

@@ -1,3 +1,11 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .eventItem {
+  color: black;
+}
+
+/* DARK THEME STYLES */
+
 .eventItem {
   position: relative;
   font-size: 0.75rem;

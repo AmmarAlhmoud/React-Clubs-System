@@ -3,6 +3,7 @@ import uiSlice from "./ui-slice";
 import imagesSlice from "./images-slice";
 import eventsSlice from "./events-slice";
 import clubSlice from "./club-slice";
+import themeReducer from "./theme-slice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     img: imagesSlice,
     events: eventsSlice,
     club: clubSlice,
+    theme: themeReducer,
   },
 });
 

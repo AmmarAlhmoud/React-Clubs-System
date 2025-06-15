@@ -130,6 +130,7 @@ const EventDetailsPreview = ({ data }) => {
             <div>
               {t("events-list.event-details.location")}
               <span className={styles["event-span"]}>
+                {" "}
                 {location?.label || ""}
               </span>
             </div>

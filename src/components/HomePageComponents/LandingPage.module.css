@@ -1,22 +1,42 @@
-.landing-page {
-  /* Assuming Firstpage.png is the background image */
+/* LiGHT THEME STYLES */
+
+:global(.light) .landingPage {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+:global(.light) .text1 {
+  color: black;
+  font-weight: bold;
+}
+
+:global(.light) .text2 {
+  color: black;
+}
+
+:global(.light) .firstImage {
+  border: 3px solid black;
+}
+
+/* DARK THEME STYLES */
+
+.landingPage {
+  font-family: "Poppins";
   background-color: #212225;
   height: 100vh;
   max-width: 100%;
-  /* Adjust height as needed */
   overflow-y: auto;
-  /* Enable scrolling */
   position: relative;
+  font-size: 0.9rem;
 }
 
-.first-image {
+.firstImage {
   width: 100%;
 }
 
-.additional-image {
+.additionalImage {
   margin-top: 100px;
   width: 100%;
-  /* Example width: 100% */
 }
 
 .content {
@@ -30,7 +50,7 @@
   right: 0;
 }
 
-.Greenlayer {
+.greenLayer {
   height: 750px;
   width: 1250px;
   position: absolute;
@@ -48,7 +68,7 @@
 .text1 {
   position: absolute;
   left: 25%;
-  right: 0%;
+  right: 0;
   top: 37.26%;
   bottom: 47.95%;
   color: white;
@@ -79,7 +99,8 @@
   justify-content: center;
   letter-spacing: -2px;
 }
-.Music-conglumerate {
+
+.musicConglomerate {
   position: absolute;
   top: 900px;
   left: 350px;
@@ -89,6 +110,3 @@
   height: 300px;
   width: 429px;
 }
-
-/* height: 390px; 
-width: 558px; */

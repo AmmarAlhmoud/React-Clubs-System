@@ -1,3 +1,12 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .item span:first-child {
+  color: black;
+  font-weight: 600;
+}
+
+/* DARK THEME STYLES */
+
 .item {
   display: flex;
   justify-content: space-between;

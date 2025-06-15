@@ -7,7 +7,7 @@ import P4 from "../../assets/img4.png";
 import P5 from "../../assets/img5.png";
 import P6 from "../../assets/img6.png";
 import TitleDescription from "./TitleDescription";
-import "./ClubPreview.css";
+import styles from "./ClubPreview.module.css";
 import { useTranslation } from "react-i18next";
 
 const ClubPreview = () => {
@@ -53,22 +53,23 @@ const ClubPreview = () => {
   }
 
   return (
-    <div className="club-section">
+    <div className={styles.clubSection}>
       <TitleDescription
         title={t("home.club-prev.events")}
         description={t("home.club-prev.desc")}
       />
 
-      <div className="club-container">
+      <div className={styles.clubContainer}>
         {clubsChunks.map((chunk, index) => (
-          <div className="row" key={index}>
+          <div className={styles.row} key={index}>
             {chunk.map((club, innerIndex) => (
-              <ClubContainer
-                key={innerIndex}
-                image={club.image}
-                title={club.title}
-                description={club.description}
-              />
+              <div className={styles.rowChild} key={innerIndex}>
+                <ClubContainer
+                  image={club.image}
+                  title={club.title}
+                  description={club.description}
+                />
+              </div>
             ))}
           </div>
         ))}

@@ -1,0 +1,112 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .navbar {
+  background-color: #fff;
+  border-radius: 0 0 20px 20px;
+  position: fixed;
+  top: 0%;
+  right: 15%;
+  z-index: 1;
+  border: 3px solid black;
+}
+
+:global(.light) .navbarText,
+:global(.light) .navbarLinks li a {
+  color: #222;
+}
+
+:global(.light) .green {
+  color: rgb(10, 179, 174);
+}
+
+:global(.light) .searchInput {
+  background-color: #eee;
+  color: #222;
+}
+
+:global(.light) .navbarButton {
+  background-color: rgb(56, 137, 255);
+  color: white;
+}
+
+/* DARK THEME STYLES */
+
+.navbar {
+  width: 70%;
+  margin: 0 auto;
+  background-color: rgb(27, 29, 33);
+  border-radius: 0 0 20px 20px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: fixed;
+  top: 0%;
+  right: 15%;
+  z-index: 1;
+}
+
+.navbarContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbarLeft {
+  display: flex;
+  align-items: center;
+}
+
+.navbarLogo {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.navbarText {
+  color: white;
+  margin-right: 10px;
+}
+
+.green {
+  color: rgb(10, 179, 174);
+  margin-right: 15px;
+}
+
+.navbarLinks {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbarLinks li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.navbarLinks li a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbarRight {
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  background-color: #333;
+  color: white;
+}
+
+.navbarButton {
+  background-color: rgb(156, 201, 245);
+  color: white;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+}

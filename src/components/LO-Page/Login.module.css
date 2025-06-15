@@ -1,3 +1,7 @@
+:global(.light) .main {
+  background-color: #6da5c0;
+}
+
 .main {
   width: 100%;
   height: 100%;
@@ -76,4 +80,9 @@
 .form-action-footer a:hover {
   color: #fff;
   font-weight: 800;
+}
+
+
+.show-password-btn {
+  background-color: transparent;
 }

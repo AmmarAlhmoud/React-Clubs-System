@@ -1,3 +1,43 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .main-container {
+  background-color: #f4f4f4;
+}
+
+:global(.light) .aside {
+  background-color: #fff;
+}
+:global(.light) .user-name,
+:global(.light) .aside-nav-item,
+:global(.light) .logout {
+  color: black;
+}
+:global(.light) .role {
+  color: rgba(0, 0, 0, 50%);
+}
+
+:global(.light) svg,
+:global(.light) g,
+:global(.light) path,
+:global(.light) polyline {
+  stroke: black;
+}
+
+:global(.light) .aside-nav-list a g[id="request-post"] {
+  stroke: none;
+  fill: black;
+  transition: fill 0.3s ease-in-out;
+}
+
+:global(.light) .img {
+  filter: invert() brightness(0);
+}
+
+:global(.light) {
+}
+
+/* DARK THEME STYLES */
+
 .main-container {
   min-height: 100vh;
   padding: 1.5em 2em 1.5em 0;
@@ -49,7 +89,8 @@
   color: rgba(255, 255, 255, 60%);
 }
 
-.img {
+.img,
+.imgMG {
   width: 100px;
   height: 100px;
 }

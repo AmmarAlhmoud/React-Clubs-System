@@ -1,4 +1,33 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .container {
+  background-color: #ffffff;
+  color: #000;
+  border: 1px solid black;
+}
+
+:global(.light) .logo-name-conatiner {
+  color: #000;
+}
+
+:global(.light) .event-tag {
+  color: #666;
+}
+
+:global(.light) .event-tag-content {
+  color: #000;
+}
+
+:global(.light) .action-details.active > button {
+  border: 2px solid #ab4d7d !important;
+  background-color: #f4f4f4 !important;
+  color: black;
+}
+
+/* DARK THEME STYLES */
+
 .container {
+  font-family: "Poppins";
   position: relative;
   height: 270px;
   width: 98%;
@@ -6,6 +35,7 @@
   border-radius: 1em;
   padding: 0 2em 1em 0;
   background-color: #1b1d21;
+  font-size: 0.9rem;
 }
 
 .no-detials {

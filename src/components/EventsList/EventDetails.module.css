@@ -1,6 +1,30 @@
-/* Event Details */
+/* LiGHT THEME STYLES */
 
+:global(.light) .event-details {
+  background-color: #fff;
+  color: black;
+  border: 1px solid black;
+}
+
+:global(.light) .event-desc,
+:global(.light) .logo-with-name {
+  color: black;
+}
+
+:global(.light) .event-desc-container {
+  border-color: black;
+}
+
+:global(.light) .event-span {
+  color: rgb(81, 79, 79);
+}
+
+/* DARK THEME STYLES */
+
+/* Event Details */
 .event-details {
+  font-family: "Poppins";
+  font-weight: 500;
   position: absolute;
   top: -142px;
   right: 10px;
@@ -155,4 +179,3 @@
 .event-span {
   color: #d8d8d8;
 }
-

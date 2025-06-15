@@ -1,3 +1,12 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .select {
+  background-color: rgb(56, 137, 255);
+  color: white;
+}
+
+/* DARK THEME STYLES */
+
 .wrapper {
   margin-right: 1em;
   display: inline-block;
@@ -7,7 +16,7 @@
 /* the pill-shaped select */
 .select {
   appearance: none; /* remove native arrow */
-  background-color: #93c5fd; /* light-blue fill */
+  background-color: rgb(156, 201, 245); /* light-blue fill */
   color: white;
   border: none;
   border-radius: 1em; /* full pill */

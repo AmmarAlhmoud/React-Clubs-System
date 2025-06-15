@@ -1,6 +1,76 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .event-details {
+  background-color: #fff;
+  color: #222;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid black;
+}
+
+:global(.light) .event-details-load {
+  background-color: #fff;
+  color: #222;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+:global(.light) .details > p {
+  color: #555;
+}
+
+:global(.light) .h2 {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+:global(.light) .event-title {
+  color: #222;
+}
+
+:global(.light) .sec2 > div > h3,
+:global(.light) .sec5 > div > h3 {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+:global(.light) .event-desc {
+  background-color: #fafafa;
+  color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.4em;
+  padding: 0.5em;
+}
+
+:global(.light) .contact {
+  color: #444;
+}
+
+:global(.light) .club-img {
+  background-color: #ddd;
+}
+
+:global(.light) .logo-with-name {
+  color: #444;
+}
+
+:global(.light) .event-span {
+  color: #444;
+}
+
+:global(.light) .border {
+  border-bottom: 2px solid #ccc;
+}
+
+:global(.light) .event-desc::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+}
+
+:global(.light) .event-desc::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+}
+
+/* DARK THEME STYLES */
+
 /* Event Details */
 
 .event-details {
+  font-family: "Poppins";
   position: absolute;
   top: -142px;
   right: 10px;
@@ -22,6 +92,7 @@
   border-radius: 1em;
   background-color: #1b1d21;
   color: #fff;
+  font-size: 0.85rem;
 }
 
 .event-details-load {

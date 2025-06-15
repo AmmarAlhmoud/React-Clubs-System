@@ -1,3 +1,22 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .container {
+  background-color: #fff;
+  color: black;
+  border: 1px solid black;
+}
+
+:global(.light) .club-name-container,
+:global(.light) .event-tag-content {
+  color: black;
+}
+
+:global(.light) .event-tag {
+  color: gray;
+}
+
+/* DARK THEME STYLES */
+
 .container {
   position: relative;
   height: 300px;
@@ -19,7 +38,8 @@
   display: flex;
   align-items: center;
   font-size: 1.1rem;
-  color: #939394;
+  color: gray;
+  font-weight: 700;
 }
 
 .club-name-container > img {
@@ -37,14 +57,17 @@
 }
 
 .event-info {
-  margin-top: 0.5rem;
+  margin-top: 0.1rem;
   display: flex;
   flex-flow: column nowrap;
-  gap: 0.8em;
+  gap: 0.2em;
+  font-weight: 600;
 }
 
 .event-tag {
   color: rgba(147, 147, 148, 70%);
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .event-tag-content {

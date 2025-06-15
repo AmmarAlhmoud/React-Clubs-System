@@ -1,3 +1,21 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .layout {
+  background: linear-gradient(
+    90deg,
+    #293d61 0%,
+    #6da5c0 33%,
+    #0f969c 67%,
+    #068d87 100%
+  );
+}
+
+:global(.light) .main-container-image {
+  background-color: #30486b;
+}
+
+/* DARK THEME STYLES */
+
 .layout {
   min-height: 100vh;
   width: 100%;

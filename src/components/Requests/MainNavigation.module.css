@@ -1,3 +1,27 @@
+/* LiGHT THEME STYLES */
+
+/* LiGHT THEME STYLES */
+:global(.light) .main-req-nav h5,
+:global(.light) .main-req-content h5 {
+  color: #000;
+}
+
+:global(.light) .nav-req-item {
+  color: #000;
+  font-weight: 600;
+}
+
+:global(.light) .main-req-content {
+  color: #000;
+}
+
+:global(.light) .active div {
+  border: 2px solid #ff7e5f;
+  background-color: #ffffff;
+}
+
+/* DARK THEME STYLES */
+
 .main-req-nav {
   margin-top: 1.5em;
 }

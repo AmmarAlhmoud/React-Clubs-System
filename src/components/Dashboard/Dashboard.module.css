@@ -1,3 +1,30 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .container {
+  background-color: #f4f4f4;
+  color: black;
+}
+
+:global(.light) .requests,
+:global(.light) .stats,
+:global(.light) .calender,
+:global(.light) .noItem {
+  color: black;
+}
+
+:global(.light) .requests {
+  background-color: #fff;
+  border: 1px solid black;
+}
+
+:global(.light) .requests h1,
+:global(.light) .statsW,
+:global(.light) .stats > div {
+  background-color: #fff;
+}
+
+/* DARK THEME STYLES */
+
 /* Start of main-outer grid layout*/
 .container {
   font-family: "Poppins";

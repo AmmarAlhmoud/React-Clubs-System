@@ -1,3 +1,14 @@
+/* LiGHT THEME STYLES */
+
+:global(.light) .card,
+:global(.light) .date,
+:global(.light) .location {
+  background-color: white;
+  color: black;
+}
+
+/* DARK THEME STYLES */
+
 .card {
   position: relative;
   height: 100%;
@@ -5,15 +16,17 @@
   background: #1e1e1e;
   border-radius: 1rem;
   color: white;
-  border: 2px solid #2c2a2a;
+  border: 1px solid #2c2a2a;
   border-radius: 1rem;
 }
 
 .bgImg {
   width: 100%;
-  height: 75px;
+  height: 80px;
   object-fit: cover;
   display: block;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
 }
 
 /* header overlay */

@@ -26,6 +26,7 @@ import RequestEventPage from "./pages/RequestEvent.jsx";
 import RequestPostPage from "./pages/RequestPost.jsx";
 import StDashboardPage from "./pages/StDashboard.jsx";
 import HomePage from "./pages/Home.jsx";
+import { useDispatch, useSelector } from "react-redux";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
@@ -146,7 +147,16 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  const darkMode = useSelector((state) => state.theme.darkMode);
+  const dispatch = useDispatch();
+
+  // darkMode ? "dark" : "light"
+
+  return (
+    <div className={"light"}>
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;
